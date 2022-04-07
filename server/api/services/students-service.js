@@ -20,7 +20,7 @@ export const addStudent = (newStudent) => {
   
   // Method to update a specific Student by id in db
   export const updateStudent = (updatedStudent) => {
-    const student = Student.findByIdAndUpdate(updatedStudent.id, updatedStudent).exec();
+    const student = Student.findByIdAndUpdate(updatedStudent.id, updatedStudent, {new:true}).exec();
     return student; // returns a promise
   };
   
