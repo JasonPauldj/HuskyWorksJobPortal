@@ -59,11 +59,13 @@ const jobSchema = new mongoose.Schema({
   },
 });
 
-// To convert id into a hex string
-Schema.virtual("id", () => this._id.toHexString());
-// To convert our schema to json object for readability
-Schema.set("toJSON", { virtuals: true });
 // Creating model from the schema using mongoose
 const jobModel = mongoose.model("job", jobSchema);
 // Exporting the model
 export default jobModel;
+
+// // To convert id into a hex string
+// Schema.virtual("id", () => this._id.toHexString());
+// // To convert our schema to json object for readability
+// Schema.set("toJSON", { virtuals: true });
+

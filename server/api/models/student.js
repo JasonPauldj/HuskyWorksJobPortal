@@ -23,7 +23,7 @@ const studentSchema = new mongoose.Schema({
         trim: true
     },
     gpa :{
-        type: Decimal128,
+        type: mongoose.Schema.Types.Decimal128,
         required : true
     },
     major : {

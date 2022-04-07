@@ -21,7 +21,7 @@ export const getJobById = (id) => {
 // Method to update a specific job by id in db
 export const updateJob = (updatedJob) => {
   updatedJob.modifiedDate = new Date();
-  const job = Job.findByIdAndUpdate(updatedJob.id, updatedJob).exec();
+  const job = Job.findByIdAndUpdate(updatedJob.id, updatedJob, {new:true}).exec();
   return job; // returns a promise
 };
 

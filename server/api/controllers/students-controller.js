@@ -49,7 +49,7 @@ export const updateStudent = async (req, res) => {
   try {
     const id = req.params.id;
     const update = { ...req.body };
-    updated.id = id;
+    update.id = id;
     // We pass the updated object to the service
     let student = await studentService.updateStudent(update);
     setSuccessResponse(student, res);
