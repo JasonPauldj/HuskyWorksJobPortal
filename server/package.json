@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "description": "HuskyWorks is a job search and career management portal for university students.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "start": "node app.js",
+    "start": "node /server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Erarica Mehra, Jason Paul, Shrusti Chheda,, Sutiksh Verma",
+  "author": "Erarica Mehra, Jason Paul, Shrusti Chheda, Sutiksh Verma",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
