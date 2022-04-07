@@ -1,4 +1,4 @@
 import Job from "./job.js";
+import Student from "./student.js";
 
-// Exporting the default model
-export default { Job };
+export { Job, Student };

@@ -1,4 +1,4 @@
-import Job from "./../models/job.js";
+import Job from "../models/job.js";
 
 // Method to add job to db
 export const addJob = (newJob) => {
@@ -7,9 +7,9 @@ export const addJob = (newJob) => {
 };
 
 // Method to get all jobs at once from db
-export const getJobs = (id) => {
-  const job = Job.find().exec();
-  return job; // returns a promise
+export const getJobs = () => {
+  const jobs = Job.find({}).exec();
+  return jobs; // returns a promise
 };
 
 // Method to get a specific job by id from db
