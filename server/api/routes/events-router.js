@@ -9,6 +9,8 @@ router
   .post(EventsController.createEvent) // Post Route
   .get(EventsController.getAllEvents); // Get Route
 
-
+router
+  .route("/events/:id") // Entry Route
+  .get(EventsController.get) // Get by id Route
 
 export default router;

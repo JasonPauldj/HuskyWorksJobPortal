@@ -32,3 +32,17 @@ export const createEvent = async (request, response) => {
         setErrorResponse(error, response);
       }
 };
+
+
+//Get method to fetch existing event from the DB based on id
+export const get = async (request, response) => {
+    try {
+      const id = request.params.id;
+      const event = await eventsService.get(id);
+      setSuccessResponse(event, response);
+    } catch (error) {
+        error.message = 'Invalid Task ID requested';
+        error.status = 400;
+        setErrorResponse(error, response);
+    }
+}
