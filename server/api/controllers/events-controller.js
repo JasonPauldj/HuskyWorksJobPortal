@@ -41,7 +41,7 @@ export const get = async (request, response) => {
       const event = await eventsService.get(id);
       setSuccessResponse(event, response);
     } catch (error) {
-        error.message = 'Invalid Task ID requested';
+        error.message = 'Invalid Event ID requested';
         error.status = 400;
         setErrorResponse(error, response);
     }
@@ -60,5 +60,19 @@ export const update = async (request, response) => {
       error.message = 'Something went wrong. Check the request body';
       error.status = 500;
       setErrorResponse(error, response);
+    }
+}
+
+
+//Delete method to remove existing event from the DB
+export const remove = async (request, response) => {
+    try {
+      const id = request.params.id;
+      const event = await eventsService.remove(id);
+      setSuccessResponse({ message: `Successfully Removed Event ${id}`}, response);
+    } catch (error) {
+        error.message = 'Invalid Event ID requested';
+        error.status = 400;
+        setErrorResponse(error, response);
     }
 }

@@ -24,9 +24,15 @@ export const get = (id) => {
     return event;
 }
 
-//update a task
+//update an event
 export const update = (updatedEvent) => {
     // updatedEvent.lastModifiedDate = new Date();
     const event =  Event.findByIdAndUpdate(updatedEvent.id, updatedEvent, { new : true }).exec();
+    return event;
+}
+
+//delete an event
+export const remove = (id) => {
+    const event =  Event.findByIdAndDelete(id).exec();
     return event;
 }
