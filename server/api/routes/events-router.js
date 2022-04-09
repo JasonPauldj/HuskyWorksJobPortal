@@ -7,7 +7,7 @@ const router = express.Router();
 router
   .route("/events") // Entry Route
   .post(EventsController.createEvent) // Post Route
-//   .get(JobsController.getAllJobs); // Get Route
+  .get(EventsController.getAllEvents); // Get Route
 
 
 

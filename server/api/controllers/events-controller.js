@@ -21,3 +21,14 @@ export const createEvent = async (request, response) => {
       setErrorResponse(error, response);
     }
   };
+
+
+
+ export const getAllEvents = async (request, response) => {
+    try {
+        const event = await eventsService.getEvents();
+        setSuccessResponse(event, response);
+      } catch (error) {
+        setErrorResponse(error, response);
+      }
+};
