@@ -12,5 +12,6 @@ router
 router
   .route("/events/:id") // Entry Route
   .get(EventsController.get) // Get by id Route
+  .put(EventsController.update)
 
 export default router;

@@ -46,3 +46,19 @@ export const get = async (request, response) => {
         setErrorResponse(error, response);
     }
 }
+
+
+//PUT method to update existing event in the Db
+export const update = async (request, response) => {
+    try {
+      const id = request.params.id;
+      const updated = {...request.body}; // fetching the fields to be updated from the request body
+      updated.id = id;
+      const event = await eventsService.update(updated, {new : true});
+      setSuccessResponse(event, response);
+    } catch (error) {
+      error.message = 'Something went wrong. Check the request body';
+      error.status = 500;
+      setErrorResponse(error, response);
+    }
+}

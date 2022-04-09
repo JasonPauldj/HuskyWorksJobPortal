@@ -23,3 +23,10 @@ export const get = (id) => {
     const event =  Event.findById(id).exec();
     return event;
 }
+
+//update a task
+export const update = (updatedEvent) => {
+    // updatedEvent.lastModifiedDate = new Date();
+    const event =  Event.findByIdAndUpdate(updatedEvent.id, updatedEvent, { new : true }).exec();
+    return event;
+}
