@@ -37,13 +37,11 @@ export const createEvent = async (request, response) => {
     }
     //when searched by query parameters, returns the events requested
     if(query) {
-      console.log("filetr ", query)
       const events = await eventsService.filter(query);
       setSuccessResponse(events, response);
     } 
     //returns all existing tasks when no query parameters are requested
     else {
-        console.log("search")
         const events = await eventsService.getEvents();
         setSuccessResponse(events, response);
     }
