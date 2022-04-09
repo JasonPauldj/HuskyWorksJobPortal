@@ -12,7 +12,7 @@ router
 router
   .route("/events/:id") // Entry Route
   .get(EventsController.get) // Get by id Route
-  .put(EventsController.update)
-  .delete(EventsController.remove)
+  .put(EventsController.update) // Update event
+  .delete(EventsController.remove) // Delete Event
 
 export default router;

@@ -25,12 +25,31 @@ export const createEvent = async (request, response) => {
 
 
  export const getAllEvents = async (request, response) => {
-    try {
-        const event = await eventsService.getEvents();
-        setSuccessResponse(event, response);
-      } catch (error) {
+    try{
+    const event_location = request.query.event_location;
+    const event_type = request.query.event_type;
+    const query =  {};
+    if(event_location) {
+        query.event_location = event_location;
+    }
+    if(event_type) {
+        query.event_type = event_type;
+    }
+    //when searched by query parameters, returns the events requested
+    if(query) {
+      console.log("filetr ", query)
+      const events = await eventsService.filter(query);
+      setSuccessResponse(events, response);
+    } 
+    //returns all existing tasks when no query parameters are requested
+    else {
+        console.log("search")
+        const events = await eventsService.getEvents();
+        setSuccessResponse(events, response);
+    }
+    } catch (error) {
         setErrorResponse(error, response);
-      }
+    }
 };
 
 
@@ -76,3 +95,4 @@ export const remove = async (request, response) => {
         setErrorResponse(error, response);
     }
 }
+
