@@ -13,7 +13,9 @@ router
 router
   .route("/applications/:id") // Entry Route
   .get(ApplicationsController.getApplication)
-  .put(ApplicationsController.update);
+  .put(ApplicationsController.update)
+  .delete(ApplicationsController.remove);
+
 
  
 export default router;

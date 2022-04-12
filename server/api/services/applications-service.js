@@ -30,3 +30,10 @@ export const update = (updatedApplication) => {
     const application =  Application.findByIdAndUpdate(updatedApplication.id, updatedApplication, { new : true }).exec();
     return application;
 }
+
+
+//delete an application
+export const remove = (id) => {
+    const application =  Application.findByIdAndDelete(id).exec();
+    return application;
+}

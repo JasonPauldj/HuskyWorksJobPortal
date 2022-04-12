@@ -76,3 +76,18 @@ export const update = async (request, response) => {
     }
 }
 
+//Delete method to remove existing event from the DB
+export const remove = async (request, response) => {
+    try {
+      const id = request.params.id;
+      const application = await ApplicationsService.remove(id);
+      setSuccessResponse({ message: `Successfully Removed Application ${id}`}, response);
+    } catch (error) {
+        error.message = 'Invalid Event ID requested';
+        error.status = 400;
+        setErrorResponse(error, response);
+    }
+}
+
+
+
