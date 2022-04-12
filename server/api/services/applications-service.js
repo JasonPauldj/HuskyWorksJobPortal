@@ -23,3 +23,10 @@ export const get = (id) => {
     const application =  Application.findById(id).exec();
     return application;
 }
+
+//update an application status
+export const update = (updatedApplication) => {
+    updatedApplication.last_modified_date = new Date();
+    const application =  Application.findByIdAndUpdate(updatedApplication.id, updatedApplication, { new : true }).exec();
+    return application;
+}

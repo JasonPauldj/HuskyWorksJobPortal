@@ -61,4 +61,18 @@ export const getApplication = async (request, response) => {
     }
 }
 
+//PUT method to update existing application in the Db
+export const update = async (request, response) => {
+    try {
+      const id = request.params.id;
+      const updated = {...request.body}; // fetching the fields to be updated from the request body
+      updated.id = id;
+      const application = await ApplicationsService.update(updated, {new : true});
+      setSuccessResponse(application, response);
+    } catch (error) {
+      error.message = 'Something went wrong. Check the request body';
+      error.status = 500;
+      setErrorResponse(error, response);
+    }
+}
 

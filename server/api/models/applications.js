@@ -23,7 +23,7 @@ const applicationSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
-  application_modified_date: {
+  last_modified_date: {
     type: Date,
     default: Date.now(),
   },
