@@ -17,3 +17,9 @@ export const filter = (query) => {
     const applications =  Application.find(params).exec();
     return applications;
 }
+
+//fetch an application based on id
+export const get = (id) => {
+    const application =  Application.findById(id).exec();
+    return application;
+}

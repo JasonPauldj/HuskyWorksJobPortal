@@ -8,5 +8,10 @@ router
   .route("/applications") // Entry Route
   .post(ApplicationsController.createApplication)
   .get(ApplicationsController.getAllApplications) // Post Route
+
+
+router
+  .route("/applications/:id") // Entry Route
+  .get(ApplicationsController.getApplication)
  
 export default router;

@@ -48,3 +48,17 @@ export const getAllApplications = async (request, response) => {
 };
 
 
+//Get method to fetch existing application from the DB based on id
+export const getApplication = async (request, response) => {
+    try {
+      const id = request.params.id;
+      const application = await ApplicationsService.get(id);
+      setSuccessResponse(application, response);
+    } catch (error) {
+        error.message = 'Invalid Event ID requested';
+        error.status = 400;
+        setErrorResponse(error, response);
+    }
+}
+
+
