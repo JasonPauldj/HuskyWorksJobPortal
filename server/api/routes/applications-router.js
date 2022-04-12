@@ -6,6 +6,7 @@ const router = express.Router();
 
 router
   .route("/applications") // Entry Route
-  .post(ApplicationsController.createApplication) // Post Route
+  .post(ApplicationsController.createApplication)
+  .get(ApplicationsController.getAllApplications) // Post Route
  
 export default router;

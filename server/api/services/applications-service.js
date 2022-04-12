@@ -7,3 +7,13 @@ export const addApplication = (newApplication) => {
     return application.save();
 };
 
+export const getApplications = () => {
+    const applications =  Application.find().exec();
+    return applications;
+}
+
+export const filter = (query) => {
+    const params = {...query};
+    const applications =  Application.find(params).exec();
+    return applications;
+}
