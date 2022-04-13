@@ -6,6 +6,11 @@ export const addJob = (newJob) => {
   return job.save();
 };
 
+export const filter = (query) => {
+  const params = { ...query };
+  const jobs = Job.find(params).exec();
+  return jobs;
+};
 // Method to get all jobs at once from db
 export const getJobs = () => {
   const jobs = Job.find({}).exec();
@@ -21,7 +26,9 @@ export const getJobById = (id) => {
 // Method to update a specific job by id in db
 export const updateJob = (updatedJob) => {
   updatedJob.modifiedDate = new Date();
-  const job = Job.findByIdAndUpdate(updatedJob.id, updatedJob, {new:true}).exec();
+  const job = Job.findByIdAndUpdate(updatedJob.id, updatedJob, {
+    new: true,
+  }).exec();
   return job; // returns a promise
 };
 
