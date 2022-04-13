@@ -1,6 +1,10 @@
 import React from "react";
 import "./MainSection.scss";
 import SkillChip from "./SkillChip";
+import PeopleIcon from "@mui/icons-material/People";
+import WorkIcon from "@mui/icons-material/Work";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+
 function MainSection() {
   return (
     <div className="mainSection">
@@ -10,7 +14,26 @@ function MainSection() {
       <div className="mainSection-comName">
         <h5>Ubisoft, France</h5>
       </div>
-      <div className="mainSection-jobDetails">2 Vacancy, Full-time, $250k</div>
+      <div className="mainSection-jobDetails">
+        <div className="jobDetailsItem">
+          <div className="jobIcon">
+            <PeopleIcon />
+          </div>
+          <div className="jobDetailsTxt">2 Vacancy</div>
+        </div>
+        <div className="jobDetailsItem">
+          <div className="jobIcon">
+            <WorkIcon />
+          </div>
+          <div className="jobDetailsTxt">Full-Time</div>
+        </div>
+        <div className="jobDetailsItem">
+          <div className="jobIcon">
+            <AttachMoneyIcon />
+          </div>
+          <div className="jobDetailsTxt">$250k-300k</div>
+        </div>
+      </div>
       <div className="mainSection-jobDesc">
         <h3>Job Description:</h3>
         <p>
