@@ -23,6 +23,10 @@ const jobSchema = new mongoose.Schema({
     enum: ["FULLTIME", "PARTTIME", "INTERNSHIP"],
     default: "INTERNSHIP",
   },
+  job_location: {
+    type: String,
+    required: "Job location is required",
+  },
   job_salary: {
     type: Number,
     required: "Salary is required.",
@@ -68,4 +72,3 @@ export default jobModel;
 // Schema.virtual("id", () => this._id.toHexString());
 // // To convert our schema to json object for readability
 // Schema.set("toJSON", { virtuals: true });
-
