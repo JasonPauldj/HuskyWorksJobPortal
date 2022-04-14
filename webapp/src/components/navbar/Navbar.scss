@@ -1,0 +1,28 @@
+@import "../../SassVariables.scss";
+
+.navbar {
+  background-color: $white-color;
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar-title {
+  margin: 10px;
+  font-weight: bold;
+  color: $blue-color;
+}
+
+.navbar-links {
+  display: flex;
+}
+.navbar-links-items {
+  margin-top: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+a {
+  text-decoration: none;
+  color: $space-grey-color;
+  font-weight: bold;
+}
