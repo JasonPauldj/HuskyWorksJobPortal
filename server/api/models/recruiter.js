@@ -1,0 +1,28 @@
+import mongoose from "mongoose";
+
+//Recruiter Schema
+const recruiterSchema = new mongoose.Schema({
+    recruiterId: {
+        type: Number,
+        required: "Recruiter id is required.",
+    },
+    username : {
+        type : String,
+        required : true,
+        trim : true
+    },
+    password : {
+        type : String,
+        required : true
+    },
+    email :{
+        type: String,
+        required : true,
+        match:  /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+    }
+});
+
+//Recruiter Model
+const recruiterModel = mongoose.model("recruiter", recruiterSchema);
+
+export default recruiterModel;
