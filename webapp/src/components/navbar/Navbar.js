@@ -1,13 +1,15 @@
 import React from "react";
 import "./Navbar.scss";
+import {Link} from 'react-router-dom';
+
 function Navbar() {
   return (
     <div className="navbar">
       <div className="navbar-title">HuskyWorks</div>
       <div className="navbar-links">
-        <a href="#" className="navbar-links-items">
+        <Link to='/jobs' className="navbar-links-items">
           Browse Jobs
-        </a>
+        </Link>
         <a href="#" className="navbar-links-items">
           Startups
         </a>

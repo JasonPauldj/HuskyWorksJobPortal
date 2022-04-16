@@ -1,4 +1,7 @@
+@import './scss/utilities';
+@import './scss/general';
 @import "./SassVariables.scss";
+
 
 .app {
   background-color: $base-color;
