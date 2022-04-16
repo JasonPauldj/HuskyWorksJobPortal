@@ -9,13 +9,17 @@ function FilterSectionComponent(props){
 
     //recevies an array of the values consisting of the filter options
     const Checkboxes = props.values.map((filterValue)=>{
-     return(   <FormControlLabel
+     return(   
+     <FormControlLabel key={filterValue}
         label={filterValue}
-        control={<Checkbox checked={props.isChecked(filterValue)} onChange={handleCheckboxChange} inputProps={{id:filterValue}}/>}
-      />)
+        control={<Checkbox checked={props.isChecked(filterValue)} onChange={handleCheckboxChange} inputProps={{id:filterValue, name:filterValue}}/>}
+      />
+      
+      )
     })
 
     return(<>
+    <h3>{props.heading}</h3>
     {Checkboxes}
     </>)
 
