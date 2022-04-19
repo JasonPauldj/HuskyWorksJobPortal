@@ -5,6 +5,8 @@ import applicationsRouter from "./applications-router.js";
 import recruiterRouter from "./recruiters-router.js";
 import OrganizationRouter from "./organizations-router.js";
 import ReviewRouter from "./reviews-router.js";
+import LoginRouter from "./login-router.js";
+
 
 // Exporting the routes using a default route
 export default (app) => {
@@ -15,4 +17,6 @@ export default (app) => {
   app.use("/", recruiterRouter);
   app.use("/", OrganizationRouter);
   app.use("/", ReviewRouter);
+  app.use("/", LoginRouter);
 };
+
