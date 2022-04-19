@@ -1,25 +1,36 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
 import './Login.scss';
 
 
-// const eyeClick = document.querySelector("[data-password]");
-// const password_elem = document.getElementById("password");
 
-// eyeClick.onclick = () => {
-//   const icon = eyeClick.children[0];
-//   icon.classList.toggle("fa-eye-slash");
-//   if (password_elem.type === "password") {
-//     password_elem.type = "text";
-//   } else if (password_elem.type === "text") {
-//     password_elem.type = "password";
-//   }
-// };
+function Login() {
+
+    const[user, setUser] = useState(null);
+    const[username, setUsername] = useState("");
+    const[password, setPassword] = useState("");
+    const[error, setError] = useState(false);
+    const[success, setSuccess] = useState(false);
+    
+    
+     const handleSubmit = async(e) => {
+        e.preventDefault();
+        try{
+          const response =  await axios.post("http://localhost:9000/login", {username, password});
+          console.log(response.data);
+          setUser(response.data);
+        } catch(error) {
+          setError(error);
+        }
+    }
 
 
-const Login = () => {
     return (
  <div className="container">
- <div className="welcome-container">
+     {/* TODO redirect to either dashboard or profile page */}
+     {user ? (<h1>Welcome {user.userName}</h1>): (
+     <div>
+     <div className="welcome-container">
     <h1 className="heading-secondary">Welcome to <span className="lg">HuskyWorks</span></h1>
  </div>
  
@@ -41,19 +52,22 @@ const Login = () => {
 
     <form className="signup-form">
       <label className="inp">
-        <input type="email" className="input-text" placeholder="&nbsp;"/>
-        <span className="label">Email</span>
-        <span className="input-icon"><i className="fa-solid fa-envelope"></i></span>
+        <input type="text" className="input-text" placeholder="&nbsp;" onChange={(e) => setUsername(e.target.value)}/>
+        <span className="label">Username</span>
+        <span className="input-icon"></span>
       </label>
       <label className="inp">
-        <input type="password" className="input-text" placeholder="&nbsp;" id="password"/>
+        <input type="password" className="input-text" placeholder="&nbsp;" id="password"  onChange={(e) => setPassword(e.target.value)}/>
         <span className="label">Password</span>
-        <span className="input-icon input-icon-password" data-password><i className="fa-solid fa-eye"></i></span>
+        <span className="input-icon input-icon-password" data-password></span>
       </label>
-      <button className="btn btn-login">Login</button>
+      <button className="btn btn-login" onClick={handleSubmit}>Login</button>
     </form>
     <p className="text-mute">Not a member? <a href="$">Sign up</a></p>
   </div>
+
+     </div>
+  )}
 
 </div>
     );
