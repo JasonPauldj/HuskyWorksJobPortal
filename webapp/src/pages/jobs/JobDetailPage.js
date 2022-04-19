@@ -1,8 +1,8 @@
-import Navbar from "../components/navbar/Navbar";
+import Navbar from "../../components/boilerplate/navbar/Navbar";
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import CardComponent from "../components/genericCard/CardComponent";
+import CardComponent from '../../components/genericComponent/genericCard/CardComponent';
 
 function JobDetailPage(props) {
     const [job, setJob] = useState({});

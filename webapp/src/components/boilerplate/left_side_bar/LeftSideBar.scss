@@ -1,4 +1,4 @@
-@import "../../SassVariables.scss";
+@import "../../../scss/SassVariables.scss";
 
 .leftSideBar {
   height: 100vh;
@@ -9,4 +9,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.filterContainer {
+  display: flex;
+  width: 80%;
+  flex-direction: column;
+  justify-content: space-between
+}
+
+.filterItem{
+  align-self: center;
 }

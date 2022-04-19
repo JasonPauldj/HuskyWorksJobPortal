@@ -4,7 +4,7 @@ import LeftSidebarItem from "./left_sidebar_item/LeftSidebarItem";
 
 function LeftSideBar() {
   return (
-    <div className="leftSideBar">
+    <div className="layout-1-4-leftSideBar">
       <h2>Browse Category</h2>
       <LeftSidebarItem />
       <LeftSidebarItem />

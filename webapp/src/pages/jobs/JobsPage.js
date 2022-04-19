@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import Navbar from '../components/navbar/Navbar'
-import LeftSideBar from '../components/left_side_bar/LeftSideBar';
-import FilterSectionComponent from '../components/FIlterSectionComponent';
-import JobCard from '../components/jobs/JobCard';
+import Navbar from '../../components/boilerplate/navbar/Navbar'
+import FilterSectionComponent from '../../components/genericComponent/FIlterSectionComponent';
+import JobCard from '../../components/jobs/JobCard';
 
 const JOB_TYPE_FILTERS = ["FULLTIME", "PARTTIME", "INTERNSHIP"];
 
-let isInitial =true;
+let isInitial = true;
 
 function JobsPage(props) {
 
@@ -16,42 +15,42 @@ function JobsPage(props) {
 
     //getting all jobs when the component is rendered for the first Time
     useEffect(() => {
-        if(isInitial){
-        const fetchJobs = async () => {
-            const response = await axios.get('http://localhost:9000/jobs');
-            setJobs(response.data);
+        if (isInitial) {
+            const fetchJobs = async () => {
+                const response = await axios.get('http://localhost:9000/jobs');
+                setJobs(response.data);
+            }
+            //   const data = await response.json();
+            fetchJobs();
         }
-        //   const data = await response.json();
-        fetchJobs();
-    }
-    else{
-        isInitial=false;
-    }
+        else {
+            isInitial = false;
+        }
 
     }, [])
 
     //filtering jobs when the filters are changed
     useEffect(() => {
         let url = 'http://localhost:9000/jobs';
-        let jobTypeQueryParam='';
+        let jobTypeQueryParam = '';
 
         //checking if job type filters are selected
-        if(appliedJobTypeFilters.length > 0) {
+        if (appliedJobTypeFilters.length > 0) {
 
             appliedJobTypeFilters.forEach((jobTypeValue) => {
-                jobTypeQueryParam+= `${jobTypeValue};`
+                jobTypeQueryParam += `${jobTypeValue};`
             })
         }
 
-        if(jobTypeQueryParam.length > 0) {
-            url+=`?job_types=${jobTypeQueryParam.slice(0,jobTypeQueryParam.length-1)}`
+        if (jobTypeQueryParam.length > 0) {
+            url += `?job_types=${jobTypeQueryParam.slice(0, jobTypeQueryParam.length - 1)}`
         }
 
         const fetchJobs = async () => {
             const response = await axios.get(url);
             setJobs(response.data);
         }
-        
+
         fetchJobs();
 
     }, [appliedJobTypeFilters])
@@ -81,14 +80,16 @@ function JobsPage(props) {
     return (<>
         <Navbar />
         <div className="flex-horizontal">
-        <div className="body-section-left">
-            <div className="leftSideBar">
-                <FilterSectionComponent heading={"JOB TYPE"} values={JOB_TYPE_FILTERS} isChecked={isJobTypeSelected} handleCheckboxChange={handleJobTypeCheckboxChange} />
+            <div className="body-section-left">
+                <div className="leftSideBar">
+                    <div className="filterContainer">
+                        <FilterSectionComponent heading={"JOB TYPE"} values={JOB_TYPE_FILTERS} isChecked={isJobTypeSelected} handleCheckboxChange={handleJobTypeCheckboxChange} />
+                    </div>
+                </div>
             </div>
-        </div>
-        <div className="body-section-right">
-            {jobCards}
-        </div>
+            <div className="body-section-right">
+                {jobCards}
+            </div>
         </div>
     </>)
 }

@@ -1,9 +1,9 @@
-@import "../../SassVariables.scss";
+@import "../../../scss/SassVariables.scss";
 
 .mainSection {
   width: 95%;
-  height: 100vh;
-  margin: 10px;
+  // height: 100vh;
+  margin: 0px 10px;
   border-radius: 10px;
   background-color: $white-color;
   padding: 10px;

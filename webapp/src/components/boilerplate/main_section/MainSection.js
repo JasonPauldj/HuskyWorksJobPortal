@@ -1,6 +1,6 @@
 import React from "react";
 import "./MainSection.scss";
-import SkillChip from "./SkillChip";
+import SkillChip from '../../genericComponent/genericChip/SkillChip'
 import PeopleIcon from "@mui/icons-material/People";
 import WorkIcon from "@mui/icons-material/Work";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";

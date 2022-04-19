@@ -1,4 +1,4 @@
-import  CardComponent  from '../genericCard/CardComponent';
+import  CardComponent  from '../genericComponent/genericCard/CardComponent'
 import {useNavigate} from 'react-router-dom';
 
 function JobCard(props) {

@@ -1,19 +1,18 @@
 import "./App.scss";
-import Navbar from "./components/navbar/Navbar";
-import LeftSideBar from "./components/left_side_bar/LeftSideBar";
-import MainSection from "./components/main_section/MainSection";
-import RightSideBar from "./components/right_side_bar/RightSideBar";
+import Navbar from "./components/boilerplate/navbar/Navbar";
+import LeftSideBar from "./components/boilerplate/left_side_bar/LeftSideBar";
+import MainSection from "./components/boilerplate/main_section/MainSection";
+import RightSideBar from "./components/boilerplate/right_side_bar/RightSideBar";
 
 function App() {
   return (
-    <div className="app">
-      <Navbar />
-      <div className="body-section">
-        <div className="body-section-left">
+    <div className="prbg">
+      <div className="flex-horizontal">
+        <div className="layout-1-4-body-section-left my-1">
           <LeftSideBar />
         </div>
-        <div className="body-section-right">
-          <div className="body-section-search">
+        <div className="layout-1-4-body-section-right my-1">
+          {/* <div className="body-section-search">
             <input
               type="text"
               name="searchKey"
@@ -29,7 +28,7 @@ function App() {
               className="searchLoc"
             />
             <button>More</button>
-          </div>
+          </div> */}
           <div className="body-section-right-content">
             <div className="body-section-right-main">
               <MainSection />

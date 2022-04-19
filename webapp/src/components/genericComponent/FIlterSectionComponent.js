@@ -19,7 +19,7 @@ function FilterSectionComponent(props){
     })
 
     return(<>
-    <h3>{props.heading}</h3>
+    <h3 className="filterItem">{props.heading}</h3>
     {Checkboxes}
     </>)
 
