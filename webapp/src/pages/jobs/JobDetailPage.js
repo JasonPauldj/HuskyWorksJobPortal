@@ -1,4 +1,4 @@
-import Navbar from "../../components/boilerplate/navbar/Navbar";
+import Navbar from "../../components/navbar/Navbar";
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
@@ -35,16 +35,33 @@ function JobDetailPage(props) {
 }
 
     return (<>
-        <Navbar />
-        <div className="flex-horizontal">
+     <div className="prbg">
+        <div className="flex-horizontal py-1">
+          <div className="ly-1-3-1-bd-sec-left my-1">
+          <Navbar />
+          </div>
+          <div className="ly-1-3-1-bd-sec-right">
+            <div className="ly-1-3-1-bd-sec-right-container flex-horizontal">
+              <div className="ly-1-3-1-bd-sec-right-main">
+              {job && <JobDetailCard /> }
+              </div>
+              <div className="ly-1-3-1-bd-sec-right-sidebar">
+               {/*HERE IS WHERE YOUR RIGHT CONTENT SHOULD GO*/}   
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+        {/* <div className="flex-horizontal">
             <div className="body-section-left">
                 <div className="leftSideBar">
                 </div>
             </div>
             <div className="body-section-right">
-                {job && <JobDetailCard /> }
+               
             </div>
-        </div>
+        </div> */}
     </>)
 
 }

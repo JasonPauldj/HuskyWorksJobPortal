@@ -1,5 +1,5 @@
 import "./App.scss";
-import Navbar from "./components/boilerplate/navbar/Navbar";
+import Navbar from "./components/navbar/Navbar";
 import LeftSideBar from "./components/boilerplate/left_side_bar/LeftSideBar";
 import MainSection from "./components/boilerplate/main_section/MainSection";
 import RightSideBar from "./components/boilerplate/right_side_bar/RightSideBar";
@@ -7,39 +7,23 @@ import RightSideBar from "./components/boilerplate/right_side_bar/RightSideBar";
 function App() {
   return (
     <div className="prbg">
-      <div className="flex-horizontal">
-        <div className="layout-1-4-body-section-left my-1">
-          <LeftSideBar />
+      <div className="flex-horizontal py-1">
+        <div className="ly-1-3-1-bd-sec-left">
+          <Navbar />
         </div>
-        <div className="layout-1-4-body-section-right my-1">
-          {/* <div className="body-section-search">
-            <input
-              type="text"
-              name="searchKey"
-              id="searchKey"
-              placeholder="Job title or keyword"
-              className="searchKey"
-            />
-            <input
-              type="text"
-              name="searchLoc"
-              id="searchLoc"
-              placeholder="Select Location"
-              className="searchLoc"
-            />
-            <button>More</button>
-          </div> */}
-          <div className="body-section-right-content">
-            <div className="body-section-right-main">
-              <MainSection />
+        <div className="ly-1-3-1-bd-sec-right">
+          <div className="ly-1-3-1-bd-sec-right-container flex-horizontal">
+            <div className="ly-1-3-1-bd-sec-right-main">
+            <MainSection />
             </div>
-            <div className="body-section-right-sidebar">
-              <RightSideBar />
+            <div className="ly-1-3-1-bd-sec-right-sidebar">
+            <RightSideBar />
             </div>
           </div>
         </div>
       </div>
     </div>
+
   );
 }
 

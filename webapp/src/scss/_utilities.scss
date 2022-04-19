@@ -30,6 +30,14 @@ The following contains the css class selectors for applying margins, padding and
 }
 
 @for $i from 1 through 5 {
+    .py {
+        &-#{$i} {
+            padding : #{$i}rem 0;
+        }
+    }
+}
+
+@for $i from 1 through 5 {
     .pyx {
         &-#{$i}-#{$i} {
             padding : #{$i}rem #{$i}rem;

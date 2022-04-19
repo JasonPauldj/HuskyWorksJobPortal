@@ -20,3 +20,15 @@
 .prbg {
     background-color: $base-color;
  }
+
+ .ht-full-viewport {
+     height: 100vh;
+ }
+
+ .ht-full-percent {
+    height: 100%;
+}
+
+.ht-deduct-1rem{
+    height: calc(100% - 1rem)
+}

@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import Navbar from '../../components/boilerplate/navbar/Navbar'
+import Navbar from '../../components/navbar/Navbar'
 import FilterSectionComponent from '../../components/genericComponent/FIlterSectionComponent';
 import JobCard from '../../components/jobs/JobCard';
+import CardComponent from '../../components/genericComponent/genericCard/CardComponent';
 
 const JOB_TYPE_FILTERS = ["FULLTIME", "PARTTIME", "INTERNSHIP"];
 
@@ -78,19 +79,26 @@ function JobsPage(props) {
     }
 
     return (<>
-        <Navbar />
-        <div className="flex-horizontal">
-            <div className="body-section-left">
-                <div className="leftSideBar">
-                    <div className="filterContainer">
-                        <FilterSectionComponent heading={"JOB TYPE"} values={JOB_TYPE_FILTERS} isChecked={isJobTypeSelected} handleCheckboxChange={handleJobTypeCheckboxChange} />
+        <div className="prbg">
+            <div className="flex-horizontal py-1">
+                <div className="ly-1-3-1-bd-sec-left my-1">
+                    <Navbar />
+                </div>
+                <div className="ly-1-3-1-bd-sec-right">
+                    <div className="ly-1-3-1-bd-sec-right-container flex-horizontal">
+                        <div className="ly-1-3-1-bd-sec-right-main">
+                            {jobCards}
+                        </div>
+                        <div className="ly-1-3-1-bd-sec-right-sidebar">
+                            <CardComponent className="ht-full-percent">
+                                <FilterSectionComponent heading={"JOB TYPE"} values={JOB_TYPE_FILTERS} isChecked={isJobTypeSelected} handleCheckboxChange={handleJobTypeCheckboxChange} />
+                            </CardComponent>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div className="body-section-right">
-                {jobCards}
-            </div>
         </div>
+
     </>)
 }
 
