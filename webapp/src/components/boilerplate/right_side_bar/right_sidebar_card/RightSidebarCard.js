@@ -6,7 +6,7 @@ function RightSidebarCard() {
       <div className="card-profileData">
         <div className="profileImg">
           <img
-            src={require("../../../assets/Barney.jpeg")}
+            src={require("../../../../assets/Barney.jpeg")}
             className="profileImg"
           />
         </div>

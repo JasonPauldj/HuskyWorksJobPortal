@@ -1,4 +1,8 @@
-@import "./SassVariables.scss";
+@import './scss/utilities';
+@import './scss/general';
+@import './scss/SassVariables.scss';
+@import './scss/layouts.scss';
+
 
 .app {
   background-color: $base-color;
@@ -17,12 +21,15 @@
 
 .body-section-right {
   width: 80%;
+  display: flex;
+  flex-direction:column;
+  overflow: hidden;
 }
 
 .body-section-right-content {
-  margin-top: 20px;
   display: flex;
   justify-content: space-between;
+  overflow: hidden;
 }
 
 .body-section-search {
@@ -64,10 +71,9 @@ button {
 
 .body-section-right-main {
   width: 70%;
-  height: 100vh;
+  height:90%;
 }
 
 .body-section-right-sidebar {
   width: 30%;
-  height: 100vh;
 }
