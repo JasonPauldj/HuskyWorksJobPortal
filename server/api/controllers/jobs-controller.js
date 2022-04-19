@@ -26,7 +26,7 @@ export const postJob = async (req, res) => {
 // Method to get jobs using the get service
 export const getAllJobs = async (req, res) => {
   const job_location = req.query.job_location;
-  const job_type = req.query.job_type;
+  const job_type =req.query.job_types ? req.query.job_types.split(';') : undefined;
   const job_category = req.query.job_category;
   const query = {};
 
