@@ -1,5 +1,5 @@
 import * as StudentService from "./../services/students-service.js";
-
+import jwt from 'jsonwebtoken';
 
 // Setting Error Response for any errors
 const setErrorResponse = (error, response) => {
@@ -19,11 +19,28 @@ export const login = async (request, response) => {
       //TODO to be changed
       const students = await StudentService.getStudents();
       const student = students.find((s) => {
-        return  s.username === username && s.password === password;
+        return s.username === username && s.password === password
       });
+        
       console.log(student, "found")
       if(student){
-        setSuccessResponse(student, response);
+          //generate an access token
+          const accessToken = jwt.sign({ id:student.id }, "mysecretkey");
+          const login = {
+            id: student.id,
+            student: student,
+            isAdmin: false,
+            accessToken: accessToken, 
+          }
+          response.status(200).json({
+            _id: student._id,
+            userName: student.username,
+            emailId: student.email,
+            token: accessToken,
+            isAdmin: false,
+          });
+        
+        // setSuccessResponse(login, response);
       } else {
           response.status(400).json("Invalid Username or Password");
       }
@@ -31,3 +48,6 @@ export const login = async (request, response) => {
       setErrorResponse(error, response);
     }
 };
+
+
+
