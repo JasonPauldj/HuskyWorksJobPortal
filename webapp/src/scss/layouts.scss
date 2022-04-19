@@ -9,12 +9,12 @@
 
     &-bd-sec-left {
         width: 15%;
-        height: 100vh;
+        height: calc(100vh - 2rem)
     }
 
     &-bd-sec-right {
         width: 85%;
-        height:100vh;
+        height: calc(100vh - 2rem)
     }
 
     &-bd-sec-right-container {
@@ -39,12 +39,12 @@
 
     &-bd-sec-left {
         width: 15%;
-        height: 100vh;
+        height: 90vh;
     }
 
     &-bd-sec-right {
         width: 85%;
-        height:100vh;
+        height:90vh;
     }
 
     &-bd-sec-right-container {

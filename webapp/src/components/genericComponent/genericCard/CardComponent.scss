@@ -1,12 +1,11 @@
 @import "../../../scss/SassVariables.scss";
 
 .card {
-    margin: 1rem auto;
+    margin: 0rem auto 1rem auto;
     border-radius: 0.5rem;
     background-color: $white-color;
     box-shadow: 1px 1px 1px $space-grey-color;
-    padding: 1rem;
-    width: 90%;
+    padding: 1rem 1rem 1rem 1rem;
   }
 
 .card:hover{

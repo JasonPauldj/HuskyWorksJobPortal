@@ -1,4 +1,9 @@
 @import "./SassVariables.scss";
+
+body * {
+    box-sizing: border-box;
+}
+
 .visible {
     display: block;
 }
@@ -25,10 +30,31 @@
      height: 100vh;
  }
 
+ .ht-90-viewport {
+    height: 90vh;
+}
+
  .ht-full-percent {
     height: 100%;
 }
 
 .ht-deduct-1rem{
     height: calc(100% - 1rem)
+}
+
+.ht-deduct-2rem{
+    height: calc(100% - 2rem)
+}
+
+
+.wt-full-percent {
+    width: 100%;
+}
+
+.wt-90-percent {
+    width: 90%;
+}
+
+.wt-80-percent {
+    width: 80%;
 }

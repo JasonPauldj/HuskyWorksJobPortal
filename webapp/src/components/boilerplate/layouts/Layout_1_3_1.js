@@ -7,8 +7,8 @@
  */
 function Layout_1_3_1() {
     return (
-      <div className="prbg">
-        <div className="flex-horizontal py-1">
+      <div className="prbg ht-full-viewport py-1">
+        <div className="flex-horizontal">
           <div className="ly-1-3-1-bd-sec-left">
             {/*HERE IS WHERE YOUR NAVBAR/LEFTSIDEBAR SHOULD GO*/}
           </div>

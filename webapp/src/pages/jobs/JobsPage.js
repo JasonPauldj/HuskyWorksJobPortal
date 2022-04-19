@@ -79,18 +79,18 @@ function JobsPage(props) {
     }
 
     return (<>
-        <div className="prbg">
-            <div className="flex-horizontal py-1">
-                <div className="ly-1-3-1-bd-sec-left my-1">
+        <div className="prbg ht-full-viewport py-1">
+            <div className="flex-horizontal">
+                <div className="ly-1-3-1-bd-sec-left ">
                     <Navbar />
                 </div>
-                <div className="ly-1-3-1-bd-sec-right">
+                <div className="ly-1-3-1-bd-sec-right ">
                     <div className="ly-1-3-1-bd-sec-right-container flex-horizontal">
                         <div className="ly-1-3-1-bd-sec-right-main">
                             {jobCards}
                         </div>
                         <div className="ly-1-3-1-bd-sec-right-sidebar">
-                            <CardComponent className="ht-full-percent">
+                            <CardComponent className="ht-full-percent wt-80-percent">
                                 <FilterSectionComponent heading={"JOB TYPE"} values={JOB_TYPE_FILTERS} isChecked={isJobTypeSelected} handleCheckboxChange={handleJobTypeCheckboxChange} />
                             </CardComponent>
                         </div>
