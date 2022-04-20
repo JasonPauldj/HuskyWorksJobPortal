@@ -1,22 +1,25 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 //organization schema
 const orgSchema = new mongoose.Schema({
-    organizationId: {
-        type: Number,
-        required: "Organization id is required.",
-    },
-    organizationName : {
-        type : String,
-        required : "Organization name is required.",
-    },
-    aboutUs : {
-        type: String,
-    },
-    sponsorship :{
-        type: Boolean,
-        required : "Please specify if the organization provides sponsorship",
-    }
+  organizationId: {
+    type: Number,
+    required: "Organization id is required.",
+  },
+  organizationLogo: {
+    type: String,
+  },
+  organizationName: {
+    type: String,
+    required: "Organization name is required.",
+  },
+  aboutUs: {
+    type: String,
+  },
+  sponsorship: {
+    type: Boolean,
+    required: "Please specify if the organization provides sponsorship",
+  },
 });
 
 //Organization Model
