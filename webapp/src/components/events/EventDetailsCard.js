@@ -2,29 +2,36 @@ import React, { useEffect, useRef, useState } from "react";
 import CardComponent from "../genericComponent/genericCard/CardComponent";
 import "./EventDetailsCard.scss";
 import Maps from "./Maps";
+import { ClipLoader } from "react-spinners";
 
 function EventDetailsCard(props) {
-  const [lat, setLat] = useState(0);
-  const [lng, setLng] = useState(0);
-
+  const [loading, setLoading] = useState(true);
+  const [event, setEvent] = useState({});
   useEffect(() => {
-    setLat(props.eventLocation.latitude);
-    setLng(props.eventLocation.longitude);
+    const timer = setTimeout(() => {
+      setEvent(props.event);
+      setLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
   });
   return (
     <CardComponent className="event-container">
-      <div>
-        <h3>{props.eventTitle}</h3>
-        <h3>{props.eventOrganizer}</h3>
-        <h3>{props.eventType}</h3>
-        <h3>{props.eventDesc}</h3>
-        <h3>{props.eventSeats}</h3>
-        <h3>{props.eventDate}</h3>
-        {/* <h3>{props.eventLocation.latitude.toString()}</h3>
-        <h3>{props.eventLocation.longitude.toString()}</h3> */}
-
-        <Maps lat={lat} lng={lng} />
-      </div>
+      {loading === false ? (
+        <div>
+          <h3>{event.event_title}</h3>
+          <h3>{event.event_organizer}</h3>
+          <h3>{event.event_type}</h3>
+          <h3>{event.event_description}</h3>
+          <h3>{event.no_of_seats}</h3>
+          <h3>{event.event_date}</h3>
+          <Maps
+            lat={props.event.event_location.latitude}
+            lng={props.event.event_location.longitude}
+          />
+        </div>
+      ) : (
+        <ClipLoader size={120} />
+      )}
     </CardComponent>
   );
 }

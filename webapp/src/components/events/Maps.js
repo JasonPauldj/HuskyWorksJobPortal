@@ -5,6 +5,7 @@ class Maps extends Component {
   constructor(props) {
     super(props);
   }
+
   render() {
     return (
       <Map

@@ -5,6 +5,7 @@ import FilterSectionComponent from "../../components/genericComponent/FIlterSect
 import CardComponent from "../../components/genericComponent/genericCard/CardComponent.js";
 import Navbar from "../../components/navbar/Navbar.js";
 import APIHelper from "../../utilities/APIHelper.js";
+
 const EVENT_TYPE_FILTERS = ["NETWORKING", "CAREER FAIR", "WORKSHOP"];
 let isInitial = true;
 
@@ -39,6 +40,7 @@ function EventsPage() {
         eventTypeQueryParam.length - 1
       )}`;
     }
+
     const fetchEvents = async () => {
       const res = await axios.get(url);
       setEvents(res.data);
@@ -64,7 +66,6 @@ function EventsPage() {
     appliedEventTypeFilters.includes(eventTypeValue);
 
   const handleEventTypeCheckboxChange = (eventTypeValue) => {
-    console.log("Checkbox pressed");
     let updatedEventTypeFilters;
 
     //the filter was selected, remove it from appliedFilters

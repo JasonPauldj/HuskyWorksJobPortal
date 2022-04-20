@@ -24,18 +24,7 @@ function EventDetailsPage() {
           <div className="ly-1-4-bd-sec-right-container flex-horizontal">
             <div className="ly-1-4-bd-sec-right-main">
               {/*HERE IS WHERE YOUR CENTRAL CONTENT SHOULD GO*/}
-              {event && (
-                <EventDetailsCard
-                  key={event_id}
-                  eventTitle={event.event_title}
-                  eventOrganizer={event.event_organizer}
-                  eventType={event.event_type}
-                  eventDesc={event.event_description}
-                  eventSeats={event.no_of_seats}
-                  eventDate={event.event_date}
-                  eventLocation={event.event_location}
-                />
-              )}
+              {event && <EventDetailsCard key={event_id} event={event} />}
             </div>
           </div>
         </div>
