@@ -29,6 +29,8 @@ export const getAllJobs = async (req, res) => {
   const job_type =req.query.job_types ? req.query.job_types.split(';') : undefined;
   const job_category = req.query.job_category;
   const search = req.query.searchText;
+  const org_id=req.query.org_id;
+  
   const query = {};
 
   if (job_location) {
@@ -42,6 +44,9 @@ export const getAllJobs = async (req, res) => {
   }
   if (search) {
     query.job_title = { "$regex": search, "$options": "i" };
+  }
+  if (org_id) {
+    query.organization_id = org_id;
   }
 
   if (query) {
