@@ -3,9 +3,9 @@ import axios from 'axios';
 import Navbar from '../../components/navbar/Navbar'
 import FilterSectionComponent from '../../components/genericComponent/FIlterSectionComponent';
 import JobCard from '../../components/jobs/JobCard';
-import CardComponent from '../../components/genericComponent/genericCard/CardComponent';
+import classes from './JobsPage.module.scss';
 
-const JOB_TYPE_FILTERS = ["FULLTIME", "PARTTIME", "INTERNSHIP"];
+const JOB_TYPE_FILTERS = ["FULL-TIME", "PART-TIME", "INTERNSHIP"];
 
 let isInitial = true;
 
@@ -58,7 +58,7 @@ function JobsPage(props) {
 
     const jobCards = jobs.map((job) => {
         return (
-            <JobCard key={job._id} job_id={job._id} job_title={job.job_title} job_type={job.job_type} job_deadline={new Date(job.job_deadline).toLocaleDateString()} />
+            <JobCard key={job._id} job={job} job_id={job._id} job_title={job.job_title} job_type={job.job_type} job_deadline={new Date(job.job_deadline).toLocaleDateString()}  org/>
         )
     });
 
@@ -87,12 +87,15 @@ function JobsPage(props) {
                 <div className="ly-1-3-1-bd-sec-right ">
                     <div className="ly-1-3-1-bd-sec-right-container flex-horizontal">
                         <div className="ly-1-3-1-bd-sec-right-main">
+                           <div className={classes.jobsContainer}>
                             {jobCards}
+                            </div>
                         </div>
                         <div className="ly-1-3-1-bd-sec-right-sidebar">
-                            <CardComponent className="ht-full-percent wt-80-percent">
+                            {/* <CardComponent className="ht-full-percent wt-80-percent"></CardComponent> */}
+                            <div>
                                 <FilterSectionComponent heading={"JOB TYPE"} values={JOB_TYPE_FILTERS} isChecked={isJobTypeSelected} handleCheckboxChange={handleJobTypeCheckboxChange} />
-                            </CardComponent>
+                            </div>
                         </div>
                     </div>
                 </div>
