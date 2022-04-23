@@ -55,5 +55,10 @@
 .jobsContainer{
     display:flex;
     flex-direction:row;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+}
+
+.moreJobsTitle{
+    margin : 1rem 0.5rem 0.5rem 1rem;
+    font-weight: bold;
 }

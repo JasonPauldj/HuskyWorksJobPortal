@@ -75,6 +75,9 @@ function JobDetailPage(props) {
                         <div className="ly-1-3-1-bd-sec-right-main">
                             <div className={classes.mainContainer}>
                             {job && <JobDetailCard />}
+                            <div className={classes.moreJobsTitle}>
+                                More Jobs At this Organization
+                            </div>
                             <div className={classes.jobsContainer}>
                                 <JobsSection  jobs={orgJobs}/>
                             </div>
