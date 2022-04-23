@@ -1,17 +1,17 @@
 import React from "react";
 import CardComponent from "../genericComponent/genericCard/CardComponent";
-import "./OrgDetailsCard.scss";
+import classes from "./OrgDetailsCard.module.scss";
 
 function OrgDetailsCard(props) {
   return (
-    <CardComponent className="org-container">
+    <CardComponent className={classes.orgContainer}>
       <div>
-        <div className="org-header">
-          <img src={props.organizationLogo} className="org-logo" />
-          <h3 className="org-name">{props.organizationName}</h3>
+        <div className={classes.orgHeader}>
+          <img src={props.organizationLogo} className={classes.orgLogo} />
+          <h3 className={classes.orgName}>{props.organizationName}</h3>
         </div>
-        <h2 className="org-aboutus">About Us:</h2>
-        <p className="org-aboutus">{props.aboutUs}</p>
+        <h2 className={classes.orgAboutus}>About Us:</h2>
+        <p className={classes.orgAboutus}>{props.aboutUs}</p>
         <h3>{props.sponsorship}</h3>
       </div>
     </CardComponent>

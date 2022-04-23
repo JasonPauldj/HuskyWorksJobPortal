@@ -1,21 +1,21 @@
 import React from "react";
-import "./ReviewCard.scss";
+import classes from "./ReviewCard.module.scss";
 function ReviewCard(props) {
   return (
-    <div className="reviewCard">
-      <div className="card-profileData">
-        <div className="profileImg">
+    <div className={classes.reviewCard}>
+      <div className={classes.cardProfileData}>
+        <div className={classes.profileImg}>
           <img
             src={require("../../assets/Barney.jpeg")}
-            className="profileImg"
+            className={classes.profileImg}
           />
         </div>
-        <div className="profileText">
-          <div className="profileName">{props.nuid}</div>
-          <div className="profileRole">Senior Game Designer</div>
+        <div className={classes.profileText}>
+          <div className={classes.profileName}>{props.nuid}</div>
+          <div className={classes.profileRole}>Senior Game Designer</div>
         </div>
       </div>
-      <div className="card-review">
+      <div className={classes.cardReview}>
         <p>{props.review}</p>
       </div>
     </div>

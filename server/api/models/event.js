@@ -9,6 +9,10 @@ const eventSchema = new mongoose.Schema({
     type: String,
     required: "Event organizer is required.",
   },
+  event_organizerId: {
+    type: String,
+    required: "Event organizer Id is required.",
+  },
   event_type: {
     type: String,
     enum: ["NETWORKING", "CAREER FAIR", "WORKSHOP"],

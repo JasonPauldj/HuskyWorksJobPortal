@@ -50,16 +50,7 @@ function EventsPage() {
   }, [appliedEventTypeFilters]);
 
   const eventCards = events.map((event) => {
-    return (
-      <EventCard
-        key={event._id}
-        event_id={event._id}
-        event_title={event.event_title}
-        event_type={event.event_type}
-        event_date={new Date(event.event_date).toLocaleDateString()}
-        event_seats={event.no_of_seats}
-      />
-    );
+    return <EventCard key={event._id} event={event} />;
   });
 
   const isEventTypeSelected = (eventTypeValue) =>

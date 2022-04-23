@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import CardComponent from "../genericComponent/genericCard/CardComponent";
 import ReviewCard from "./ReviewCard";
-import "./ReviewContainer.scss";
+import classes from "./ReviewContainer.module.scss";
 function ReviewContainer(props) {
   const [reviews, setReviews] = useState([]);
   useEffect(() => {
@@ -18,8 +18,8 @@ function ReviewContainer(props) {
     return <ReviewCard key={index} nuid={review.nuid} review={review.review} />;
   });
   return (
-    <CardComponent className="reviewContainer">
-      <div className="reviewContainer cards">{reviewCards}</div>
+    <CardComponent className={classes.reviewContainer}>
+      <div className={classes.reviewContainerCards}>{reviewCards}</div>
     </CardComponent>
   );
 }

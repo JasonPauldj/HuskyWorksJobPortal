@@ -20,7 +20,7 @@ const jobSchema = new mongoose.Schema({
   },
   job_type: {
     type: String,
-    enum: ["FULLTIME", "PARTTIME", "INTERNSHIP"],
+    enum: ["FULL-TIME", "PART-TIME", "INTERNSHIP"],
     default: "INTERNSHIP",
   },
   job_location: {
@@ -33,8 +33,6 @@ const jobSchema = new mongoose.Schema({
   },
   job_category: {
     type: String,
-    enum: ["SOFTWARE", "ELECTRICAL", "MECHANICAL"],
-    default: "SOFTWARE",
   },
   degree_level: {
     type: String,
@@ -54,8 +52,12 @@ const jobSchema = new mongoose.Schema({
     required: "Recruiter id is required.",
   },
   organization_id: {
-    type: Number,
+    type: String,
     required: "Organization id is required.",
+  },
+  organizationName: {
+    type: String,
+    required: "Organization Name is required.",
   },
   job_post_date: {
     type: Date,
