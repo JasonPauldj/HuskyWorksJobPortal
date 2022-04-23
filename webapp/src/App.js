@@ -35,24 +35,7 @@ function App() {
           </Routes>
         </div>
       </Router>
-      {/* <Fragment>
-        <Login/>
-      </Fragment> */}
-      {/* <div className="flex-horizontal py-1">
-        <div className="ly-1-3-1-bd-sec-left">
-          <Navbar />
-        </div>
-        <div className="ly-1-3-1-bd-sec-right">
-          <div className="ly-1-3-1-bd-sec-right-container flex-horizontal">
-            <div className="ly-1-3-1-bd-sec-right-main">
-            <MainSection />
-            </div>
-            <div className="ly-1-3-1-bd-sec-right-sidebar">
-            <RightSideBar />
-            </div>
-          </div>
-        </div>
-      </div> */}
+     
     </div>
 
   );
