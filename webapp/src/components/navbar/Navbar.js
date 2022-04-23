@@ -23,6 +23,10 @@ function Navbar() {
         <a href="#" className="navbar-links-items">
           Career Resources
         </a>
+
+        <Link to="/profiles/62625e08ba8a13dd27c97dbb" className="navbar-links-items">
+          My Profile
+        </Link>
       </div>
     </div>
   );

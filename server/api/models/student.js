@@ -34,6 +34,14 @@ const studentSchema = new mongoose.Schema({
         type: String,
         required : true,
         match:  /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+    },
+    phone :{
+        type:Number,
+        required: true,
+    },
+    student_id:{
+        type: Number,
+        required: true,
     }
 });
 
