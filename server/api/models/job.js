@@ -32,7 +32,11 @@ const jobSchema = new mongoose.Schema({
     required: "Salary is required.",
   },
   job_category: {
+<<<<<<< HEAD
     type: String,
+=======
+    type: String
+>>>>>>> c335fbefd513ebef70da95d93dda7540d2ce8e18
   },
   degree_level: {
     type: String,
@@ -55,7 +59,11 @@ const jobSchema = new mongoose.Schema({
     type: String,
     required: "Organization id is required.",
   },
+<<<<<<< HEAD
   organizationName: {
+=======
+  organizationName:{
+>>>>>>> c335fbefd513ebef70da95d93dda7540d2ce8e18
     type: String,
     required: "Organization Name is required.",
   },
