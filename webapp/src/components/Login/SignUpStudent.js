@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import './Login.scss';
 
 
@@ -16,6 +17,7 @@ function SignUpStudent() {
     const[email, setEmail]= useState("");
     const[student, setStudent] = useState("");
     const[error, setError] = useState("");
+    const navigate = useNavigate();
 
 
     const handleSignUp = async(e) => {
@@ -24,6 +26,7 @@ function SignUpStudent() {
           const response =  await axios.post("http://localhost:9000/students", {username, password, firstname, lastname, nuid, gpa, major,email});
           console.log(response.data);
           setStudent(response.data);
+          navigate(`/`);
         } catch(error) {
           setError(error);
         }

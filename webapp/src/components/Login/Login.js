@@ -1,28 +1,54 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { authActions } from '../../store/auth_slice';
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import './Login.scss';
 
 
 
-function Login() {
-
+export default function Login() {
+    const dispatch = useDispatch();
     const[user, setUser] = useState(null);
     const[username, setUsername] = useState("");
     const[password, setPassword] = useState("");
     const[error, setError] = useState(false);
     const[success, setSuccess] = useState(false);
+    const [loginAs, setLoginAs] = useState('Student');
+    const nav = useNavigate();
     
-    
-     const handleSubmit = async(e) => {
-        e.preventDefault();
-        try{
-          const response =  await axios.post("http://localhost:9000/login", {username, password});
+
+
+    const loginHandler = async(event) => {
+      event.preventDefault();
+      try{
+        console.log("loginAs", loginAs);
+        if(loginAs === 'Student') {
+          const response =  await axios.post("http://localhost:9000/login", {username, password, loginAs});
           console.log(response.data);
           setUser(response.data);
-        } catch(error) {
-          setError(error);
+          dispatch(authActions.login(response.data));
+          nav(`/dashboard-student/${response.data._id}`);
+        } else if(loginAs === 'Recruiter') {
+          const response =  await axios.post("http://localhost:9000/login", {username, password, loginAs});
+          console.log(response.data);
+          setUser(response.data);
+          dispatch(authActions.login(response.data));
+          nav(`/dashboard-recruiter/${response.data._id}`);
         }
+        
+      } catch(error) {
+        setError(error);
+        console.log(error.message);
+      }
+      
     }
+
+    const handleChange = (event) => {
+      setLoginAs(event.target.value);
+      console.log("inside handle change", event.target.value);
+    };
 
 
     return (
@@ -52,6 +78,14 @@ function Login() {
 
     <form className="signup-form">
       <label className="inp">
+        <select className="input-text" onChange={handleChange}>
+          <option value="Student">Student</option>
+          <option value="Recruiter">recruiter</option>
+        </select>
+        <span className="label">Login as : </span>
+        <span className="input-icon"></span>
+      </label>
+      <label className="inp">
         <input type="text" className="input-text" placeholder="&nbsp;" onChange={(e) => setUsername(e.target.value)}/>
         <span className="label">Username</span>
         <span className="input-icon"></span>
@@ -61,9 +95,12 @@ function Login() {
         <span className="label">Password</span>
         <span className="input-icon input-icon-password" data-password></span>
       </label>
-      <button className="btn btn-login" onClick={handleSubmit}>Login</button>
+      <button className="btn btn-login" onClick={loginHandler}>Login</button>
     </form>
-    <p className="text-mute">Not a member? <a href="$">Sign up</a></p>
+    <p className="text-mute">Not a member? 
+    <a href="/signup-student">Sign up as Student</a> &nbsp;
+    <a href="/signup-recruiter">Sign up as Recruiter</a>
+    </p>
   </div>
 
      </div>
@@ -73,5 +110,5 @@ function Login() {
     );
 }
    
-  export default Login;
+  // export default Login;
   

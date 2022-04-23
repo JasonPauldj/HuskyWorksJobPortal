@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import './Login.scss';
 
 
@@ -15,7 +16,7 @@ function RecruiterSignUp() {
     const[email, setEmail]= useState("");
     const[recruiter, setRecruiter] = useState("");
     const[error, setError] = useState("");
-
+    const nav = useNavigate();
 
     const handleSignUpRecruiter = async(e) => {
         e.preventDefault();
@@ -23,6 +24,7 @@ function RecruiterSignUp() {
           const response =  await axios.post("http://localhost:9000/recruiters", {username, password, firstname, lastname,email, recruiterId});
           console.log(response.data);
           setRecruiter(response.data);
+          nav(`/`);
         } catch(error) {
           setError(error);
         }
