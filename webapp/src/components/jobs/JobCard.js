@@ -10,7 +10,7 @@ function JobCard(props) {
         navigate(`/jobs/${props.job_id}`)
     }
 
-    return (<CardComponent className="wt-30-percent" onClick={handleCardOnClick}>
+    return (<CardComponent className={`wt-30-percent ${classes.jobCard}` } onClick={handleCardOnClick}>
         <div>
             <div className={classes.orgSection}>
                 <img className={classes.orgImg} src={require('../../assets/Barney.jpeg')} />
