@@ -12,11 +12,19 @@ const studentSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    student_type :{
+    firstname : {
         type : String,
-        required : true,
-        enum: ["GRAD","UNDER_GRAD"]
+        required : true
     },
+    lastname : {
+        type : String,
+        required : true
+    },
+    // student_type :{
+    //     type : String,
+    //     required : true,
+    //     enum: ["GRAD","UNDER_GRAD"]
+    // },
     nuid :{
         type : String,
         required : true,

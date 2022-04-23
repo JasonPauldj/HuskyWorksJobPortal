@@ -20,8 +20,8 @@ function Navbar() {
         >
           Organization
         </a>
-        <a href="#" className="navbar-links-items">
-          Career Resources
+        <a href="/events" className="navbar-links-items">
+          Browse Events
         </a>
       </div>
     </div>

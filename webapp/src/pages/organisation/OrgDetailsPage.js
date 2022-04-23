@@ -11,7 +11,9 @@ function OrgDetailsPage() {
   const org_id = params.org_id;
 
   useEffect(() => {
-    APIHelper.getOrgbyId(org_id).then((res) => setOrg(res.data));
+    APIHelper.getItemById("organizations", org_id).then((res) =>
+      setOrg(res.data)
+    );
   }, []);
 
   return (
