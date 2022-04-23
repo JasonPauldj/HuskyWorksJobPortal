@@ -3,6 +3,7 @@ import axios from 'axios';
 import Navbar from '../../components/navbar/Navbar'
 import FilterSectionComponent from '../../components/genericComponent/FIlterSectionComponent';
 import JobCard from '../../components/jobs/JobCard';
+import SearchBar from '../../components/genericComponent/SearchBar'
 import classes from './JobsPage.module.scss';
 
 const JOB_TYPE_FILTERS = ["FULL-TIME", "PART-TIME", "INTERNSHIP"];
@@ -12,6 +13,7 @@ let isInitial = true;
 function JobsPage(props) {
 
     const [appliedJobTypeFilters, setJobTypeFilters] = useState([]);
+    const [searchText, setSearchText] = useState('');
     const [jobs, setJobs] = useState([]);
 
     //getting all jobs when the component is rendered for the first Time
@@ -30,9 +32,15 @@ function JobsPage(props) {
 
     }, [])
 
+    const fetchJobs = async (url) => {
+        const response = await axios.get(url);
+        setJobs(response.data);
+    }
+
     //filtering jobs when the filters are changed
     useEffect(() => {
         let url = 'http://localhost:9000/jobs';
+        let params=[];
         let jobTypeQueryParam = '';
 
         //checking if job type filters are selected
@@ -44,17 +52,35 @@ function JobsPage(props) {
         }
 
         if (jobTypeQueryParam.length > 0) {
-            url += `?job_types=${jobTypeQueryParam.slice(0, jobTypeQueryParam.length - 1)}`
+            params.push({paramName : "job_types" , paramValue: jobTypeQueryParam.slice(0, jobTypeQueryParam.length - 1) });
+            //url += `?job_types=${jobTypeQueryParam.slice(0, jobTypeQueryParam.length - 1)}`
         }
 
-        const fetchJobs = async () => {
-            const response = await axios.get(url);
-            setJobs(response.data);
+        if(searchText.length > 0) {
+            params.push({paramName : "searchText" , paramValue: searchText });
+           // url+=`&searchText=${searchText}`
         }
 
-        fetchJobs();
+        if(params.length > 0) {
+            params.forEach((param,index)=>{
+                if(index===0)
+                {
+                    url += `?${param.paramName}=${param.paramValue}`
+                }
+                else {
+                    url += `&${param.paramName}=${param.paramValue}`
+                }
+            })
+        }
 
-    }, [appliedJobTypeFilters])
+        // const fetchJobs = async () => {
+        //     const response = await axios.get(url);
+        //     setJobs(response.data);
+        // }
+
+        fetchJobs(url);
+
+    }, [appliedJobTypeFilters,searchText])
 
     const jobCards = jobs.map((job) => {
         return (
@@ -78,6 +104,10 @@ function JobsPage(props) {
         setJobTypeFilters(updatedJobTypeFilters);
     }
 
+    const handleSearchInputChange = (searchInput) => {
+        setSearchText(searchInput);
+    }
+
     return (<>
         <div className="prbg ht-full-viewport py-1">
             <div className="flex-horizontal">
@@ -87,6 +117,11 @@ function JobsPage(props) {
                 <div className="ly-1-3-1-bd-sec-right ">
                     <div className="ly-1-3-1-bd-sec-right-container flex-horizontal">
                         <div className="ly-1-3-1-bd-sec-right-main">
+
+                            <div>
+                            <SearchBar id="search-jobs" placeholder="Search for Job or Organization" label="Search for Job or Organization" onSearchInputChange={handleSearchInputChange} />
+                            </div>
+                          
                            <div className={classes.jobsContainer}>
                             {jobCards}
                             </div>

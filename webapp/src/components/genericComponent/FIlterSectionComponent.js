@@ -1,5 +1,3 @@
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import classes from './FilterSection.module.scss'
 
 function FilterSectionComponent(props) {
@@ -11,7 +9,7 @@ function FilterSectionComponent(props) {
   //recevies an array of the values consisting of the filter options
   const Checkboxes = props.values.map((filterValue) => {
     return (
-      <div className={classes.checkboxSection}>
+      <div key={filterValue} className={classes.checkboxSection}>
       <input type="checkbox" id={filterValue} name={filterValue} onChange={handleCheckboxChange}/>
       <label>{filterValue}</label>
       </div >
