@@ -28,7 +28,7 @@ function App() {
           <Routes>
             <Route
               path="/"
-              element={!isAuth ? <Login /> : <StudentProfile />}
+              element={!isAuth ? <Login /> : <JobsPage />}
             ></Route>
             <Route path="/student/:id" element={<StudentProfile />}></Route>
             <Route path="/signup-student" element={<SignUpStudent />}></Route>

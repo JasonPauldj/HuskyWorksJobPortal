@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 @import "../../scss/SassVariables.scss";
 
 .orgImg {
@@ -19,12 +18,12 @@
 
 .jobDesc {
   margin: 5px 5px;
-  font-size: 1.4rem;
+  font-size: 0.8rem;
 }
 
 .jobDetails {
   margin: 5px 5px;
-  font-size: 1rem;
+  font-size: 0.7rem;
 }
 
 .jobDeadline {
@@ -48,54 +47,3 @@
 .apply {
   margin: 5px auto;
 }
-=======
-@import '../../scss/SassVariables.scss';
-
-.orgImg {
-    width:50px;
-    height:50px;
-    display: inline-block;
-    margin-right: 10px;
-}
-.orgSection{
- display :flex;
- align-items: center;
- margin: 5px 5px;
-}
-
-.jobCard {
-    margin : 0rem 0.5rem 0.5rem 1rem;
-}
-
-.jobDesc{
-    margin: 5px 5px;
-    font-size: 0.8rem;
-}
-
-.jobDetails{
-    margin: 5px 5px;
-    font-size: 0.7rem ;
-}
-
-.jobDeadline{
-    margin: 5px 5px;
-    font-size: 0.8rem;
-}
-
-.divider{
-    height:1px;
-    background-color: lightgrey;
-}
-
-.btn_apply{
-    background-color: $blue-color;
-    border-radius:10px;
-    width:100%;
-    height:1.6rem;
-    color: $white-color;
-}
-
-.apply{
-    margin:5px auto;
-}
->>>>>>> c335fbefd513ebef70da95d93dda7540d2ce8e18

@@ -40,7 +40,7 @@ function Navbar() {
       </div>
       <div className="navbar-profile">
         <div className="navbar-profile-photo" />
-        <h3> {auth ? user.username : "Barney Stinson"} </h3>
+        <h3> {auth ? user.userName : "Barney Stinson"} </h3>
         <LogoutIcon onClick={handleLogOut} />
       </div>
     </div>
