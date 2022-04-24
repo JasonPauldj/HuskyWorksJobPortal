@@ -25,7 +25,9 @@ export const createEvent = async (request, response) => {
 export const getAllEvents = async (request, response) => {
   try {
     const event_location = request.query.event_location;
-    const event_type = request.query.event_type;
+    const event_type = request.query.event_type
+      ? request.query.event_type.split(";")
+      : undefined;
     const query = {};
     if (event_location) {
       query.event_location = event_location;

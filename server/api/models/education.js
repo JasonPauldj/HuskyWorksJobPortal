@@ -2,12 +2,12 @@ import mongoose from "mongoose";
 
 const educationSchema = new mongoose.Schema({
   student_id:{
-        type: Number,
+        type: String,
         required: "Id is required.",
   },
   university: {
     type: String,
-    default: "University name is required.",
+    required: "University name is required.",
   },
   start_date: {
     type: Date,
@@ -23,11 +23,11 @@ const educationSchema = new mongoose.Schema({
   },
   major: {
     type: String,
-    required: "Description is required.",
+    required: "major is required.",
   },
   gpa :{
-    type: mongoose.Schema.Types.Decimal128,
-    required : true
+    type: Number,
+    required : "gpa is required."
 },
 });
 

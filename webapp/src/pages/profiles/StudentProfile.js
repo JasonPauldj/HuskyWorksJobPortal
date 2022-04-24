@@ -1,25 +1,45 @@
+import React from 'react';
+import { useSelector } from "react-redux";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Navbar from '../../components/navbar/Navbar';
 import CardComponent from '../../components/genericComponent/genericCard/CardComponent';
 import "./StudentProfile.scss";
+import EducationDetails from './StudentProfile/StudentEducation';
+import ProjectDetails from './StudentProfile/StudentProjects';
+import WorkExDetails from './StudentProfile/StudentWorkEx';
+import NewEducationForm from './StudentProfile/StudentEducation';
+import EditIcon from '@mui/icons-material/Edit';
+import { Button, Dialog, DialogActions } from '@mui/material';
 // import TextField from "@material-ui/core/TextField";
 
 
 function StudentProfile(props) {
 
-    const [student, setStudentProfile] = useState({});
-    const params = useParams();
-    const student_id = params.student_id;
+  const user = useSelector(state => state.auth.user);
+  // console.log(user, "user");
+  // const isAuth = useSelector(state => state.auth.isAuthenticated);
+  // console.log(isAuth, "isAuth");
 
-    const handleSubmit = event => {
-        event.preventDefault();
-        alert('You have submitted the form.')
-      }
+  const [student, setStudentProfile] = useState({});
+  const params = useParams();
+  const student_id = params.student_id;
+  const [eduBool, setEduBool] = useState(false);
+  const [education, setEducation] = useState([]);
 
-    //load initial student details 
-    useEffect(() => {
+
+  const handleEduBtnClick = event => {
+    console.log("Edit Btn Pressed!")
+    // console.log(eduBool);
+    event.preventDefault();
+        setEduBool(true);
+    }
+
+
+    // const eduDia
+  //load initial student details 
+  useEffect(() => {
             const fetchStudentDetails = async () => {
                 const response = await axios.get(`http://localhost:9000/students/${student_id}`);
                 setStudentProfile(response.data);
@@ -28,29 +48,40 @@ function StudentProfile(props) {
             fetchStudentDetails();
     }, [])
 
+    useEffect(() => {
+      const fetchEducation = async () => {
+        const res = await axios.get(
+          `http://localhost:9000/educations/?student_id=${student_id}`
+        );
+        setEducation(res.data);
+      };
+  
+      fetchEducation();
+    }, []);
 
-    const [university, setUniversity] = useState("");
-    const [major, setMajor] = useState("");
-    const [gpa, setGpa] = useState("");
-    const [start_date, setStartDate] = useState("");
-    const [end_date, setEndDate] = useState("");
-    const [location, setLocation] = useState("");
+    const handleBoolChange = () => {
+      setEduBool(false);
+    }
 
-    let res = await fetch("https://httpbin.org/post", {
-        method: "POST",
-        body: JSON.stringify({
-         university: university,
-         major: major,
-         mobileNumber: mobileNumber,
-        }),
+    const eduCards = education.map((edu) => {
+      return <CardComponent key ={edu._id}>
+        <div className="eduDetails">
+          <h3>{edu.university}</h3>
+          <h3>{edu.major}</h3>
+          <div className="eduDates">
+            <p>{edu.start_date}</p>
+            <p>{edu.end_date}</p>
+          </div>
+          <Button onClick={handleEduBtnClick}>Edit</Button>
+        </div>
+      </CardComponent>
     });
-
 
     const StudentProfileCard = (props) =>{ 
         return(
         <CardComponent >
             <div className="formWrapper">
-            <form onSubmit={handleSubmit}>
+           
                 <div className="formHeader">
                     <header>
                     <div>
@@ -65,7 +96,7 @@ function StudentProfile(props) {
             <hr/>
                 </div>
                 
-            <fieldset>
+            <div>
                 <legend>Personal Information</legend>
                 Firstname <input name="firstName" />
                 Lastname <input name="lastName" /><br/>
@@ -73,44 +104,31 @@ function StudentProfile(props) {
                 Major <input name="major" />
                 GPA <input name="gpa" />
                 Email <input name="email" />
-            </fieldset>
+            </div>
 
-            <fieldset>
+            <div>
                 <legend> Education Details</legend>
-                 University <input type="text" name="university" />
-                 Major <input name="major" />
-                 GPA <input name="gpa" />
-                 Start Date <input type="date" name="start_date" />
-                 End Date <input type="date" name="end_date" />
-                 Location <input name="location" /><br/>
-                <button> Add Education </button>
-            </fieldset>
+{/*                
+                  <EducationDetails/> */}
+                  {eduCards}
+                <button onClick={handleEduBtnClick}> Add Education </button>
+            </div>
 
-            <fieldset>
+            <div>
                 <legend> Work Experience</legend>
-                <label> Title <input name="title" /></label>
-                <label> Employer name <input name="employer_name" /></label>
-                <label> Start Date <input type="date" name="start_date" /></label>
-                <label> End Date <input type="date" name="end_date" /></label>
-                <label> Location <input name="location" /></label>
-                <label> Description <input name="description" /></label><br/>
+                <WorkExDetails/>
                 <button> Add Experience </button>
-            </fieldset>
+            </div>
 
 
-            <fieldset>
+            <div>
                 <legend> Personal Projects</legend>
-                <label> Project Title <input name="project_title" /></label>
-                <label> Start Date <input type="date" name="start_date" /></label>
-                <label> End Date <input type="date" name="end_date" /></label>
-                <label> Location <input name="location" /></label>
-                <label> Description <input name="project_description" /></label><br/>
+                 <ProjectDetails/>
                 <button> Add Project </button>
-            </fieldset>
+            </div>
             <br/>
             <button type="submit">Submit</button>
   
-            </form>
             </div>
         </CardComponent>
     )
@@ -128,6 +146,7 @@ return (
             <div className="ly-1-4-bd-sec-right-main">
             {/*HERE IS WHERE YOUR CENTRAL CONTENT SHOULD GO*/}
             <StudentProfileCard/>
+            {eduBool ? <NewEducationForm eduBool={eduBool} onChange={handleBoolChange} student_id={student_id}/> : null}
             </div>
           </div>
         </div>
@@ -137,5 +156,7 @@ return (
   );
 
 }
+
+
 
 export default StudentProfile;

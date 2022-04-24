@@ -15,8 +15,14 @@ const eventSchema = new mongoose.Schema({
     required: "Event type is required.",
   },
   event_location: {
-    type: String,
-    required: "Event location is required.",
+    latitude: {
+      type: Number,
+      required: "Latitude is required.",
+    },
+    longitude: {
+      type: Number,
+      required: "Longitude is required.",
+    },
   },
   event_description: {
     type: String,
@@ -40,5 +46,3 @@ const eventSchema = new mongoose.Schema({
 const eventModel = mongoose.model("event", eventSchema);
 // Exporting the model
 export default eventModel;
-
-

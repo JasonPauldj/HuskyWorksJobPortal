@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import EventDetailsCard from "../../components/events/EventDetailsCard";
 import Navbar from "../../components/navbar/Navbar";
-import OrgDetailsCard from "../../components/orgs/OrgDetailsCard";
-import APIHelper from "../../utilities/APIHelper.js";
+import APIHelper from "../../utilities/APIHelper";
 
-function OrgDetailsPage() {
-  const [org, setOrg] = useState({});
+function EventDetailsPage() {
+  const [event, setEvent] = useState({});
   const params = useParams();
-  const org_id = params.org_id;
+  const event_id = params.event_id;
 
   useEffect(() => {
-    APIHelper.getItemById("organizations", org_id).then((res) =>
-      setOrg(res.data)
-    );
+    APIHelper.getItemById("events", event_id).then((res) => setEvent(res.data));
   }, []);
 
   return (
@@ -26,15 +24,7 @@ function OrgDetailsPage() {
           <div className="ly-1-4-bd-sec-right-container flex-horizontal">
             <div className="ly-1-4-bd-sec-right-main">
               {/*HERE IS WHERE YOUR CENTRAL CONTENT SHOULD GO*/}
-              {org && (
-                <OrgDetailsCard
-                  key={org_id}
-                  organizationName={org.organizationName}
-                  organizationLogo={org.organizationLogo}
-                  aboutUs={org.aboutUs}
-                  sponsorship={org.sponsorship}
-                />
-              )}
+              {event && <EventDetailsCard key={event_id} event={event} />}
             </div>
           </div>
         </div>
@@ -43,4 +33,4 @@ function OrgDetailsPage() {
   );
 }
 
-export default OrgDetailsPage;
+export default EventDetailsPage;

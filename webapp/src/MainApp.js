@@ -6,6 +6,8 @@ import Layout_1_4 from "./components/boilerplate/layouts/Layout_1_4";
 import Layout_1_3_1 from "./components/boilerplate/layouts/Layout_1_3_1";
 import OrgDetailsPage from "./pages/organisation/OrgDetailsPage";
 import StudentProfile from "./pages/profiles/StudentProfile";
+import EventsPage from "./pages/events/EventsPage";
+import EventDetailsPage from "./pages/events/EventDetailsPage";
 
 function MainApp(props) {
   return (
@@ -14,11 +16,16 @@ function MainApp(props) {
       <Route path="/jobs" element={<JobsPage />} />
       <Route path="/jobs/:job_id" element={<JobDetailPage />} />
 
-      {/* Path for Organization Detail Page */}
-      <Route path="/organizations/" element={<OrgDetailsPage />} />
+      {/* Path for Organizations*/}
+      <Route path="/organizations" element={<OrgDetailsPage />} />
       <Route path="/organizations/:org_id" element={<OrgDetailsPage />} />
 
+      {/* Path for student profile */}
       <Route path="/profiles/:student_id" element={<StudentProfile />} />
+
+       {/* Path for Events */}
+      <Route path="/events" element={<EventsPage />} />
+      <Route path="/events/:event_id" element={<EventDetailsPage />} />
 
       {/* DUMMY PATHS TO CHECK LAYOUTS */}
       <Route path="/layout_1_3_1" element={<Layout_1_3_1 />} />
