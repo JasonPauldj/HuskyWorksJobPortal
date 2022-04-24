@@ -8,9 +8,9 @@ const setErrorResponse = (err, res) => {
 
 // Setting Error Response for any errors
 const setNotFoundResponse = (err, res) => {
-    res.status(404);
-    res.json(err);
-  };
+  res.status(404);
+  res.json(err);
+};
 
 // Setting Success Response for successful execution
 const setSuccessResponse = (obj, res) => {
@@ -31,11 +31,25 @@ export const postReview = async (req, res) => {
 
 // Method to get Reviews using the get service
 export const getAllReviews = async (req, res) => {
-  try {
-    const reviews = await reviewService.getReviews();
-    setSuccessResponse(reviews, res);
-  } catch (err) {
-    setErrorResponse(err, res);
+  const organizationId = req.query.organizationId;
+  const query = {};
+  if (organizationId) {
+    query.organizationId = organizationId;
+  }
+  if (query) {
+    try {
+      const reviews = await reviewService.filter(query);
+      setSuccessResponse(reviews, res);
+    } catch (err) {
+      setErrorResponse(err, res);
+    }
+  } else {
+    try {
+      const reviews = await reviewService.getReviews();
+      setSuccessResponse(reviews, res);
+    } catch (err) {
+      setErrorResponse(err, res);
+    }
   }
 };
 

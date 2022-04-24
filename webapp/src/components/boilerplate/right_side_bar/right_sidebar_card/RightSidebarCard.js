@@ -1,6 +1,6 @@
 import React from "react";
 import "./RightSidebarCard.scss";
-function RightSidebarCard() {
+function RightSidebarCard(props) {
   return (
     <div className="rightSidebarCard">
       <div className="card-profileData">

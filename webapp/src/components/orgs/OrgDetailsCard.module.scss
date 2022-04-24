@@ -1,29 +1,27 @@
 @import "../../scss/SassVariables.scss";
 
-.org-container {
+.orgContainer {
   width: 100%;
-  height: 100%;
   float: left;
   margin-left: 1rem;
 }
-.org-header {
+.orgHeader {
   display: flex;
   width: 30%;
   justify-content: space-between;
   align-items: center;
 }
 
-.org-logo {
+.orgLogo {
   width: 24rem;
   height: 12rem;
 }
 
-.org-name {
+.orgName {
   font-size: 5em;
 }
 
-.org-aboutus {
+.orgAboutus {
   font-size: 2em;
-
   margin-left: 1rem;
 }

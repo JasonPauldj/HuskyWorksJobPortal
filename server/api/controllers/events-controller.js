@@ -28,12 +28,16 @@ export const getAllEvents = async (request, response) => {
     const event_type = request.query.event_type
       ? request.query.event_type.split(";")
       : undefined;
+    const search = request.query.searchText;
     const query = {};
     if (event_location) {
       query.event_location = event_location;
     }
     if (event_type) {
       query.event_type = event_type;
+    }
+    if (search) {
+      query.event_title = { $regex: search, $options: "i" };
     }
     //when searched by query parameters, returns the events requested
     if (query) {

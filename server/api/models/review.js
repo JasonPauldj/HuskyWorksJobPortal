@@ -2,18 +2,18 @@ import mongoose from "mongoose";
 
 //Review Schema
 const reviewSchema = new mongoose.Schema({
-    nuid: {
-        type: String,
-        required: "Student id is required."
-    },
-    organizationId : {
-        type : Number,
-        required : true
-    },
-    review : {
-        type : String,
-        required : true
-    }
+  nuid: {
+    type: String,
+    required: "NUID is required.",
+  },
+  organizationId: {
+    type: String,
+    required: "OrganizationId is required.",
+  },
+  review: {
+    type: String,
+    required: true,
+  },
 });
 
 //Recruiter Model
