@@ -28,6 +28,8 @@ export default function Login() {
           const response =  await axios.post("http://localhost:9000/login", {username, password, loginAs});
           console.log(response.data);
           setUser(response.data);
+          //set to local storage
+          localStorage.setItem('user', JSON.stringify(response.data));
           dispatch(authActions.login(response.data));
           nav(`/dashboard-student/${response.data._id}`);
         } else if(loginAs === 'Recruiter') {
