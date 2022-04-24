@@ -105,3 +105,14 @@ export const removeJob = async (req, res) => {
     setErrorResponse(err, res);
   }
 };
+
+
+export const getJobByStudent = async (req, res) => {
+  try {
+    const id = req.params.id; //student
+    const job = await jobsService.getJobById(id);
+    setSuccessResponse(job, res);
+  } catch (err) {
+    setErrorResponse(err, res);
+  }
+};

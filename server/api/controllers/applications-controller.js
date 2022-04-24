@@ -1,4 +1,5 @@
 import * as ApplicationsService from "./../services/applications-service.js";
+import * as JobsService from "./../services/jobs-service.js";
 
 // Setting Error Response for any errors
 const setErrorResponse = (error, response) => {
@@ -89,5 +90,40 @@ export const remove = async (request, response) => {
     }
 }
 
+export const getApplicationsByStudentId = async (request, response) => {
+  try {
+    const id = request.params.id; // student_id
+    //getall applications
+    const applications = await ApplicationsService.getApplications();
+    // filter by id
+    console.log(applications);
+    const applicationsByStudentId = applications.filter((application) => application.student_id === id);
+    const jobIds = applicationsByStudentId.map((application) => application.job_id);
+    // // call jobs now
+    const promises = jobIds.map((jobId) => {
+      return getJobById(jobId);
+    });
+    console.log(promises, "promises");
+    
+    let jobs = await Promise.all(promises);
+    console.log(jobs, "final jobs");
+    console.log("END")
+    console.log(jobs, 'outside');
+
+    setSuccessResponse(jobs, response); 
+
+
+    
+  } catch (error) {
+      error.message = 'Invalid Event ID requested';
+      error.status = 400;
+      setErrorResponse(error, response);
+  }
+}
+
+const getJobById = async(jobId) =>  {
+  const job = await JobsService.getJobById(jobId);
+  return job;
+}
 
 

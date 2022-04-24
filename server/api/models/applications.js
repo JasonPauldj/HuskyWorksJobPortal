@@ -19,6 +19,10 @@ const applicationSchema = new mongoose.Schema({
     type: String,
     required: "Job Id is required.",
   },
+  student_id: {
+    type: String,
+    required: "Student Id is required.",
+  },
   application_date: {
     type: Date,
     default: Date.now(),
