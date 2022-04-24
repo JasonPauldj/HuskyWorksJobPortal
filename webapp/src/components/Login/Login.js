@@ -29,7 +29,7 @@ export default function Login() {
         console.log(response.data);
         setUser(response.data);
         dispatch(authActions.login(response.data));
-        nav(`/jobs`);
+        nav(`/organizations/625ef5818f55e8e632422328`);
       } else if (loginAs === "Recruiter") {
         const response = await axios.post("http://localhost:9000/login", {
           username,

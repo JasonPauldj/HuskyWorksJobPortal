@@ -35,7 +35,7 @@ function OrgDetailsPage() {
     };
 
     fetchOrgJobs();
-  });
+  }, []);
 
   useEffect(() => {
     const fetchOrgEvents = async () => {
@@ -46,7 +46,7 @@ function OrgDetailsPage() {
     };
 
     fetchOrgEvents();
-  });
+  }, []);
 
   return (
     <div className="prbg ht-full-viewport py-1">
