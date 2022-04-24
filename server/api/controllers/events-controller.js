@@ -93,3 +93,33 @@ export const remove = async (request, response) => {
     setErrorResponse(error, response);
   }
 };
+
+
+export const getEventsByStudentId = async (request, response) => {
+  try {
+    const id = request.params.id; // student_id
+    //getall events
+    const eventsAll = await eventsService.getEvents();
+    // filter by id
+    console.log(eventsAll);
+    const eventsByStudentId = eventsAll.filter((event) => event.student_id === id);
+    const eventIds = eventsByStudentId.map((event) => event._id);
+    // call jobs now
+    const promises = eventIds.map((eventId) => {
+      return getEventById(eventId);
+    });
+    console.log(promises, "promises");
+    
+    let events = await Promise.all(promises);
+    setSuccessResponse(events, response); 
+  } catch (error) {
+      error.message = 'Invalid Event ID requested';
+      error.status = 400;
+      setErrorResponse(error, response);
+  }
+}
+
+const getEventById = async(eventId) =>  {
+  const event = await eventsService.get(eventId);
+  return event;
+}

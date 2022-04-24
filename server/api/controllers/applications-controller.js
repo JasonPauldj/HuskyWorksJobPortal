@@ -106,13 +106,7 @@ export const getApplicationsByStudentId = async (request, response) => {
     console.log(promises, "promises");
     
     let jobs = await Promise.all(promises);
-    console.log(jobs, "final jobs");
-    console.log("END")
-    console.log(jobs, 'outside');
-
     setSuccessResponse(jobs, response); 
-
-
     
   } catch (error) {
       error.message = 'Invalid Event ID requested';

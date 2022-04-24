@@ -15,4 +15,9 @@ router
   .put(EventsController.update) // Update event
   .delete(EventsController.remove) // Delete Event
 
+router
+  .route("/students/events/:id")
+  .get(EventsController.getEventsByStudentId) // Entry Route
+
+  
 export default router;
