@@ -1,22 +1,18 @@
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import Navbar from "../../components/navbar/Navbar";
 import FilterSectionComponent from "../../components/genericComponent/FIlterSectionComponent";
 import JobCard from "../../components/jobs/JobCard";
 import SearchBar from "../../components/genericComponent/SearchBar";
 import classes from "./JobsPage.module.scss";
-<<<<<<< HEAD
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../../store/auth_slice";
 import AuthService from "../../utilities/AuthService";
-=======
 import { JOB_CATEGORIES } from "../../utilities/constants";
 import { JOB_LOCATIONS } from "../../utilities/constants";
 import ApplyModal from "../../components/jobs/ApplyModal";
 import {postApplication} from '../../store/applications_slice';
 
->>>>>>> feature/jason-jobs-application-view-continued
 
 const JOB_TYPE_FILTERS = ["FULL-TIME", "PART-TIME", "INTERNSHIP"];
 const JOB_CATEGORY_FILTERS = [...JOB_CATEGORIES];
@@ -31,7 +27,6 @@ function JobsPage(props) {
   const [appliedJobLocationFilters, setJobLocationFilters] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [jobs, setJobs] = useState([]);
-<<<<<<< HEAD
   let user = useSelector((state) => state.auth.user);
 
   const dispatch = useDispatch();
@@ -49,14 +44,11 @@ function JobsPage(props) {
   }, []);
 
   console.log(user, "ststs");
-=======
   const [isApply, setIsApply] = useState(false);
   const [selectedJob, setSelectedJob] = useState();
 
   const applications = useSelector((state=>state.applications.applications));
-  const dispatch = useDispatch();
 
->>>>>>> feature/jason-jobs-application-view-continued
 
   //getting all jobs when the component is rendered for the first Time
   useEffect(() => {
