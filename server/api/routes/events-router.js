@@ -16,7 +16,7 @@ router
   .delete(EventsController.remove) // Delete Event
 
 router
-  .route("/students/events/:id")
+  .route("/student/events/:id")
   .get(EventsController.getEventsByStudentId) // Entry Route
 
   

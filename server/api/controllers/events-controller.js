@@ -104,7 +104,7 @@ export const getEventsByStudentId = async (request, response) => {
     console.log(eventsAll);
     const eventsByStudentId = eventsAll.filter((event) => event.student_id === id);
     const eventIds = eventsByStudentId.map((event) => event._id);
-    // call jobs now
+    // call events now
     const promises = eventIds.map((eventId) => {
       return getEventById(eventId);
     });

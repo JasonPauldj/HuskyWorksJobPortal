@@ -10,7 +10,10 @@ import SignUpStudent from "./components/Login/SignUpStudent";
 import RecruiterSignUp from "./components/Login/RecruiterSignUp";
 import RecruiterDashboard from "./pages/dashboards/RecruiterDashboard";
 import StudentDashboard from "./pages/dashboards/StudentDashboard";
+import JobsPage from "./pages/jobs/JobsPage";
+
 import { useSelector } from "react-redux";
+
 
 function App() {
 
@@ -31,6 +34,7 @@ function App() {
             <Route path="/signup-recruiter" element={<RecruiterSignUp />}></Route>
             <Route path="/dashboard-student/:id" element={<StudentDashboard />}></Route>
             <Route path="/dashboard-recruiter/:id" element={<RecruiterDashboard />}></Route>
+            <Route path="/jobs" element={<JobsPage />} />
             
           </Routes>
         </div>
