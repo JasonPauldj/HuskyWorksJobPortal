@@ -48,6 +48,10 @@ const eventSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
+  recruiterId: {
+    type: String,
+    required: "Recruiter Id is required.",
+  }
 });
 
 // Creating model from the schema using mongoose
