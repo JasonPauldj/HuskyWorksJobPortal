@@ -4,27 +4,40 @@ import EventCard from "../../components/events/EventCard.js";
 import FilterSectionComponent from "../../components/genericComponent/FIlterSectionComponent.js";
 import CardComponent from "../../components/genericComponent/genericCard/CardComponent.js";
 import Navbar from "../../components/navbar/Navbar.js";
-import APIHelper from "../../utilities/APIHelper.js";
+import classes from "./EventsPage.module.scss";
+import SearchBar from "../../components/genericComponent/SearchBar";
 
 const EVENT_TYPE_FILTERS = ["NETWORKING", "CAREER FAIR", "WORKSHOP"];
 let isInitial = true;
 
 function EventsPage() {
   const [appliedEventTypeFilters, setEventTypeFilters] = useState([]);
+  const [searchText, setSearchText] = useState("");
   const [events, setEvents] = useState([]);
 
   //getting all events when the component is rendered for the first Time
   useEffect(() => {
     if (isInitial) {
-      APIHelper.getAllItems("events").then((res) => setEvents(res.data));
+      const fetchEvents = async () => {
+        const res = await axios.get("http://localhost:9000/events");
+        setEvents(res.data);
+      };
+
+      fetchEvents();
     } else {
       isInitial = false;
     }
   }, []);
 
+  const fetchEvents = async (url) => {
+    const res = await axios.get(url);
+    setEvents(res.data);
+  };
+
   //filtering events when the filters are changed
   useEffect(() => {
     let url = "http://localhost:9000/events";
+    let params = [];
     let eventTypeQueryParam = "";
 
     //checking if event type filters are selected
@@ -35,31 +48,35 @@ function EventsPage() {
     }
 
     if (eventTypeQueryParam.length > 0) {
-      url += `?event_type=${eventTypeQueryParam.slice(
-        0,
-        eventTypeQueryParam.length - 1
-      )}`;
+      params.push({
+        paramName: "event_type",
+        paramValue: eventTypeQueryParam.slice(
+          0,
+          eventTypeQueryParam.length - 1
+        ),
+      });
     }
 
-    const fetchEvents = async () => {
-      const res = await axios.get(url);
-      setEvents(res.data);
-    };
+    if (searchText.length > 0) {
+      params.push({ paramName: "searchText", paramValue: searchText });
+      // url+=`&searchText=${searchText}`
+    }
 
-    fetchEvents();
-  }, [appliedEventTypeFilters]);
+    if (params.length > 0) {
+      params.forEach((param, index) => {
+        if (index === 0) {
+          url += `?${param.paramName}=${param.paramValue}`;
+        } else {
+          url += `&${param.paramName}=${param.paramValue}`;
+        }
+      });
+    }
+
+    fetchEvents(url);
+  }, [appliedEventTypeFilters, searchText]);
 
   const eventCards = events.map((event) => {
-    return (
-      <EventCard
-        key={event._id}
-        event_id={event._id}
-        event_title={event.event_title}
-        event_type={event.event_type}
-        event_date={new Date(event.event_date).toLocaleDateString()}
-        event_seats={event.no_of_seats}
-      />
-    );
+    return <EventCard key={event._id} event={event} />;
   });
 
   const isEventTypeSelected = (eventTypeValue) =>
@@ -80,7 +97,10 @@ function EventsPage() {
     }
     setEventTypeFilters(updatedEventTypeFilters);
   };
-  console.log(appliedEventTypeFilters);
+
+  const handleSearchInputChange = (searchInput) => {
+    setSearchText(searchInput);
+  };
   return (
     <div className="prbg ht-full-viewport py-1">
       <div className="flex-horizontal">
@@ -92,7 +112,15 @@ function EventsPage() {
           <div className="ly-1-3-1-bd-sec-right-container flex-horizontal">
             <div className="ly-1-3-1-bd-sec-right-main">
               {/*HERE IS WHERE YOUR CENTRAL CONTENT SHOULD GO*/}
-              {eventCards}
+              <div>
+                <SearchBar
+                  id="search-jobs"
+                  placeholder="Search for Job or Organization"
+                  label="Search for Job or Organization"
+                  onSearchInputChange={handleSearchInputChange}
+                />
+              </div>
+              <div className={classes.eventsContainer}>{eventCards}</div>
             </div>
             <div className="ly-1-3-1-bd-sec-right-sidebar">
               {/*HERE IS WHERE YOUR RIGHT CONTENT SHOULD GO*/}

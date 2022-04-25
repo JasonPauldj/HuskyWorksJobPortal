@@ -1,8 +1,12 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import EventsSection from "../../components/events/EventsSection";
+import CardComponent from "../../components/genericComponent/genericCard/CardComponent";
+import JobsSection from "../../components/jobs/JobsSection";
 import Navbar from "../../components/navbar/Navbar";
 import OrgDetailsCard from "../../components/orgs/OrgDetailsCard";
-import APIHelper from "../../utilities/APIHelper.js";
+import ReviewContainer from "../../components/orgs/ReviewContainer";
 
 function OrgDetailsPage() {
   const [org, setOrg] = useState({});
@@ -10,31 +14,32 @@ function OrgDetailsPage() {
   const org_id = params.org_id;
 
   useEffect(() => {
-    APIHelper.getItemById("organizations", org_id).then((res) =>
-      setOrg(res.data)
-    );
+    const fetchOrg = async () => {
+      const res = await axios.get(
+        `http://localhost:9000/organizations/${org_id}`
+      );
+      setOrg(res.data);
+    };
+
+    fetchOrg();
   }, []);
 
   return (
     <div className="prbg ht-full-viewport py-1">
       <div className="flex-horizontal">
-        <div className="ly-1-4-bd-sec-left">
+        <div className="ly-1-3-1-bd-sec-left">
           {/*HERE IS WHERE YOUR NAVBAR/LEFTSIDEBAR SHOULD GO*/}
           <Navbar />
         </div>
-        <div className="ly-1-4-bd-sec-right">
-          <div className="ly-1-4-bd-sec-right-container flex-horizontal">
-            <div className="ly-1-4-bd-sec-right-main">
+        <div className="ly-1-3-1-bd-sec-right">
+          <div className="ly-1-3-1-bd-sec-right-container flex-horizontal">
+            <div className="ly-1-3-1-bd-sec-right-main">
               {/*HERE IS WHERE YOUR CENTRAL CONTENT SHOULD GO*/}
-              {org && (
-                <OrgDetailsCard
-                  key={org_id}
-                  organizationName={org.organizationName}
-                  organizationLogo={org.organizationLogo}
-                  aboutUs={org.aboutUs}
-                  sponsorship={org.sponsorship}
-                />
-              )}
+              {org && <OrgDetailsCard key={org._id} organization={org} />}
+            </div>
+            <div className="ly-1-3-1-bd-sec-right-sidebar">
+              {/*HERE IS WHERE YOUR RIGHT CONTENT SHOULD GO*/}
+              <ReviewContainer key={org_id} organizationId={org_id} />
             </div>
           </div>
         </div>

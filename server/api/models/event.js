@@ -9,6 +9,10 @@ const eventSchema = new mongoose.Schema({
     type: String,
     required: "Event organizer is required.",
   },
+  event_organizerId: {
+    type: String,
+    required: "Event organizer Id is required.",
+  },
   event_type: {
     type: String,
     enum: ["NETWORKING", "CAREER FAIR", "WORKSHOP"],
@@ -35,6 +39,10 @@ const eventSchema = new mongoose.Schema({
   event_date: {
     type: Date,
     required: "Date of the Event is required.",
+  },
+  student_id: {
+    type: String,
+    required: "Student Id is required.",
   },
   event_post_date: {
     type: Date,

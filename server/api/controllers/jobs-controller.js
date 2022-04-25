@@ -28,6 +28,9 @@ export const getAllJobs = async (req, res) => {
   const job_location = req.query.job_location;
   const job_type =req.query.job_types ? req.query.job_types.split(';') : undefined;
   const job_category = req.query.job_category;
+  const search = req.query.searchText;
+  const org_id=req.query.org_id;
+  
   const query = {};
 
   if (job_location) {
@@ -38,6 +41,12 @@ export const getAllJobs = async (req, res) => {
   }
   if (job_category) {
     query.job_category = job_category;
+  }
+  if (search) {
+    query.job_title = { "$regex": search, "$options": "i" };
+  }
+  if (org_id) {
+    query.organization_id = org_id;
   }
 
   if (query) {
@@ -96,3 +105,5 @@ export const removeJob = async (req, res) => {
     setErrorResponse(err, res);
   }
 };
+
+

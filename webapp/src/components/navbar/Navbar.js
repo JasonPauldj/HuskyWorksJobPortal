@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Navbar.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { authActions } from "../../store/auth_slice";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { useDispatch, useSelector } from "react-redux";
 
 function Navbar() {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
+  const auth = useSelector((state) => state.auth.isAuthenticated);
+  const nav = useNavigate();
+  const handleLogOut = () => {
+    if (auth) {
+      dispatch(authActions.logout());
+      nav("/");
+    }
+  };
+
   return (
     <div className="navbar">
       <div>
@@ -27,6 +41,11 @@ function Navbar() {
         <Link to="/profiles/62625e08ba8a13dd27c97dbb" className="navbar-links-items">
           My Profile
         </Link>
+      </div>
+      <div className="navbar-profile">
+        <div className="navbar-profile-photo" />
+        <h3> {auth ? user.userName : "Barney Stinson"} </h3>
+        <LogoutIcon onClick={handleLogOut} />
       </div>
     </div>
   );
