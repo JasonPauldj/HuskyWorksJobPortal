@@ -85,6 +85,7 @@ const loginRecruiter = async (recruiter, response) => {
       _id: recruiter._id,
       userName: recruiter.username,
       emailId: recruiter.email,
+      organizationId: recruiter.organization_id,
       token: accessToken,
       refreshToken: refreshToken,
       isAdmin: false,

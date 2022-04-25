@@ -16,6 +16,10 @@ router
   .put(ApplicationsController.update)
   .delete(ApplicationsController.remove);
 
+router
+  .route("/student/applications/:id")
+  .get(ApplicationsController.getApplicationsByStudentId) // Entry Route
+
 
  
 export default router;

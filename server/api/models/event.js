@@ -40,6 +40,10 @@ const eventSchema = new mongoose.Schema({
     type: Date,
     required: "Date of the Event is required.",
   },
+  student_id: {
+    type: String,
+    required: "Student Id is required.",
+  },
   event_post_date: {
     type: Date,
     default: Date.now(),

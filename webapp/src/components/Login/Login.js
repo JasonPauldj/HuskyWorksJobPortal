@@ -16,35 +16,30 @@ export default function Login() {
   const [loginAs, setLoginAs] = useState("Student");
   const nav = useNavigate();
 
-  const loginHandler = async (event) => {
+  const loginHandler = async(event) => {
     event.preventDefault();
-    try {
+    try{
       console.log("loginAs", loginAs);
-      if (loginAs === "Student") {
-        const response = await axios.post("http://localhost:9000/login", {
-          username,
-          password,
-          loginAs,
-        });
+      if(loginAs === 'Student') {
+        const response =  await axios.post("http://localhost:9000/login", {username, password, loginAs});
         console.log(response.data);
         setUser(response.data);
+        //set to local storage
+        localStorage.setItem('user', JSON.stringify(response.data));
         dispatch(authActions.login(response.data));
-        nav(`/organizations/625ef5818f55e8e632422328`);
-      } else if (loginAs === "Recruiter") {
-        const response = await axios.post("http://localhost:9000/login", {
-          username,
-          password,
-          loginAs,
-        });
+        nav(`/dashboard-student/${response.data._id}`);
+      } else if(loginAs === 'Recruiter') {
+        const response =  await axios.post("http://localhost:9000/login", {username, password, loginAs});
         console.log(response.data);
         setUser(response.data);
         dispatch(authActions.login(response.data));
         nav(`/dashboard-recruiter/${response.data._id}`);
       }
-    } catch (error) {
+      
+    } catch(error) {
       setError(error);
       console.log(error.message);
-    }
+    } 
   };
 
   const handleChange = (event) => {
