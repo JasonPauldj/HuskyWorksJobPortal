@@ -10,8 +10,6 @@ import SignUpStudent from "./components/Login/SignUpStudent";
 import RecruiterSignUp from "./components/Login/RecruiterSignUp";
 import RecruiterDashboard from "./pages/dashboards/RecruiterDashboard";
 import StudentDashboard from "./pages/dashboards/StudentDashboard";
-import JobsPage from "./pages/jobs/JobsPage";
-
 import { useSelector } from "react-redux";
 import JobsPage from "./pages/jobs/JobsPage";
 import JobDetailPage from "./pages/jobs/JobDetailPage";

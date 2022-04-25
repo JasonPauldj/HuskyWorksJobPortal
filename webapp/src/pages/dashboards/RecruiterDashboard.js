@@ -12,7 +12,18 @@ function RecruiterDashboard() {
     const [jobs, setJobs] = useState([]);
     const [jobsPosted, setJobsPosted] = useState([]);
     const [orgPosting, setOrgPosting] = useState([]);
-
+    
+    const checkUser = () => {
+      if (recruiter.length == 0) {
+        recruiter = AuthService.getCurrUser();
+        dispatch(authActions.login(AuthService.getCurrUser() || {}));
+      }
+    };
+  
+    useEffect(() => {
+      checkUser();
+    }, []);
+  
 
 
    
