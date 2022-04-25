@@ -5,13 +5,17 @@ import FilterSectionComponent from "../../components/genericComponent/FIlterSect
 import JobCard from "../../components/jobs/JobCard";
 import SearchBar from "../../components/genericComponent/SearchBar";
 import classes from "./JobsPage.module.scss";
+import { JOB_CATEGORIES } from "../../utilities/constants";
 
 const JOB_TYPE_FILTERS = ["FULL-TIME", "PART-TIME", "INTERNSHIP"];
+const JOB_CATEGORY_FILTERS = [...JOB_CATEGORIES];
+
 
 let isInitial = true;
 
 function JobsPage(props) {
   const [appliedJobTypeFilters, setJobTypeFilters] = useState([]);
+  const [appliedJobCategoryFilters, setJobCategoryFilters] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [jobs, setJobs] = useState([]);
 
@@ -29,6 +33,10 @@ function JobsPage(props) {
     }
   }, []);
 
+  /**
+   * Function to fetch jobs
+   * @param {string} url 
+   */
   const fetchJobs = async (url) => {
     const response = await axios.get(url);
     setJobs(response.data);
@@ -39,6 +47,8 @@ function JobsPage(props) {
     let url = "http://localhost:9000/jobs";
     let params = [];
     let jobTypeQueryParam = "";
+    let jobCategoryQueryParam = "";
+
 
     //checking if job type filters are selected
     if (appliedJobTypeFilters.length > 0) {
@@ -46,7 +56,6 @@ function JobsPage(props) {
         jobTypeQueryParam += `${jobTypeValue};`;
       });
     }
-
     if (jobTypeQueryParam.length > 0) {
       params.push({
         paramName: "job_types",
@@ -55,11 +64,27 @@ function JobsPage(props) {
       //url += `?job_types=${jobTypeQueryParam.slice(0, jobTypeQueryParam.length - 1)}`
     }
 
+    //checking if job category filters are selected
+    if (appliedJobCategoryFilters.length > 0) {
+      appliedJobCategoryFilters.forEach((jobCategoryValue) => {
+        jobCategoryQueryParam += `${jobCategoryValue};`;
+      });
+    }
+    if (jobCategoryQueryParam.length > 0) {
+      params.push({
+        paramName: "job_categories",
+        paramValue: jobCategoryQueryParam.slice(0, jobCategoryQueryParam.length - 1),
+      });
+      //url += `?job_types=${jobTypeQueryParam.slice(0, jobTypeQueryParam.length - 1)}`
+    }
+
+    //checking if anything is entered in searchbar
     if (searchText.length > 0) {
       params.push({ paramName: "searchText", paramValue: searchText });
       // url+=`&searchText=${searchText}`
     }
 
+    //constructing url
     if (params.length > 0) {
       params.forEach((param, index) => {
         if (index === 0) {
@@ -70,13 +95,8 @@ function JobsPage(props) {
       });
     }
 
-    // const fetchJobs = async () => {
-    //     const response = await axios.get(url);
-    //     setJobs(response.data);
-    // }
-
     fetchJobs(url);
-  }, [appliedJobTypeFilters, searchText]);
+  }, [appliedJobTypeFilters, appliedJobCategoryFilters ,searchText]);
 
   const jobCards = jobs.map((job) => {
     return (
@@ -95,6 +115,9 @@ function JobsPage(props) {
   const isJobTypeSelected = (jobTypeValue) =>
     appliedJobTypeFilters.includes(jobTypeValue);
 
+  const isJobCategorySelected = (jobCategoryValue) =>
+    appliedJobCategoryFilters.includes(jobCategoryValue);
+
   const handleJobTypeCheckboxChange = (jobTypeValue) => {
     let updatedJobTypeFilters;
 
@@ -109,6 +132,22 @@ function JobsPage(props) {
       updatedJobTypeFilters = [...appliedJobTypeFilters, jobTypeValue];
     }
     setJobTypeFilters(updatedJobTypeFilters);
+  };
+
+  const handleJobCategoryCheckboxChange = (jobCategoryValue) => {
+    let updatedJobCategoryFilters;
+
+    //the filter was selected, remove it from appliedFilters
+    if (isJobCategorySelected(jobCategoryValue)) {
+      updatedJobCategoryFilters = appliedJobCategoryFilters.filter(
+        (JTC) => JTC !== jobCategoryValue
+      );
+    }
+    //the filter was not selected, add it to appliedFilters\
+    else {
+      updatedJobCategoryFilters = [...appliedJobCategoryFilters, jobCategoryValue];
+    }
+    setJobCategoryFilters(updatedJobCategoryFilters);
   };
 
   const handleSearchInputChange = (searchInput) => {
@@ -128,7 +167,7 @@ function JobsPage(props) {
                 <div>
                   <SearchBar
                     id="search-jobs"
-                    placeholder="Search for Job or Organization"
+                    placeholder="Search for Job"
                     label="Search for Job or Organization"
                     onSearchInputChange={handleSearchInputChange}
                   />
@@ -138,12 +177,19 @@ function JobsPage(props) {
               </div>
               <div className="ly-1-3-1-bd-sec-right-sidebar">
                 {/* <CardComponent className="ht-full-percent wt-80-percent"></CardComponent> */}
-                <div>
+                <div className={classes.filterWrapper}>
                   <FilterSectionComponent
                     heading={"JOB TYPE"}
                     values={JOB_TYPE_FILTERS}
                     isChecked={isJobTypeSelected}
                     handleCheckboxChange={handleJobTypeCheckboxChange}
+                  />
+                </div>
+                <div className={classes.filterWrapper}>
+                  <FilterSectionComponent
+                    heading={"JOB CATEGORY"}
+                    values={JOB_CATEGORY_FILTERS}
+                    handleCheckboxChange={handleJobCategoryCheckboxChange}
                   />
                 </div>
               </div>
