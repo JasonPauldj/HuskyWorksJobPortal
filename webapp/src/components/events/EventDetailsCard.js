@@ -3,6 +3,7 @@ import CardComponent from "../genericComponent/genericCard/CardComponent";
 import "./EventDetailsCard.scss";
 import Maps from "./Maps";
 import { ClipLoader } from "react-spinners";
+import dateFormat from "dateformat";
 
 function EventDetailsCard(props) {
   const [loading, setLoading] = useState(true);
@@ -18,12 +19,14 @@ function EventDetailsCard(props) {
     <CardComponent className="event-container">
       {loading === false ? (
         <div>
-          <h3>{event.event_title}</h3>
-          <h3>{event.event_organizer}</h3>
-          <h3>{event.event_type}</h3>
-          <h3>{event.event_description}</h3>
-          <h3>{event.no_of_seats}</h3>
-          <h3>{event.event_date}</h3>
+          <h2>{event.event_title}</h2>
+          <h5>Organized by: {event.event_organizer}</h5>
+          <p>
+            <strong>Description:</strong> <br />
+            {event.event_description}
+          </p>
+          <p>{event.no_of_seats}</p>
+          <p>{dateFormat(event.event_date, "yyyy-mm-dd")}</p>
           <Maps
             lat={props.event.event_location.latitude}
             lng={props.event.event_location.longitude}

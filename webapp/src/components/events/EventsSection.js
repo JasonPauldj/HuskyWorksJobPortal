@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import EventCard from "./EventCard";
-
+import classes from "./EventSection.module.scss";
 function EventsSection(props) {
   const [events, setEvent] = useState(props.events);
 
@@ -12,7 +12,7 @@ function EventsSection(props) {
     return <EventCard key={event._id} event={event} />;
   });
 
-  return <>{eventCards}</>;
+  return <div className={classes.eventSection}>{eventCards}</div>;
 }
 
 export default EventsSection;

@@ -1,10 +1,6 @@
 import mongoose from "mongoose";
 //organization schema
 const orgSchema = new mongoose.Schema({
-  organizationId: {
-    type: Number,
-    required: "Organization id is required.",
-  },
   organizationLogo: {
     type: String,
   },

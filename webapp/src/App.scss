@@ -1,15 +1,15 @@
-@import './scss/utilities';
-@import './scss/general';
-@import './scss/SassVariables.scss';
-@import './scss/layouts.scss';
-
+@import "./scss/utilities";
+@import "./scss/general";
+@import "./scss/SassVariables.scss";
+@import "./scss/layouts.scss";
 
 .app {
-  background-color: $base-color;
+  background-color: $white-color;
   width: 100%;
   height: 100vh;
   overflow: hidden;
 }
+
 .body-section {
   display: flex;
 }
@@ -22,7 +22,7 @@
 .body-section-right {
   width: 80%;
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   overflow: hidden;
 }
 
@@ -71,7 +71,7 @@ button {
 
 .body-section-right-main {
   width: 70%;
-  height:90%;
+  height: 90%;
 }
 
 .body-section-right-sidebar {

@@ -16,6 +16,7 @@ import JobDetailPage from "./pages/jobs/JobDetailPage";
 import OrgDetailsPage from "./pages/organisation/OrgDetailsPage";
 import EventsPage from "./pages/events/EventsPage";
 import EventDetailsPage from "./pages/events/EventDetailsPage";
+import CreateEventsPage from "./pages/events/CreateEventsPage";
 
 function App() {
   const isAuth = useSelector((state) => state.auth.isAuthenticated);
@@ -54,6 +55,7 @@ function App() {
             {/* Path for Events */}
             <Route path="/events" element={<EventsPage />} />
             <Route path="/events/:event_id" element={<EventDetailsPage />} />
+            <Route path="/events/create-event" element={<CreateEventsPage />} />
           </Routes>
         </div>
       </Router>

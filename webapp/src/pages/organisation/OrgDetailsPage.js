@@ -39,9 +39,11 @@ function OrgDetailsPage() {
 
   useEffect(() => {
     const fetchOrgEvents = async () => {
-      const res = await axios.get(
-        `http://localhost:9000/events/?org_id=${org_id}`
-      );
+      const res = await axios({
+        method: "GET",
+        url: `http://localhost:9000/events/?org_id=${org_id}`,
+        maxContentLength: 1,
+      });
       setOrgEvents(res.data);
     };
 
