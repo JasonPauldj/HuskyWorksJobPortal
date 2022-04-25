@@ -13,7 +13,6 @@ import StudentDashboard from "./pages/dashboards/StudentDashboard";
 import JobsPage from "./pages/jobs/JobsPage";
 
 import { useSelector } from "react-redux";
-import JobsPage from "./pages/jobs/JobsPage";
 import JobDetailPage from "./pages/jobs/JobDetailPage";
 import OrgDetailsPage from "./pages/organisation/OrgDetailsPage";
 import EventsPage from "./pages/events/EventsPage";
@@ -38,11 +37,15 @@ function App() {
             <Route path="/signup-recruiter" element={<RecruiterSignUp />}></Route>
             <Route path="/dashboard-student/:id" element={<StudentDashboard />}></Route>
             <Route path="/dashboard-recruiter/:id" element={<RecruiterDashboard />}></Route>
-            
+
+            //Jobs Routes
+            <Route path="/jobs" element={<JobsPage />} />
+            <Route path="/jobs/:job_id" element={<JobDetailPage />} />
+
           </Routes>
         </div>
       </Router>
-     
+
     </div>
   );
 }
