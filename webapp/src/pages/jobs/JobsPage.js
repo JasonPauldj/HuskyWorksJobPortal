@@ -6,9 +6,11 @@ import JobCard from "../../components/jobs/JobCard";
 import SearchBar from "../../components/genericComponent/SearchBar";
 import classes from "./JobsPage.module.scss";
 import { JOB_CATEGORIES } from "../../utilities/constants";
+import { JOB_LOCATIONS } from "../../utilities/constants";
 
 const JOB_TYPE_FILTERS = ["FULL-TIME", "PART-TIME", "INTERNSHIP"];
 const JOB_CATEGORY_FILTERS = [...JOB_CATEGORIES];
+const JOB_LOCATION_FILTERS = [...JOB_LOCATIONS];
 
 
 let isInitial = true;
@@ -16,6 +18,7 @@ let isInitial = true;
 function JobsPage(props) {
   const [appliedJobTypeFilters, setJobTypeFilters] = useState([]);
   const [appliedJobCategoryFilters, setJobCategoryFilters] = useState([]);
+  const [appliedJobLocationFilters, setJobLocationFilters] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [jobs, setJobs] = useState([]);
 
@@ -48,7 +51,7 @@ function JobsPage(props) {
     let params = [];
     let jobTypeQueryParam = "";
     let jobCategoryQueryParam = "";
-
+    let jobLocationQueryParam = "";
 
     //checking if job type filters are selected
     if (appliedJobTypeFilters.length > 0) {
@@ -78,6 +81,21 @@ function JobsPage(props) {
       //url += `?job_types=${jobTypeQueryParam.slice(0, jobTypeQueryParam.length - 1)}`
     }
 
+
+    //checking if job location filters are selected
+    if (appliedJobLocationFilters.length > 0) {
+      appliedJobLocationFilters.forEach((jobLocationValue) => {
+        jobLocationQueryParam += `${jobLocationValue};`;
+      });
+    }
+    if (jobLocationQueryParam.length > 0) {
+      params.push({
+        paramName: "job_locations",
+        paramValue: jobLocationQueryParam.slice(0, jobLocationQueryParam.length - 1),
+      });
+      //url += `?job_types=${jobTypeQueryParam.slice(0, jobTypeQueryParam.length - 1)}`
+    }
+
     //checking if anything is entered in searchbar
     if (searchText.length > 0) {
       params.push({ paramName: "searchText", paramValue: searchText });
@@ -96,7 +114,7 @@ function JobsPage(props) {
     }
 
     fetchJobs(url);
-  }, [appliedJobTypeFilters, appliedJobCategoryFilters ,searchText]);
+  }, [appliedJobTypeFilters, appliedJobCategoryFilters , appliedJobLocationFilters,searchText]);
 
   const jobCards = jobs.map((job) => {
     return (
@@ -117,6 +135,9 @@ function JobsPage(props) {
 
   const isJobCategorySelected = (jobCategoryValue) =>
     appliedJobCategoryFilters.includes(jobCategoryValue);
+
+    const isJobLocationSelected = (jobLocationValue) =>
+    appliedJobLocationFilters.includes(jobLocationValue);
 
   const handleJobTypeCheckboxChange = (jobTypeValue) => {
     let updatedJobTypeFilters;
@@ -148,6 +169,22 @@ function JobsPage(props) {
       updatedJobCategoryFilters = [...appliedJobCategoryFilters, jobCategoryValue];
     }
     setJobCategoryFilters(updatedJobCategoryFilters);
+  };
+
+  const handleJobLocationCheckboxChange = (jobLocationValue) => {
+    let updatedJobLocationFilters;
+
+    //the filter was selected, remove it from appliedFilters
+    if (isJobLocationSelected(jobLocationValue)) {
+      updatedJobLocationFilters = appliedJobLocationFilters.filter(
+        (JTL) => JTL !== jobLocationValue
+      );
+    }
+    //the filter was not selected, add it to appliedFilters\
+    else {
+      updatedJobLocationFilters = [...appliedJobLocationFilters, jobLocationValue];
+    }
+    setJobLocationFilters(updatedJobLocationFilters);
   };
 
   const handleSearchInputChange = (searchInput) => {
@@ -190,6 +227,13 @@ function JobsPage(props) {
                     heading={"JOB CATEGORY"}
                     values={JOB_CATEGORY_FILTERS}
                     handleCheckboxChange={handleJobCategoryCheckboxChange}
+                  />
+                </div>
+                <div className={classes.filterWrapper}>
+                  <FilterSectionComponent
+                    heading={"JOB LOCATION"}
+                    values={JOB_LOCATION_FILTERS}
+                    handleCheckboxChange={handleJobLocationCheckboxChange}
                   />
                 </div>
               </div>
