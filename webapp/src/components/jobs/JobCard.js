@@ -37,7 +37,7 @@ function JobCard(props) {
         >{`${props.job.organizationName} is looking for a ${props.job.job_title}`}</div>
         <div className={classes.jobDetails}>
           {" "}
-          <LocationOnIcon style={{ fontSize: "0.8rem" }} />{" "}
+          <LocationOnIcon style={{ fontSize: "1rem" }} />{" "}
           {`${props.job.job_location} | ${props.job.job_type} | Pay ${props.job.job_salary}`}{" "}
         </div>
         <div className={classes.jobDeadline}>{`Apply By: ${new Date(

@@ -19,6 +19,8 @@ import EventsPage from "./pages/events/EventsPage";
 import EventDetailsPage from "./pages/events/EventDetailsPage";
 import {fetchStudentApplications} from './store/applications_slice';
 import { useEffect } from "react";
+import ApplicationPage from "./pages/applications/ApplicationPage";
+
 
 
 
@@ -54,6 +56,9 @@ function App() {
             //Jobs Routes
             <Route path="/jobs" element={<JobsPage />} />
             <Route path="/jobs/:job_id" element={<JobDetailPage />} />
+
+            //Application routes
+            <Route path="/student-applications" element={<ApplicationPage />} />      
 
           </Routes>
         </div>
