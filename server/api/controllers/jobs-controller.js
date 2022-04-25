@@ -25,13 +25,13 @@ export const postJob = async (req, res) => {
 
 // Method to get jobs using the get service
 export const getAllJobs = async (req, res) => {
-  const job_location = req.query.job_location;
+  const job_location = req.query.job_locations ? req.query.job_locations.split(';') : undefined;
   const job_type =req.query.job_types ? req.query.job_types.split(';') : undefined;
-  const job_category = req.query.job_category;
+  const job_category = req.query.job_categories ? req.query.job_categories.split(';') : undefined;
   const search = req.query.searchText;
   const org_id=req.query.org_id;
   
-  const query = {};
+  const query={};
 
   if (job_location) {
     query.job_location = job_location;

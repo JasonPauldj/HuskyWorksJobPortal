@@ -37,7 +37,7 @@
 
   &-bd-sec-left {
     width: 15%;
-    height: 90vh;
+    height: calc(100vh - 2rem);
   }
 
   &-bd-sec-right {

@@ -18,17 +18,17 @@
 
 .jobDesc {
   margin: 5px 5px;
-  font-size: 0.8rem;
+  font-size: 1.2rem;
 }
 
 .jobDetails {
   margin: 5px 5px;
-  font-size: 0.7rem;
+  font-size: 1.2rem;
 }
 
 .jobDeadline {
   margin: 5px 5px;
-  font-size: 0.8rem;
+  font-size: 1.2rem;
 }
 
 .divider {
@@ -40,10 +40,11 @@
   background-color: $blue-color;
   border-radius: 10px;
   width: 100%;
-  height: 1.6rem;
+  height: 1.8rem;
   color: $white-color;
 }
 
 .apply {
   margin: 5px auto;
+  text-align: center;
 }

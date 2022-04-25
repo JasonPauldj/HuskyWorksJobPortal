@@ -29,16 +29,20 @@ export const createApplication = async (request, response) => {
 export const getAllApplications = async (request, response) => {
     try{
     const status = request.query.status;
+    const studentId = request.query.studentId;
     const query =  {};
     if(status) {
         query.status = status;
     }
-    //when searched by query parameters, returns the events requested
+    if(studentId) {
+      query.student_id = studentId;
+  }
+    //when searched by query parameters, returns the applications requested
     if(query) {
       const applications = await ApplicationsService.filter(query);
       setSuccessResponse(applications, response);
     } 
-    //returns all existing tasks when no query parameters are requested
+    //returns all existing applications when no query parameters are requested
     else {
         const applications = await ApplicationsService.getApplications();
         setSuccessResponse(applications, response);

@@ -6,11 +6,18 @@ import CardComponent from '../../components/genericComponent/genericCard/CardCom
 import classes from './JobDetailPage.module.scss';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import JobsSection from '../../components/jobs/JobsSection';
+import ReviewContainer from "../../components/orgs/ReviewContainer";
+
 
 
 function JobDetailPage(props) {
     const [job, setJob] = useState(null);
     const [orgJobs, setOrgJobs] = useState([]);
+    const [org_id, setOrgId] = useState(0);
+
+    console.log("COMPONENT RERENDER");
+    console.log(job);
+    console.log(org_id);
 
 
     const params = useParams();
@@ -34,6 +41,8 @@ function JobDetailPage(props) {
         }
         //   const data = await response.json();
         fetchOrgJobs();
+        setOrgId(job.organization_id);
+
     }
 
     }, [job])
@@ -84,22 +93,12 @@ function JobDetailPage(props) {
                             </div>
                         </div>
                         <div className="ly-1-3-1-bd-sec-right-sidebar">
-                            {/*HERE IS WHERE YOUR RIGHT CONTENT SHOULD GO*/}
+                            <ReviewContainer key={org_id} organizationId={org_id} />
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        {/* <div className="flex-horizontal">
-            <div className="body-section-left">
-                <div className="leftSideBar">
-                </div>
-            </div>
-            <div className="body-section-right">
-               
-            </div>
-        </div> */}
     </>)
 
 }

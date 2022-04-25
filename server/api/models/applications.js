@@ -1,14 +1,9 @@
 import mongoose from "mongoose";
 
 const applicationSchema = new mongoose.Schema({
-  document_Type: {
-    type: String,
-    enum: ["RESUME", "COVER_LETTER"],
-    default: "Document type is required",
-  },
   document_id: {
     type: String,
-    required: "Event organizer is required.",
+    required: "Document id is required.",
   },
   status: {
     type: String,

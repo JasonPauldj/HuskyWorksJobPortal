@@ -28,6 +28,9 @@ function Navbar() {
         <Link to="/jobs" className="navbar-links-items">
           Browse Jobs
         </Link>
+        <Link to="/student-applications" className="navbar-links-items">
+          View My Applications
+        </Link>
         <a
           href="/organizations/625ef5818f55e8e632422328"
           className="navbar-links-items"
