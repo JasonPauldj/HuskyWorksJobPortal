@@ -18,6 +18,7 @@ import OrgDetailsPage from "./pages/organisation/OrgDetailsPage";
 import EventsPage from "./pages/events/EventsPage";
 import EventDetailsPage from "./pages/events/EventDetailsPage";
 import {fetchStudentApplications} from './store/applications_slice';
+import { useEffect } from "react";
 
 
 
@@ -30,7 +31,10 @@ function App() {
 
   //fetching applications from DB for dev purposes.
   //TODO - This shold be called only if logged in as STUDENT. and Id of Student should be passed.
-  dispatch(fetchStudentApplications("6266dfbe83f165d16ae1ef02"));
+  useEffect(()=>{
+    dispatch(fetchStudentApplications("6266dfbe83f165d16ae1ef02"));
+  },[]);
+
 
   return (
     <div className="prbg">

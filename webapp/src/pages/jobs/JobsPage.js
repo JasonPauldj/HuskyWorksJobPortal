@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import Navbar from "../../components/navbar/Navbar";
 import FilterSectionComponent from "../../components/genericComponent/FIlterSectionComponent";
@@ -9,6 +9,7 @@ import classes from "./JobsPage.module.scss";
 import { JOB_CATEGORIES } from "../../utilities/constants";
 import { JOB_LOCATIONS } from "../../utilities/constants";
 import ApplyModal from "../../components/jobs/ApplyModal";
+import {postApplication} from '../../store/applications_slice';
 
 
 const JOB_TYPE_FILTERS = ["FULL-TIME", "PART-TIME", "INTERNSHIP"];
@@ -28,6 +29,7 @@ function JobsPage(props) {
   const [selectedJob, setSelectedJob] = useState();
 
   const applications = useSelector((state=>state.applications.applications));
+  const dispatch = useDispatch();
 
 
   //getting all jobs when the component is rendered for the first Time
@@ -131,11 +133,14 @@ function JobsPage(props) {
   }
 
   const jobCards = jobs.map((job) => {
+        const applicationExist = applications.filter((application) =>application.job_id === job._id);
+
     return (
       <JobCard
         key={job._id}
         job={job}
         handleApplyButtonOnClick={handleApplyButtonOnClick}
+        isApplied={applicationExist.length > 0}
       />
     );
   });
@@ -201,8 +206,17 @@ function JobsPage(props) {
     setSearchText(searchInput);
   };
 
-  const onApplyConfirm=() =>{
-    //TODO - POST TO APPLICATION ENDPOINT
+  const onApplyConfirm=(job) =>{
+    //TODO - REMOVE HARDCODED DOCUMENT_ID and STUDENT_ID
+
+    const application={
+      document_id: "1",
+      status: "APPLIED",
+      job_id: job._id,
+      student_id: "6266dfbe83f165d16ae1ef02"
+    };
+
+    dispatch(postApplication(application))
     setSelectedJob(null);
     setIsApply(false);
   }

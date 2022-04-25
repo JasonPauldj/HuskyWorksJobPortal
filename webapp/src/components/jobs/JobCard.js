@@ -5,6 +5,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import ReactTooltip from 'react-tooltip';
 
 
+
 function JobCard(props) {
   const navigate = useNavigate();
 
@@ -13,8 +14,8 @@ function JobCard(props) {
   };
 
   //apply button onclick
-  const handleApplyButtonOnClick=(event)=>{
-    event.stopPropagation();    
+  const handleApplyButtonOnClick = (event) => {
+    event.stopPropagation();
     props.handleApplyButtonOnClick(props.job);
   }
 
@@ -43,12 +44,18 @@ function JobCard(props) {
           props.job.job_deadline
         ).toLocaleDateString()}`}</div>
         <div className={classes.divider}></div>
-        <div className={classes.apply} data-tip="" data-for="cardTooltip">
-          <button className={classes.btn_apply}  onClick={handleApplyButtonOnClick}>Apply</button>
-          <ReactTooltip id='cardTooltip' type='info'>
-        <span>Click to apply for job</span>
-      </ReactTooltip>
-        </div>
+       
+          {!props.isApplied &&  <div className={classes.apply} data-tip="" data-for="cardTooltip">
+            <button className={classes.btn_apply} onClick={handleApplyButtonOnClick}>Apply</button>
+            <ReactTooltip id='cardTooltip' type='info'>
+              <span>Click to apply for job</span>
+            </ReactTooltip>
+          </div>
+          }
+
+          {
+            props.isApplied && <p className={classes.apply}>Already Applied To This Job</p>
+          }
       </div>
 
     </CardComponent>

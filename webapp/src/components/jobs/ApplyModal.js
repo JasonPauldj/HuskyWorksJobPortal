@@ -7,17 +7,22 @@ const Backdrop = (props) => {
 };
 
 const Modal = (props) => {
+    
+  const handleOnApplyConfirm = ()=>{
+        props.onApplyConfirm(props.job);
+    }
+
     return (
         <CardComponent className={classes.modal}>
             <header className={classes.header}>
-                <h2>Apply for Job</h2>
+                <h2>Applying for Job</h2>
             </header>
             <div className={classes.content}>
                 <p>{`Are you sure you want to apply for the role ${props.job.job_title} at  ${props.job.organizationName}?`}</p>
             </div>
             <footer className={classes.btn_grp}>
                 <button onClick={props.onApplyReject}>No</button>
-                <button onClick={props.onApplyConfirm}>Yes</button>
+                <button onClick={handleOnApplyConfirm}>Yes</button>
             </footer>
         </CardComponent>
     );
