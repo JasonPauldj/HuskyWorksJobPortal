@@ -26,8 +26,19 @@ export const postEducation = async (req, res) => {
 // Method to get Educations using the get service
 export const getAllEducation = async (req, res) => {
   try {
-    const educations = await educationService.getEducations();
-    setSuccessResponse(educations, res);
+    const studentId = req.query.student_id;
+    const query = {}
+
+    if (studentId) {
+      query.student_id = studentId;
+    }
+    if(query) {
+        const educations = await educationService.filter(query);
+        setSuccessResponse(educations, res);
+    } else {
+      const educations = await educationService.getEducations();
+      setSuccessResponse(educations, res);
+    }
   } catch (err) {
     setErrorResponse(err, res);
   }

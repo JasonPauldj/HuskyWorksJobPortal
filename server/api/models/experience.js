@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const experienceSchema = new mongoose.Schema({
   student_id:{
-        type: Number,
+        type: String,
         required: true,
   },
   title: {

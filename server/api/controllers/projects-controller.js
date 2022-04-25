@@ -26,8 +26,19 @@ export const postProject = async (req, res) => {
 // Method to get Projects using the get service
 export const getAllProjects = async (req, res) => {
   try {
-    const projects = await projectService.getProjects();
-    setSuccessResponse(projects, res);
+    const studentId = req.query.student_id;
+    const query = {}
+
+    if (studentId) {
+      query.student_id = studentId;
+    }
+    if(query) {
+        const projects = await projectService.filter(query);
+        setSuccessResponse(projects, res);
+    } else {
+      const projects = await projectService.getEducations();
+      setSuccessResponse(projects, res);
+    }
   } catch (err) {
     setErrorResponse(err, res);
   }

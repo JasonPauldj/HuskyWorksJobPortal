@@ -6,6 +6,12 @@ export const addProject = (newProject) => {
     return project.save();
   };
   
+export const filter = (query) => {
+    const params = { ...query };
+    const project = Project.find(params).exec();
+    return project;
+  };
+
   // Method to get all Projects at once from db
   export const getProjects = () => {
     const projects = Project.find({}).exec();

@@ -5,6 +5,12 @@ export const addEducation = (newEducation) => {
     const education = new Education(newEducation);
     return education.save();
   };
+
+export const filter = (query) => {
+    const params = { ...query };
+    const educations = Education.find(params).exec();
+    return educations;
+  };
   
   // Method to get all Educations at once from db
   export const getEducations = () => {

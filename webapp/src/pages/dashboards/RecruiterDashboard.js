@@ -3,12 +3,15 @@ import Navbar from "../../components/navbar/Navbar";
 import axios from "axios";
 import classes from "../jobs/JobsPage.module.scss";
 import JobCard from "../../components/jobs/JobCard";import { useSelector } from "react-redux";
+import AuthService from "../../utilities/AuthService";
+import { useDispatch } from "react-redux";
+import { authActions } from "../../store/auth_slice";
 
 function RecruiterDashboard() {
     const recruiter = useSelector(state => state.auth.user);
     console.log(recruiter, "recruiter");
     console.log(recruiter.organizationId, "org");
-
+    const dispatch = useDispatch();
     const [jobs, setJobs] = useState([]);
     const [jobsPosted, setJobsPosted] = useState([]);
     const [orgPosting, setOrgPosting] = useState([]);

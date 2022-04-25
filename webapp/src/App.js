@@ -18,6 +18,9 @@ import EventsPage from "./pages/events/EventsPage";
 import EventDetailsPage from "./pages/events/EventDetailsPage";
 import CreateEventsPage from "./pages/events/CreateEventsPage";
 import CreateOrgPage from "./pages/organisation/CreateOrgPage";
+import NewEducationForm from "./pages/profiles/StudentProfile/NewEducationForm";
+import NewProjectForm from "./pages/profiles/StudentProfile/NewProjectForm";
+import NewWorkExForm from "./pages/profiles/StudentProfile/NewWorkExForm";
 
 
 function App() {
@@ -59,6 +62,13 @@ function App() {
             <Route path="/events" element={<EventsPage />} />
             <Route path="/events/:event_id" element={<EventDetailsPage />} />
             <Route path="/events/create-event" element={<CreateEventsPage />} />
+
+            {/* Path for student profile */}
+            <Route path="/profiles/studentEducation/:student_id" element={<NewEducationForm />} />
+            <Route path="/profiles/studentWorkEx/:student_id" element={<NewWorkExForm />} />
+            <Route path="/profiles/studentProject/:student_id" element={<NewProjectForm />} />
+            <Route path="/profiles/:student_id" element={<StudentProfile />} />
+            
           </Routes>
         </div>
       </Router>

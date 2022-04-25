@@ -11,7 +11,13 @@ export const addExperience = (newExperience) => {
     const experiences = Experience.find({}).exec();
     return experiences; // returns a promise
   };
-  
+ 
+  export const filter = (query) => {
+    const params = { ...query };
+    const experiences = Experience.find(params).exec();
+    return experiences;
+  };
+
   // Method to get a specific Experience by id from db
   export const getExperienceById = (id) => {
     const experience = Experience.findById(id).exec();

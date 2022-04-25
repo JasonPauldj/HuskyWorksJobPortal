@@ -26,8 +26,19 @@ export const postExperience = async (req, res) => {
 // Method to get Experiences using the get service
 export const getAllExperiences = async (req, res) => {
   try {
-    const experiences = await experienceService.getExperiences();
-    setSuccessResponse(experiences, res);
+    const studentId = req.query.student_id;
+    const query = {}
+
+    if (studentId) {
+      query.student_id = studentId;
+    }
+    if(query) {
+        const experiences = await experienceService.filter(query);
+        setSuccessResponse(experiences, res);
+    } else {
+      const experiences = await experienceService.getExperiences();
+      setSuccessResponse(experiences, res);
+    }  
   } catch (err) {
     setErrorResponse(err, res);
   }
