@@ -245,8 +245,10 @@ function JobsPage(props) {
                     onSearchInputChange={handleSearchInputChange}
                   />
                 </div>
-
-                <div className={classes.jobsContainer}>{jobCards}</div>
+                {jobs.length===0 && <div className={classes.infoMessage}>No Jobs Were Found</div>}
+                {jobs.length> 0 && <div className={classes.jobsContainer}>
+                  {jobCards}
+                  </div>}
               </div>
               <div className="ly-1-3-1-bd-sec-right-sidebar">
                 {/* <CardComponent className="ht-full-percent wt-80-percent"></CardComponent> */}
