@@ -2,10 +2,6 @@ import mongoose from "mongoose";
 
 //Recruiter Schema
 const recruiterSchema = new mongoose.Schema({
-    recruiterId: {
-        type: String,
-        required: "Recruiter id is required.",
-    },
     username : {
         type : String,
         required : true,

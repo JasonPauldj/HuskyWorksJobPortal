@@ -18,6 +18,8 @@ import JobDetailPage from "./pages/jobs/JobDetailPage";
 import OrgDetailsPage from "./pages/organisation/OrgDetailsPage";
 import EventsPage from "./pages/events/EventsPage";
 import EventDetailsPage from "./pages/events/EventDetailsPage";
+import CreateEventsPage from "./pages/events/CreateEventsPage";
+import CreateOrgPage from "./pages/organisation/CreateOrgPage";
 
 
 function App() {
@@ -35,10 +37,30 @@ function App() {
             ></Route>
             <Route path="/student/:id" element={<StudentProfile />}></Route>
             <Route path="/signup-student" element={<SignUpStudent />}></Route>
-            <Route path="/signup-recruiter" element={<RecruiterSignUp />}></Route>
-            <Route path="/dashboard-student/:id" element={<StudentDashboard />}></Route>
-            <Route path="/dashboard-recruiter/:id" element={<RecruiterDashboard />}></Route>
-            
+            <Route
+              path="/signup-recruiter"
+              element={<RecruiterSignUp />}
+            ></Route>
+            <Route
+              path="/dashboard-student/:id"
+              element={<StudentDashboard />}
+            ></Route>
+            <Route
+              path="/dashboard-recruiter/:id"
+              element={<RecruiterDashboard />}
+            ></Route>
+            <Route path="/jobs" element={<JobsPage />} />
+            <Route path="/jobs/:job_id" element={<JobDetailPage />} />
+
+            {/* Path for Organizations*/}
+            <Route path="/organizations" element={<OrgDetailsPage />} />
+            <Route path="/organizations/:org_id" element={<OrgDetailsPage />} />
+            <Route path="/organizations/create-org" element={<CreateOrgPage />} />
+
+            {/* Path for Events */}
+            <Route path="/events" element={<EventsPage />} />
+            <Route path="/events/:event_id" element={<EventDetailsPage />} />
+            <Route path="/events/create-event" element={<CreateEventsPage />} />
           </Routes>
         </div>
       </Router>
