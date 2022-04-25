@@ -2,6 +2,8 @@ import CardComponent from "../genericComponent/genericCard/CardComponent";
 import { useNavigate } from "react-router-dom";
 import classes from "./JobCard.module.scss";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import ReactTooltip from 'react-tooltip';
+
 
 function JobCard(props) {
   const navigate = useNavigate();
@@ -15,7 +17,7 @@ function JobCard(props) {
       className={`wt-30-percent ${classes.jobCard}`}
       onClick={handleCardOnClick}
     >
-      <div>
+      <div >
         <div className={classes.orgSection}>
           <img
             className={classes.orgImg}
@@ -35,10 +37,14 @@ function JobCard(props) {
           props.job.job_deadline
         ).toLocaleDateString()}`}</div>
         <div className={classes.divider}></div>
-        <div className={classes.apply}>
+        <div className={classes.apply} data-tip="" data-for="cardTooltip">
           <button className={classes.btn_apply}>Apply</button>
+          <ReactTooltip id='cardTooltip' type='info'>
+        <span>Click to apply for job</span>
+      </ReactTooltip>
         </div>
       </div>
+
     </CardComponent>
   );
 }
