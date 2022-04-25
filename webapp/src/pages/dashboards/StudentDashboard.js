@@ -10,7 +10,6 @@ import "./StudentDashboard.scss";
 import { authActions } from "../../store/auth_slice";
 import AuthService from "../../utilities/AuthService";
 
-let dum = [];
 
 function StudentDashboard() {
   let user = useSelector((state) => state.auth.user);

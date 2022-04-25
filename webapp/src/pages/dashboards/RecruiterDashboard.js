@@ -2,7 +2,13 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../../components/navbar/Navbar";
 import axios from "axios";
 import classes from "../jobs/JobsPage.module.scss";
-import JobCard from "../../components/jobs/JobCard";import { useSelector } from "react-redux";
+import JobCard from "../../components/jobs/JobCard";
+import { useSelector, useDispatch } from "react-redux";
+import AuthService from "../../utilities/AuthService";
+import { authActions } from "../../store/auth_slice";
+import EventCard from "../../components/events/EventCard";
+
+
 
 function RecruiterDashboard() {
     const recruiter = useSelector(state => state.auth.user);
@@ -12,7 +18,9 @@ function RecruiterDashboard() {
     const [jobs, setJobs] = useState([]);
     const [jobsPosted, setJobsPosted] = useState([]);
     const [orgPosting, setOrgPosting] = useState([]);
-    
+    const [eventsPosted, setEventsPosted] = useState({});
+    const dispatch = useDispatch();
+
     const checkUser = () => {
       if (recruiter.length == 0) {
         recruiter = AuthService.getCurrUser();
@@ -23,10 +31,7 @@ function RecruiterDashboard() {
     useEffect(() => {
       checkUser();
     }, []);
-  
 
-
-   
     useEffect(() => {
           const fetchJobsPosted = async () => {
               const response = await axios.get('http://localhost:9000/jobs');
@@ -42,6 +47,22 @@ function RecruiterDashboard() {
           }
           fetchJobsPosted(); 
   }, [])
+
+  useEffect(() => {
+    const fetchEventsPosted = async () => {
+        const response = await axios.get('http://localhost:9000/events');
+        console.log(response.data, "check events")
+        // setEvents(response.data);
+        console.log(recruiter._id, "recruiter Id");
+
+        response.data.map((d)=> console.log(d.recruiterId, "recids"));
+        const eventsPostedByrecruiter= response.data.filter((event) => event.recruiterId === recruiter._id);
+        setEventsPosted(eventsPostedByrecruiter);
+        console.log(" events posted", eventsPostedByrecruiter);
+    }
+    fetchEventsPosted(); 
+}, [])
+
 
 
   const jobsPostedCards = jobsPosted.map((job) => {
@@ -72,6 +93,10 @@ function RecruiterDashboard() {
     );
   });
 
+  const eventsPostedByRecruiter = eventsPosted.map((event) => {
+    return <EventCard key={event._id} event={event} />;
+  });
+  
 
 
 
@@ -90,11 +115,6 @@ function RecruiterDashboard() {
             <br></br>
             <div className={classes.jobsContainer}>{jobsPostedCards}</div>
           </div>
-          
-
-          <div className="ly-1-3-1-bd-sec-right-sidebar">
-            {/* <CardComponent className="ht-full-percent wt-80-percent"></CardComponent> */}
-          </div>
         </div>
         <div className="ly-1-3-1-bd-sec-right-container">
           <div className="ly-1-3-1-bd-sec-right-main">
@@ -105,10 +125,17 @@ function RecruiterDashboard() {
             <br></br>
             <div className={classes.jobsContainer}>{orgPostingCards}</div>
           </div>
-          
+        </div>
 
-          <div className="ly-1-3-1-bd-sec-right-sidebar">
-            {/* <CardComponent className="ht-full-percent wt-80-percent"></CardComponent> */}
+
+        <div className="ly-1-3-1-bd-sec-right-container">
+          <div className="ly-1-3-1-bd-sec-right-main">
+            <div className="applications-section-header">
+              <p className="heading">My Events</p>
+            </div>
+            <div class="h_line"></div>
+            <br></br>
+            <div className={classes.jobsContainer}>{orgPostingCards}</div>
           </div>
         </div>
 
