@@ -5,6 +5,9 @@ import FilterSectionComponent from "../../components/genericComponent/FIlterSect
 import JobCard from "../../components/jobs/JobCard";
 import SearchBar from "../../components/genericComponent/SearchBar";
 import classes from "./JobsPage.module.scss";
+import { useSelector, useDispatch } from "react-redux";
+import { authActions } from "../../store/auth_slice";
+import AuthService from "../../utilities/AuthService";
 
 const JOB_TYPE_FILTERS = ["FULL-TIME", "PART-TIME", "INTERNSHIP"];
 
@@ -14,6 +17,23 @@ function JobsPage(props) {
   const [appliedJobTypeFilters, setJobTypeFilters] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [jobs, setJobs] = useState([]);
+  let user = useSelector((state) => state.auth.user);
+
+  const dispatch = useDispatch();
+
+  const checkUser = () => {
+    // console.log(AuthService.getCurrUser(), "AuthService.getCurrUser()");
+    if (user.length == 0) {
+      user = AuthService.getCurrUser();
+      dispatch(authActions.login(AuthService.getCurrUser() || {}));
+    }
+  };
+
+  useEffect(() => {
+    checkUser();
+  }, []);
+
+  console.log(user, "ststs");
 
   //getting all jobs when the component is rendered for the first Time
   useEffect(() => {

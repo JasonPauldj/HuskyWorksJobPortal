@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { authActions } from "../../store/auth_slice";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import AuthService from "../../utilities/AuthService";
 import "./Login.scss";
 
 export default function Login() {
@@ -25,7 +26,7 @@ export default function Login() {
         console.log(response.data);
         setUser(response.data);
         //set to local storage
-        localStorage.setItem('user', JSON.stringify(response.data));
+        AuthService.setCurrUser(response.data);
         dispatch(authActions.login(response.data));
         nav(`/dashboard-student/${response.data._id}`);
       } else if(loginAs === 'Recruiter') {

@@ -1,24 +1,39 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import CardComponent from "../../components/genericComponent/genericCard/CardComponent";
 import Navbar from "../../components/navbar/Navbar";
 import axios from "axios";
 import classes from "../jobs/JobsPage.module.scss";
 import JobCard from "../../components/jobs/JobCard";
 import EventCard from "../../components/events/EventCard";
-import './StudentDashboard.scss';
+import "./StudentDashboard.scss";
+import { authActions } from "../../store/auth_slice";
+import AuthService from "../../utilities/AuthService";
 
 let dum = [];
 
 function StudentDashboard() {
-  const user = useSelector((state) => state.auth.user);
-  console.log(user, "user");
+  let user = useSelector((state) => state.auth.user);
+  // console.log(user, "user");
   // console.log(localStorage.getItem('user'), "userdetails");
 
   const [jobs, setJobs] = useState([]);
   const [events, setEvents] = useState([]);
+  const dispatch = useDispatch();
 
+  const checkUser = () => {
+    // console.log(AuthService.getCurrUser(), "AuthService.getCurrUser()");
+    if (user.length == 0) {
+      user = AuthService.getCurrUser();
+      dispatch(authActions.login(AuthService.getCurrUser() || {}));
+    }
+  };
 
+  useEffect(() => {
+    checkUser();
+  }, []);
+
+  console.log(user, "ststs");
   useEffect(() => {
     const fetchAppliedJobs = async () => {
       await axios
@@ -36,7 +51,7 @@ function StudentDashboard() {
         .get(`http://localhost:9000/student/events/${user._id}`)
         .then(async (res) => {
           setEvents(res.data);
-          console.log("fetch events", res.data)
+          console.log("fetch events", res.data);
         });
     };
     fetchRegisteredEvents();
@@ -56,16 +71,7 @@ function StudentDashboard() {
   });
 
   const eventCards = events.map((event) => {
-    return (
-      <EventCard
-        key={event._id}
-        event_id={event._id}
-        event_title={event.event_title}
-        event_type={event.event_type}
-        event_date={new Date(event.event_date).toLocaleDateString()}
-        event_seats={event.no_of_seats}
-      />
-    );
+    return <EventCard key={event._id} event={event} />;
   });
 
   // console.log(dum, "dumddwedwewdmm");
@@ -84,7 +90,6 @@ function StudentDashboard() {
             <br></br>
             <div className={classes.jobsContainer}>{jobCards}</div>
           </div>
-          
 
           <div className="ly-1-3-1-bd-sec-right-sidebar">
             {/* <CardComponent className="ht-full-percent wt-80-percent"></CardComponent> */}
@@ -99,15 +104,11 @@ function StudentDashboard() {
             <br></br>
             <div className={classes.jobsContainer}>{eventCards}</div>
           </div>
-          
 
           <div className="ly-1-3-1-bd-sec-right-sidebar">
             {/* <CardComponent className="ht-full-percent wt-80-percent"></CardComponent> */}
           </div>
         </div>
-
-        
-
       </div>
     </div>
   );
