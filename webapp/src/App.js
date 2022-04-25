@@ -12,16 +12,25 @@ import RecruiterDashboard from "./pages/dashboards/RecruiterDashboard";
 import StudentDashboard from "./pages/dashboards/StudentDashboard";
 import JobsPage from "./pages/jobs/JobsPage";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import JobDetailPage from "./pages/jobs/JobDetailPage";
 import OrgDetailsPage from "./pages/organisation/OrgDetailsPage";
 import EventsPage from "./pages/events/EventsPage";
 import EventDetailsPage from "./pages/events/EventDetailsPage";
+import {fetchStudentApplications} from './store/applications_slice';
+
 
 
 function App() {
   const isAuth = useSelector((state) => state.auth.isAuthenticated);
+  const applications = useSelector((state=>state.applications.applications));
   console.log(isAuth, "isAuth");
+
+  const dispatch = useDispatch();
+
+  //fetching applications from DB for dev purposes.
+  //TODO - This shold be called only if logged in as STUDENT. and Id of Student should be passed.
+  dispatch(fetchStudentApplications("6266dfbe83f165d16ae1ef02"));
 
   return (
     <div className="prbg">

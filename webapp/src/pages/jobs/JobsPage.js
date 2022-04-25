@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import Navbar from "../../components/navbar/Navbar";
 import FilterSectionComponent from "../../components/genericComponent/FIlterSectionComponent";
@@ -8,6 +9,7 @@ import classes from "./JobsPage.module.scss";
 import { JOB_CATEGORIES } from "../../utilities/constants";
 import { JOB_LOCATIONS } from "../../utilities/constants";
 import ApplyModal from "../../components/jobs/ApplyModal";
+
 
 const JOB_TYPE_FILTERS = ["FULL-TIME", "PART-TIME", "INTERNSHIP"];
 const JOB_CATEGORY_FILTERS = [...JOB_CATEGORIES];
@@ -24,6 +26,9 @@ function JobsPage(props) {
   const [jobs, setJobs] = useState([]);
   const [isApply, setIsApply] = useState(false);
   const [selectedJob, setSelectedJob] = useState();
+
+  const applications = useSelector((state=>state.applications.applications));
+
 
   //getting all jobs when the component is rendered for the first Time
   useEffect(() => {
