@@ -48,7 +48,7 @@ const jobSchema = new mongoose.Schema({
     required: "Job duration is required.",
   },
   recruiterId: {
-    type: Number,
+    type: String,
     required: "Recruiter id is required.",
   },
   organization_id: {

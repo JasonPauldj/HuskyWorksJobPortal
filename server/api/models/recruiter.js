@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 //Recruiter Schema
 const recruiterSchema = new mongoose.Schema({
     recruiterId: {
-        type: Number,
+        type: String,
         required: "Recruiter id is required.",
     },
     username : {
@@ -22,6 +22,10 @@ const recruiterSchema = new mongoose.Schema({
     lastname : {
         type : String,
         required : true
+    },
+    organization_id: {
+        type: String,
+        required: "Organization id is required.",
     },
     email :{
         type: String,
