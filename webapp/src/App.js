@@ -17,6 +17,7 @@ import OrgDetailsPage from "./pages/organisation/OrgDetailsPage";
 import EventsPage from "./pages/events/EventsPage";
 import EventDetailsPage from "./pages/events/EventDetailsPage";
 import CreateEventsPage from "./pages/events/CreateEventsPage";
+import CreateOrgPage from "./pages/organisation/CreateOrgPage";
 
 function App() {
   const isAuth = useSelector((state) => state.auth.isAuthenticated);
@@ -51,6 +52,7 @@ function App() {
             {/* Path for Organizations*/}
             <Route path="/organizations" element={<OrgDetailsPage />} />
             <Route path="/organizations/:org_id" element={<OrgDetailsPage />} />
+            <Route path="/organizations/create-org" element={<CreateOrgPage />} />
 
             {/* Path for Events */}
             <Route path="/events" element={<EventsPage />} />

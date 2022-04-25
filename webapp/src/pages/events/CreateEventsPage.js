@@ -55,6 +55,13 @@ function CreateEventsPage() {
     };
 
     addEvent(event);
+    setTitle("");
+    setDate("");
+    setDesc("");
+    setLat(0);
+    setLng(0);
+    setOrgName("");
+    setSeats(0);
   };
 
   return (
@@ -67,6 +74,7 @@ function CreateEventsPage() {
           label="Title"
           margin="dense"
           variant="outlined"
+          value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
         <TextField
@@ -74,6 +82,7 @@ function CreateEventsPage() {
           className={classes.formInputs}
           variant="outlined"
           margin="dense"
+          value={orgName}
           label="Organizer Name"
           onChange={(e) => setOrgName(e.target.value)}
         />
@@ -82,6 +91,7 @@ function CreateEventsPage() {
           className={classes.formInputs}
           variant="outlined"
           margin="dense"
+          value={desc}
           label="Description"
           onChange={(e) => setDesc(e.target.value)}
         />
@@ -91,6 +101,7 @@ function CreateEventsPage() {
           variant="outlined"
           margin="dense"
           label="Location"
+          value={`${lat}, ${lng}`}
           onChange={(e) => {
             const location = e.target.value.split(",");
             setLat(location[0]);
@@ -102,6 +113,7 @@ function CreateEventsPage() {
           className={classes.formInputs}
           variant="outlined"
           margin="dense"
+          value={seats}
           label="Seats"
           onChange={(e) => setSeats(e.target.value)}
         />
@@ -109,6 +121,7 @@ function CreateEventsPage() {
           type="date"
           className={classes.formInputs}
           variant="outlined"
+          value={date}
           margin="dense"
           onChange={(e) => setDate(e.target.value)}
         />
