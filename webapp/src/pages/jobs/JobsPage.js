@@ -7,6 +7,7 @@ import SearchBar from "../../components/genericComponent/SearchBar";
 import classes from "./JobsPage.module.scss";
 import { JOB_CATEGORIES } from "../../utilities/constants";
 import { JOB_LOCATIONS } from "../../utilities/constants";
+import ApplyModal from "../../components/jobs/ApplyModal";
 
 const JOB_TYPE_FILTERS = ["FULL-TIME", "PART-TIME", "INTERNSHIP"];
 const JOB_CATEGORY_FILTERS = [...JOB_CATEGORIES];
@@ -21,6 +22,8 @@ function JobsPage(props) {
   const [appliedJobLocationFilters, setJobLocationFilters] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [jobs, setJobs] = useState([]);
+  const [isApply, setIsApply] = useState(false);
+  const [selectedJob, setSelectedJob] = useState();
 
   //getting all jobs when the component is rendered for the first Time
   useEffect(() => {
@@ -116,16 +119,18 @@ function JobsPage(props) {
     fetchJobs(url);
   }, [appliedJobTypeFilters, appliedJobCategoryFilters , appliedJobLocationFilters,searchText]);
 
+  
+  const handleApplyButtonOnClick = (job)=>{
+    setSelectedJob(job);
+    setIsApply(true);
+  }
+
   const jobCards = jobs.map((job) => {
     return (
       <JobCard
         key={job._id}
         job={job}
-        job_id={job._id}
-        job_title={job.job_title}
-        job_type={job.job_type}
-        job_deadline={new Date(job.job_deadline).toLocaleDateString()}
-        org
+        handleApplyButtonOnClick={handleApplyButtonOnClick}
       />
     );
   });
@@ -191,9 +196,21 @@ function JobsPage(props) {
     setSearchText(searchInput);
   };
 
+  const onApplyConfirm=() =>{
+    //TODO - POST TO APPLICATION ENDPOINT
+    setSelectedJob(null);
+    setIsApply(false);
+  }
+
+  const onApplyReject=() =>{
+    setSelectedJob(null);
+    setIsApply(false);
+  }
+
   return (
     <>
       <div className="prbg ht-full-viewport py-1">
+        {isApply && <ApplyModal onApplyConfirm={onApplyConfirm} onApplyReject={onApplyReject} job={selectedJob}/>}
         <div className="flex-horizontal">
           <div className="ly-1-3-1-bd-sec-left ">
             <Navbar />

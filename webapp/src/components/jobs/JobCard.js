@@ -9,8 +9,14 @@ function JobCard(props) {
   const navigate = useNavigate();
 
   const handleCardOnClick = () => {
-    navigate(`/jobs/${props.job_id}`);
+    navigate(`/jobs/${props.job._id}`);
   };
+
+  //apply button onclick
+  const handleApplyButtonOnClick=(event)=>{
+    event.stopPropagation();    
+    props.handleApplyButtonOnClick(props.job);
+  }
 
   return (
     <CardComponent
@@ -38,7 +44,7 @@ function JobCard(props) {
         ).toLocaleDateString()}`}</div>
         <div className={classes.divider}></div>
         <div className={classes.apply} data-tip="" data-for="cardTooltip">
-          <button className={classes.btn_apply}>Apply</button>
+          <button className={classes.btn_apply}  onClick={handleApplyButtonOnClick}>Apply</button>
           <ReactTooltip id='cardTooltip' type='info'>
         <span>Click to apply for job</span>
       </ReactTooltip>
