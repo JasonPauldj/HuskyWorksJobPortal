@@ -66,6 +66,7 @@ const loginStudent = async (student, response) => {
       refreshToken: refreshToken,
       isAdmin: false,
       isStudent: true,
+      student: student,
     });
     // setSuccessResponse(login, response);
   } else {
@@ -90,6 +91,7 @@ const loginRecruiter = async (recruiter, response) => {
       refreshToken: refreshToken,
       isAdmin: false,
       isStudent: false,
+      recruiter: recruiter,
     });
     // setSuccessResponse(login, response);
   } else {
