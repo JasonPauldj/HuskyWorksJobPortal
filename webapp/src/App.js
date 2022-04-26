@@ -83,7 +83,7 @@ function App() {
             <Route path="/student-applications" element={<ApplicationPage />} />     
 
             {/* Path for Recruiter Post Job */} 
-            <Route path="/create-job" element={<CreateJobsPage />} />    
+            <Route path="/jobs/create-job" element={<CreateJobsPage />} />    
           </Routes>
         </div>
       </Router>

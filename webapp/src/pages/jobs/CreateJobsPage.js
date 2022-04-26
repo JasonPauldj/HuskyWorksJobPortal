@@ -7,7 +7,9 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import CardComponent from "../../components/genericComponent/genericCard/CardComponent";
 import classes from "./CreateJobsPage.module.scss";
 import axios from "axios";
@@ -39,11 +41,12 @@ function CreateJobsPage() {
   const [desc, setDesc] = useState("");
   const [responsibilities, setResponsibilities] = useState("");
   const [location, setLocation] = useState("");
-  const [deadlineDate, setDeadlineDate] = useState({});
+  const [deadlineDate, setDeadlineDate] = useState(new Date().toISOString().split('T')[0]);
   const [type, setType] = useState("");
   const [category, setCategory] = useState("");
   const [salary, setSalary] = useState(0);
 
+  const navigate = useNavigate();
 
   const handleSubmit = () => {
     const job = {
@@ -58,7 +61,7 @@ function CreateJobsPage() {
       recruiterId: "6266aebe4fc1e005cd7ef8ed",
       organization_id: "62633f632a7fcc1215ddc09e",
       organizationName: "Philips",
-      job_post_date: new Date(),
+      job_post_date: new Date().toISOString().split('T')[0],
       job_category: category
     };
 
@@ -85,32 +88,53 @@ function CreateJobsPage() {
     setResponsibilities("");
     setLocation("");
     setCategory("");
-    setDeadlineDate(null);
+    setDeadlineDate(new Date().toISOString().split('T')[0]);
     setType("");
     setSalary(0);
   };
 
   const menuJobCatItems = JOB_CATEGORIES.map((category) => {
     return (
-      <MenuItem value={category}>{category}</MenuItem>
+      <MenuItem key={category} value={category}>{category}</MenuItem>
     )
   })
 
   const menuJobLocItems = JOB_LOCATIONS.map((location) => {
     return (
-      <MenuItem value={location}>{location}</MenuItem>
+      <MenuItem key={location} value={location}>{location}</MenuItem>
     )
   })
 
   const menuJobTypeItems = JOB_TYPES.map((type) => {
     return (
-      <MenuItem value={type}>{type}</MenuItem>
+      <MenuItem key={type} value={type}>{type}</MenuItem>
     )
   })
 
+  const handleDeadlineDateChange= (ev) =>{
+    const duedate = ev.target.value;
+    const year = duedate.split('-')[0];
+    const month = duedate.split('-')[1];
+    const day = duedate.split('-')[2];
+    setDeadlineDate(`${year}-${month}-${day}`);
+}
+
+const handleClose=(ev)=>{
+  //TODO - REMOVE HARDCODED VALUE
+  navigate(`/dashboard-recruiter/6266aebe4fc1e005cd7ef8ed`, {replace: true});
+}
 
   return (
-    <CardComponent className={`ht-full-percent ${classes.createJobCard}`}>
+    <div className="prbg ht-full-viewport py-1">
+    <div className="flex-horizontal">
+      <div className="ly-1-4-bd-sec-left">
+        {/*HERE IS WHERE YOUR NAVBAR/LEFTSIDEBAR SHOULD GO*/}
+      </div>
+      <div className="ly-1-4-bd-sec-right">
+        <div className="ly-1-4-bd-sec-right-container flex-horizontal">
+          <div className="ly-1-4-bd-sec-right-main">
+          <CardComponent className={`ht-full-percent ${classes.createJobCard}`}>
+      <CloseIcon  style={{position: 'absolute',right:'5px', top: '5px', fontSize: '3rem'}} onClick={handleClose} />
       <div className={classes.formContainer}>
         <h3>Create an Job</h3>
         <TextField
@@ -199,9 +223,12 @@ function CreateJobsPage() {
           type="date"
           className={classes.formInputs}
           variant="outlined"
+          InputLabelProps={{ shrink: true, required: true }}
           value={deadlineDate}
           margin="dense"
-          onChange={(e) => setDeadlineDate(e.target.value)}
+          onChange={handleDeadlineDateChange}
+          label="Application Deadline"
+
         />
         <Button
           className={classes.formBtn}
@@ -212,6 +239,12 @@ function CreateJobsPage() {
         </Button>
       </div>
     </CardComponent>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+   
   );
 }
 

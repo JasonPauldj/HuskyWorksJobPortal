@@ -1,12 +1,13 @@
 @import "../../scss/SassVariables.scss";
 
 .createJobCard {
-  position: absolute;
+  position: relative;
   width: calc(100% - 2rem);
   height: calc(100vh - 2rem);
   padding: 3rem;
   margin: 1rem;
   box-shadow: 5px 5px 5px 5px $grey;
+  overflow:scroll;
 }
 
 .formContainer {
@@ -27,7 +28,7 @@
 }
 
 .selectSection{
-  margin-top:1rem auto;
+  margin:1rem auto;
   width: 60%;
 }
 

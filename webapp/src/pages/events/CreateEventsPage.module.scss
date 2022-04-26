@@ -1,7 +1,7 @@
 @import "../../scss/SassVariables.scss";
 
 .createEventCard {
-  position: absolute;
+  position: relative;
   width: calc(100% - 2rem);
   height: calc(100vh - 2rem);
   padding: 3rem;

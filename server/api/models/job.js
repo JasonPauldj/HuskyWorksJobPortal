@@ -34,18 +34,9 @@ const jobSchema = new mongoose.Schema({
   job_category: {
     type: String,
   },
-  degree_level: {
-    type: String,
-    enum: ["UNDERGRADUATE", "GRADUATE"],
-    default: "GRADUATE",
-  },
   job_deadline: {
     type: Date,
     required: "Job deadline is required.",
-  },
-  job_duration: {
-    type: Number,
-    required: "Job duration is required.",
   },
   recruiterId: {
     type: String,
