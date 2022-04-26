@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../../components/navbar/Navbar";
 import FilterSectionComponent from "../../components/genericComponent/FIlterSectionComponent";
@@ -28,12 +29,21 @@ function JobsPage(props) {
   let user = useSelector((state) => state.auth.user);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const checkUser = () => {
-    // console.log(AuthService.getCurrUser(), "AuthService.getCurrUser()");
-    if (user.length == 0) {
+    //if user not in store
+    if (!user) {
       user = AuthService.getCurrUser();
-      dispatch(authActions.login(AuthService.getCurrUser() || {}));
+      
+      //if user not in persistent local store
+      if(!user)
+      {
+        navigate('/');
+        return;
+      }
+      //add user to store
+       dispatch(authActions.login(user));
     }
   };
 
@@ -41,7 +51,6 @@ function JobsPage(props) {
     checkUser();
   }, []);
 
-  console.log(user, "ststs");
   const [isApply, setIsApply] = useState(false);
   const [selectedJob, setSelectedJob] = useState();
 
@@ -239,13 +248,14 @@ function JobsPage(props) {
   };
 
   const onApplyConfirm = (job) => {
-    //TODO - REMOVE HARDCODED DOCUMENT_ID and STUDENT_ID
 
     const application = {
       document_id: "1",
       status: "APPLIED",
       job_id: job._id,
-      student_id: "6266dfbe83f165d16ae1ef02",
+      student_id: user.student._id,
+      student_gpa: user.student.gpa.$numberDecimal,
+      student_name: `${user.student.firstname} ${user.student.lastname}`
     };
 
     dispatch(postApplication(application));

@@ -15,10 +15,6 @@ function JobDetailPage(props) {
     const [orgJobs, setOrgJobs] = useState([]);
     const [org_id, setOrgId] = useState(0);
 
-    console.log("COMPONENT RERENDER");
-    console.log(job);
-    console.log(org_id);
-
 
     const params = useParams();
     const job_id = params.job_id;
