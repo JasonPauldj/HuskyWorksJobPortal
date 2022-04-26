@@ -74,23 +74,6 @@ function App() {
             <Route path="/events" element={<EventsPage />} />
             <Route path="/events/:event_id" element={<EventDetailsPage />} />
             <Route path="/events/create-event" element={<CreateEventsPage />} />
-<<<<<<< HEAD
-            <Route
-              path="/signup-recruiter"
-              element={<RecruiterSignUp />}
-            ></Route>
-            <Route
-              path="/dashboard-student/:id"
-              element={<StudentDashboard />}
-            ></Route>
-            <Route
-              path="/dashboard-recruiter/:id"
-              element={<RecruiterDashboard />}
-            ></Route>
-
-            {/*Application routes*/}
-            <Route path="/student-applications" element={<ApplicationPage />} />
-=======
             <Route path="/signup-recruiter" element={<RecruiterSignUp />}></Route>
             <Route path="/dashboard-student/:id" element={<StudentDashboard />}></Route>
             <Route path="/dashboard-recruiter/:id" element={<RecruiterDashboard />}></Route>
@@ -100,7 +83,6 @@ function App() {
 
             {/* Path for Recruiter Post Job */} 
             <Route path="/jobs/create-job" element={<CreateJobsPage />} />    
->>>>>>> feature/jason-recruiter-jobs
           </Routes>
         </div>
       </Router>
