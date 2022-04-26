@@ -7,7 +7,10 @@ const projectSchema = new mongoose.Schema({
   },
   project_title: {
     type: String,
-    default: "Title is required.",
+    required: "Title is required.",
+  },
+  location: {
+    type: String,
   },
   start_date: {
     type: Date,

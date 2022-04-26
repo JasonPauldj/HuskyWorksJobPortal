@@ -1,114 +1,172 @@
-import axios from 'axios';
-import React, {useState  } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import dateFormat from 'dateformat';
-import { Button } from '@mui/material';
-import { useSelector } from 'react-redux';
-// Add css file here
-
+import axios from "axios";
+import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import dateFormat from "dateformat";
+import { useSelector } from "react-redux";
+import { Button, TextField } from "@mui/material";
+// import classes from "./StudentProfileForms.scss";
 
 const NewWorkExForm = () => {
+  let { state } = useLocation();
+  const [title, setTitle] = useState(state.workEx ? state.workEx.title : "");
+  const [employerName, setEmployerName] = useState(
+    state.workEx ? state.workEx.employer_name : ""
+  );
+  const [startDate, setStartDate] = useState(
+    state.workEx ? dateFormat(state.workEx.start_date, "yyyy-mm-dd") : ""
+  );
+  const [endDate, setEndDate] = useState(
+    state.workEx ? dateFormat(state.workEx.end_date, "yyyy-mm-dd") : ""
+  );
+  const [location, setLocation] = useState(
+    state.workEx ? state.workEx.location : ""
+  );
+  const [description, setDescription] = useState(
+    state.workEx ? state.workEx.description : ""
+  );
+  const nav = useNavigate();
+  let user = useSelector((state) => state.auth.user);
 
-    let { state } = useLocation();
-    const [title, setTitle] = useState(state.workEx ? state.workEx.title : "");
-    const [employerName, setEmployerName] = useState(state.workEx ? state.workEx.employer_name : "" );
-    const [startDate, setStartDate] = useState(state.workEx ? dateFormat(state.workEx.start_date, "yyyy-mm-dd") : "");
-    const [endDate, setEndDate] = useState(state.workEx ? dateFormat(state.workEx.end_date, "yyyy-mm-dd") : "");
-    const [location, setLocation] = useState(state.workEx ? state.workEx.location : "");
-    const [description, setDescription] = useState(state.workEx ? state.workEx.description : "");
-    const nav = useNavigate();
-    let user = useSelector((state) => state.auth.user);
-
-    const handleFormSubmit = async () => {
-        let workEx = {
-            student_id: "6265ea2f57c0502e065ed034",
-            title: title,
-            employer_name: employerName,
-            start_date: startDate,
-            end_date: endDate,
-            location: location,
-            description: description,
-            }
+  const handleFormSubmit = async () => {
+    let workEx = {
+      student_id: `${user._id}`,
+      title: title,
+      employer_name: employerName,
+      start_date: startDate,
+      end_date: endDate,
+      location: location,
+      description: description,
+    };
 
     const addWorkEx = async (workEx) => {
-        return await axios({
-            method: "POST",
-            url: `http://localhost:9000/experiences`,
-            data: workEx,
-            headers: {
-              "Content-Type": "application/json",
-              "Access-Control-Allow-Origin": "*",
-              accept: "*/*",
-              "authorization": `bearer ${user._id}`
-            },
-            validateStatus: (status) => {
-              return true;
-            },
-          })
-            .catch((err) => console.log(err.response.data));
-        }
-        addWorkEx(workEx);
-        handleWorkExDiagClose();
-        }
+      return await axios({
+        method: "POST",
+        url: `http://localhost:9000/experiences`,
+        data: workEx,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          accept: "*/*",
+          authorization: `bearer ${user.token}`,
+        },
+        validateStatus: (status) => {
+          return true;
+        },
+      }).catch((err) => console.log(err.response.data));
+    };
+    addWorkEx(workEx);
+    handleWorkExDiagClose();
+  };
 
-    const handleWorkExDiagClose = () => {
-        // nav(`/profiles/${student_id}`);
-           nav(`/profiles/6265ea2f57c0502e065ed034`);
-       }
+  const handleWorkExDiagClose = () => {
+    nav(`/profiles/${user._id}`);
+  };
 
-    const handleFormUpdate = async () => {
-        let workEx = {
-            student_id: "6265ea2f57c0502e065ed034",
-            title: title,
-            employer_Name: employerName,
-            start_date: startDate,
-            end_date: endDate,
-            location: location,
-            description: description,
-            }
-    
-            const updateWorkEx = async (workEx) => {
-                return await axios({
-                    method: "PUT",
-                    url: `http://localhost:9000/experiences/${state.workEx._id}`,
-                    data: workEx,
-                    headers: {
-                      "Content-Type": "application/json",
-                      "Access-Control-Allow-Origin": "*",
-                      accept: "*/*",
-                      "authorization": `bearer ${user._id}`
-                    },
-                    validateStatus: (status) => {
-                      return true;
-                    },
-                  })
-                    .catch((err) => console.log(err.response.data));
-                }
-                updateWorkEx(workEx);
-                handleWorkExDiagClose();
-       }
+  const handleFormUpdate = async () => {
+    let workEx = {
+      student_id: `${user._id}`,
+      title: title,
+      employer_name: employerName,
+      start_date: startDate,
+      end_date: endDate,
+      location: location,
+      description: description,
+    };
 
-       
-    return (
-        <div>
-             <form>
-                <div className='new-experience__controls'>
-                    <label> Title <input id="title" onChange={(e) => setTitle(e.target.value)} value={title}/></label><br/>
-                    <label> Employer name <input id="employer_name" onChange={(e) => setEmployerName(e.target.value)} value={employerName} /></label><br/>
-                    <label> Start Date <input type="date" id="start_date" onChange={(e) => setStartDate(e.target.value)} value={startDate} /></label><br/>
-                    <label> End Date <input type="date" id="end_date" onChange={(e) => setEndDate(e.target.value)} value={endDate} /></label><br/>
-                    <label> Location <input id="location" onChange={(e) => setLocation(e.target.value)} value={location} /></label><br/>
-                    <label> Description <input id="description" onChange={(e) => setDescription(e.target.value)} value={description} /></label><br/>
-                </div>
-                <Button onClick={state.workEx ? handleFormUpdate : handleFormSubmit}>{state.workEx ? "Update" : "Submit"}</Button>
-             </form>
-            <div>
-             <Button onClick={handleWorkExDiagClose}>Close</Button>
-            </div>  
+    const updateWorkEx = async (workEx) => {
+      return await axios({
+        method: "PUT",
+        url: `http://localhost:9000/experiences/${state.workEx._id}`,
+        data: workEx,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          accept: "*/*",
+          authorization: `bearer ${user._id}`,
+        },
+        validateStatus: (status) => {
+          return true;
+        },
+      }).catch((err) => console.log(err.response.data));
+    };
+    updateWorkEx(workEx);
+    handleWorkExDiagClose();
+  };
 
-        </div>
-           
-    )
+  return (
+    <div>
+      <form>
+        <h3>Add Experience Here</h3>
+
+        <TextField
+          placeholder="Enter Title"
+          // className={classes.formInputs}
+          label="Title"
+          margin="dense"
+          variant="outlined"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+
+        <TextField
+          placeholder="Enter Employer"
+          // className={classes.formInputs}
+          label="Employer"
+          margin="dense"
+          variant="outlined"
+          value={employerName}
+          onChange={(e) => setEmployerName(e.target.value)}
+        />
+
+        <TextField
+          // className={classes.formInputs}
+          label="Start Date"
+          type="date"
+          margin="dense"
+          variant="outlined"
+          value={startDate}
+          onChange={(e) => setStartDate(e.target.value)}
+        />
+
+        <TextField
+          // className={classes.formInputs}
+          label="End Date"
+          type="date"
+          margin="dense"
+          variant="outlined"
+          value={endDate}
+          onChange={(e) => setEndDate(e.target.value)}
+        />
+
+        <TextField
+          placeholder="Enter Location"
+          // className={classes.formInputs}
+          label="Location"
+          margin="dense"
+          variant="outlined"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+        />
+
+        <TextField
+          placeholder="Enter Description"
+          //className={classes.formInputs}
+          label="Description"
+          margin="dense"
+          variant="outlined"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+
+        <Button onClick={state.workEx ? handleFormUpdate : handleFormSubmit}>
+          {state.workEx ? "Update" : "Submit"}
+        </Button>
+      </form>
+      <div>
+        <Button onClick={handleWorkExDiagClose}>Close</Button>
+      </div>
+    </div>
+  );
 };
 
 export default NewWorkExForm;
