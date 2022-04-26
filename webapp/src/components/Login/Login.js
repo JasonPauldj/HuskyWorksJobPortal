@@ -63,68 +63,67 @@ export default function Login() {
   return (
     <div className="container">
       {/* TODO redirect to either dashboard or profile page */}
-      
-        <div className="welcome-container">
-        <div className="wrapper">
-            <h1 className="heading-secondary">
-              Welcome to <span className="lg">HuskyWorks</span>
-            </h1>{" "}
-            <p className="text-mute">
-              Not a member?
-              <br></br>
-              <a href="/signup-student">Sign up as Student</a> &nbsp;  &nbsp; 
-              <a href="/signup-recruiter">Sign up as Recruiter</a>
-            </p>
-          </div>
-          <div className="signup-container">
-            <h1 className="heading-primary">
-              Log in<span className="span-blue">.</span>
-            </h1>
-            <p className="text-mute">
-              Enter your credentials to access your account.
-            </p>
-            <form className="signup-form">
-              <label className="inp">
-                <select className="input-text" onChange={handleChange}>
-                  <option value="Student">Student</option>
-                  <option value="Recruiter">Recruiter</option>
-                </select>
-                <span className="label">Login as : </span>
-                <span className="input-icon"></span>
-              </label>
 
-              <label className="inp">
-                <input
-                  type="text"
-                  className="input-text"
-                  placeholder="&nbsp;"
-                  onChange={(e) => setUsername(e.target.value)}
-                />
-                <span className="label">Username</span>
-                <span className="input-icon"></span>
-              </label>
-              <label className="inp">
-                <input
-                  type="password"
-                  className="input-text"
-                  placeholder="&nbsp;"
-                  id="password"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <span className="label">Password</span>
-                <span
-                  className="input-icon input-icon-password"
-                  data-password
-                ></span>
-              </label>
-              <p className="errorMessage">{errorMessage}</p>
-              <button className="btn btn-login" onClick={loginHandler}>
-                Login
-              </button>
-            </form>
-          </div>
-        
+      <div className="welcome-container">
+        <div className="wrapper">
+          <h1 className="heading-secondary">
+            Welcome to <span className="lg">HuskyWorks</span>
+          </h1>{" "}
+          <p className="text-mute">
+            Not a member?
+            <br></br>
+            <a href="/signup-student">Sign up as Student</a> &nbsp; &nbsp;
+            <a href="/signup-recruiter">Sign up as Recruiter</a>
+          </p>
         </div>
+        <div className="signup-container">
+          <h1 className="heading-primary">
+            Log in<span className="span-blue">.</span>
+          </h1>
+          <p className="text-mute">
+            Enter your credentials to access your account.
+          </p>
+          <form className="signup-form">
+            <label className="inp">
+              <select className="input-text" onChange={handleChange}>
+                <option value="Student">Student</option>
+                <option value="Recruiter">Recruiter</option>
+              </select>
+              <span className="label">Login as : </span>
+              <span className="input-icon"></span>
+            </label>
+
+            <label className="inp">
+              <input
+                type="text"
+                className="input-text"
+                placeholder="&nbsp;"
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <span className="label">Username</span>
+              <span className="input-icon"></span>
+            </label>
+            <label className="inp">
+              <input
+                type="password"
+                className="input-text"
+                placeholder="&nbsp;"
+                id="password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <span className="label">Password</span>
+              <span
+                className="input-icon input-icon-password"
+                data-password
+              ></span>
+            </label>
+            <p className="errorMessage">{errorMessage}</p>
+            <button className="btn btn-login" onClick={loginHandler}>
+              Login
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }

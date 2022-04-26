@@ -5,6 +5,7 @@ import JobDetailPage from "./pages/jobs/JobDetailPage";
 import Layout_1_4 from "./components/boilerplate/layouts/Layout_1_4";
 import Layout_1_3_1 from "./components/boilerplate/layouts/Layout_1_3_1";
 import OrgDetailsPage from "./pages/organisation/OrgDetailsPage";
+import StudentProfile from "./pages/StudentProfile/StudentProfile";
 import EventsPage from "./pages/events/EventsPage";
 import EventDetailsPage from "./pages/events/EventDetailsPage";
 
@@ -18,6 +19,9 @@ function MainApp(props) {
       {/* Path for Organizations*/}
       <Route path="/organizations" element={<OrgDetailsPage />} />
       <Route path="/organizations/:org_id" element={<OrgDetailsPage />} />
+
+      {/* Path for student profile */}
+      <Route path="/profiles/:student_id" element={<StudentProfile />} />
 
       {/* Path for Events */}
       <Route path="/events" element={<EventsPage />} />
