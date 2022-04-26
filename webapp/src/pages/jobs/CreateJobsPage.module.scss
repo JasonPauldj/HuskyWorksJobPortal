@@ -1,12 +1,13 @@
 @import "../../scss/SassVariables.scss";
 
-.createEventCard {
+.createJobCard {
   position: relative;
   width: calc(100% - 2rem);
   height: calc(100vh - 2rem);
   padding: 3rem;
   margin: 1rem;
   box-shadow: 5px 5px 5px 5px $grey;
+  overflow:scroll;
 }
 
 .formContainer {
@@ -19,10 +20,21 @@
 
 .formInputs,
 .MuiFormControl-root-MuiTextField-root,
+.MuiFormControl-root-MuiSelect-root,
 .MuiInputBase-input-MuiOutlinedInput-input {
   margin-top: 1rem;
   width: 60%;
   font-size: 2rem;
+}
+
+.selectSection{
+  margin:1rem auto;
+  width: 60%;
+}
+
+.selectInput{
+  width:100%;
+  margin-top: 1rem;
 }
 
 .formBtn,
