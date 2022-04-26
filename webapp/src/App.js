@@ -18,10 +18,9 @@ import EventsPage from "./pages/events/EventsPage";
 import EventDetailsPage from "./pages/events/EventDetailsPage";
 import CreateEventsPage from "./pages/events/CreateEventsPage";
 import CreateOrgPage from "./pages/organisation/CreateOrgPage";
-import NewEducationForm from "./pages/profiles/StudentProfile/NewEducationForm";
-import NewProjectForm from "./pages/profiles/StudentProfile/NewProjectForm";
-import NewWorkExForm from "./pages/profiles/StudentProfile/NewWorkExForm";
-
+import NewEducationForm from "./pages/profiles/StudentProfileForms/NewEducationForm";
+import NewProjectForm from "./pages/profiles/StudentProfileForms/NewProjectForm";
+import NewWorkExForm from "./pages/profiles/StudentProfileForms/NewWorkExForm";
 
 function App() {
   const isAuth = useSelector((state) => state.auth.isAuthenticated);
@@ -56,7 +55,10 @@ function App() {
             {/* Path for Organizations*/}
             <Route path="/organizations" element={<OrgDetailsPage />} />
             <Route path="/organizations/:org_id" element={<OrgDetailsPage />} />
-            <Route path="/organizations/create-org" element={<CreateOrgPage />} />
+            <Route
+              path="/organizations/create-org"
+              element={<CreateOrgPage />}
+            />
 
             {/* Path for Events */}
             <Route path="/events" element={<EventsPage />} />
@@ -64,15 +66,22 @@ function App() {
             <Route path="/events/create-event" element={<CreateEventsPage />} />
 
             {/* Path for student profile */}
-            <Route path="/profiles/studentEducation/:student_id" element={<NewEducationForm />} />
-            <Route path="/profiles/studentWorkEx/:student_id" element={<NewWorkExForm />} />
-            <Route path="/profiles/studentProject/:student_id" element={<NewProjectForm />} />
+            <Route
+              path="/profiles/studentEducation/:student_id"
+              element={<NewEducationForm />}
+            />
+            <Route
+              path="/profiles/studentWorkEx/:student_id"
+              element={<NewWorkExForm />}
+            />
+            <Route
+              path="/profiles/studentProject/:student_id"
+              element={<NewProjectForm />}
+            />
             <Route path="/profiles/:student_id" element={<StudentProfile />} />
-            
           </Routes>
         </div>
       </Router>
-     
     </div>
   );
 }
