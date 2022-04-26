@@ -27,7 +27,6 @@ function OrgDetailsCard(props) {
       const res = await axios({
         method: "GET",
         url: `http://localhost:9000/events/?org_id=${props.organization._id}`,
-        maxContentLength: 1,
       });
       setOrgEvents(res.data);
     };

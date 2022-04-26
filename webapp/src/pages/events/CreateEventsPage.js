@@ -1,17 +1,19 @@
 import {
   Button,
   TextField,
-  makeStyles,
   FormControl,
   InputLabel,
   Select,
   MenuItem,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CardComponent from "../../components/genericComponent/genericCard/CardComponent";
 import classes from "./CreateEventsPage.module.scss";
-import dateFormat from "dateformat";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { authActions } from "../../store/auth_slice";
+import AuthService from "../../utilities/AuthService";
+import { useNavigate } from "react-router-dom";
 
 function CreateEventsPage() {
   const [title, setTitle] = useState("");
@@ -22,6 +24,42 @@ function CreateEventsPage() {
   const [seats, setSeats] = useState(0);
   const [date, setDate] = useState(Date.now());
   const [type, setType] = useState("WORKSHOP");
+  const [recruiter, setRecruiter] = useState({});
+  const [isStudent, setIsStudent] = useState(true);
+  let user = useSelector((state) => state.auth.user);
+  const nav = useNavigate();
+
+  const dispatch = useDispatch();
+  const checkUser = () => {
+    // console.log(AuthService.getCurrUser(), "AuthService.getCurrUser()");
+    if (user.length == 0) {
+      user = AuthService.getCurrUser();
+      dispatch(authActions.login(AuthService.getCurrUser() || {}));
+    }
+  };
+
+  useEffect(() => {
+    checkUser();
+    setIsStudent(user.isStudent);
+  }, []);
+
+  useEffect(() => {
+    const fetchRecruiter = async () => {
+      return await axios({
+        method: "GET",
+        url: `http://localhost:9000/recruiters/${user._id}`,
+        headers: {
+          Authorization: `bearer ${user.token}`,
+        },
+      })
+        .then((res) => setRecruiter(res.data))
+        .catch((err) => console.log(err.data));
+    };
+
+    fetchRecruiter();
+  }, []);
+
+  // console.log("Recruiter: ", recruiter.username);
 
   const handleEventSubmit = () => {
     const event = {
@@ -35,7 +73,8 @@ function CreateEventsPage() {
       },
       no_of_seats: seats,
       event_date: date,
-      event_organizerId: "625ef5818f55e8e632422328",
+      event_organizerId: recruiter.organization_id,
+      recruiter_id: user._id,
     };
 
     const addEvent = async (event) => {
@@ -47,6 +86,7 @@ function CreateEventsPage() {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
           accept: "*/*",
+          Authorization: `bearer ${user.token}`,
         },
         validateStatus: (status) => {
           return true;
@@ -54,7 +94,9 @@ function CreateEventsPage() {
       }).catch((err) => console.log(err.data));
     };
 
-    addEvent(event);
+    if (!isStudent) {
+      addEvent(event);
+    }
     setTitle("");
     setDate("");
     setDesc("");
@@ -62,6 +104,7 @@ function CreateEventsPage() {
     setLng(0);
     setOrgName("");
     setSeats(0);
+    nav("/events/");
   };
 
   return (
