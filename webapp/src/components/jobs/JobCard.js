@@ -54,7 +54,7 @@ function JobCard(props) {
           }
 
           {
-            props.isApplied && <p className={classes.apply}>Already Applied To This Job</p>
+            props.isApplied && <p className={classes.apply}>Applied</p>
           }
       </div>
 

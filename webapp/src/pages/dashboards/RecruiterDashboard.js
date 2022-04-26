@@ -112,7 +112,7 @@ function RecruiterDashboard() {
               <p className="heading">My Job Postings</p>
             </div>
             {/* <div class="h_line"></div> */}
-            <br></br>
+            {/* <br></br> */}
             <div className={classes.jobsContainer}>{jobsPostedCards}</div>
           </div>
         </div>
@@ -122,7 +122,7 @@ function RecruiterDashboard() {
               <p className="heading">Organization Postings</p>
             </div>
             {/* <div class="h_line"></div> */}
-            <br></br>
+            {/* <br></br> */}
             <div className={classes.jobsContainer}>{orgPostingCards}</div>
           </div>
         </div>
@@ -134,7 +134,7 @@ function RecruiterDashboard() {
               <p className="heading">My Events</p>
             </div>
             {/* <div class="h_line"></div> */}
-            <br></br>
+            {/* <br></br> */}
             <div className={classes.jobsContainer}>{orgPostingCards}</div>
           </div>
         </div>

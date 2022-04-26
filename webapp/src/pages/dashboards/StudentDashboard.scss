@@ -1,17 +1,12 @@
+@import "../../scss/SassVariables.scss";
+
 .applications-section-header {
-  // top: 0;
-  // z-index: 1;
-  // padding: 32px 24px 0 24px;
-  color: #3d438d;
-  /* background: #3d438d; */
-  padding: 1.5%;
-  border: 1px solid #3d438d;
-  border-radius: 10px;
+  color: #545457;
   margin: 10px;
 }
 
 .heading {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Georgia, 'Times New Roman', Times, serif;
   font-weight: 700;
   line-height: 1.167;
   letter-spacing: -0.01562em;
@@ -35,7 +30,7 @@
     // text-transform: uppercase;
     letter-spacing: 1px;
     border: none;
-    background: #2196f3;
+    background: $blue-color;
     color: #fff;
     border-radius: 10px;
     cursor: pointer;
