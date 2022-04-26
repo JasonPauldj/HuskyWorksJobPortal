@@ -68,6 +68,8 @@ function CreateEventsPage() {
     setLng(0);
     setOrgName("");
     setSeats(0);
+    navigate(`/dashboard-recruiter/6266aebe4fc1e005cd7ef8ed`, {replace: true});
+
   };
 
   const handleClose=(ev)=>{

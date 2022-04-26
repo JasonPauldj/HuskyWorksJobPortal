@@ -91,6 +91,7 @@ function CreateJobsPage() {
     setDeadlineDate(new Date().toISOString().split('T')[0]);
     setType("");
     setSalary(0);
+    navigate(`/dashboard-recruiter/6266aebe4fc1e005cd7ef8ed`, {replace: true});
   };
 
   const menuJobCatItems = JOB_CATEGORIES.map((category) => {
