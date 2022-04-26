@@ -42,7 +42,7 @@ function App() {
   return (
     <div className="prbg">
       <Router>
-        <div>
+        <div className="app-state">
           <Routes>
             <Route
               path="/"

@@ -26,7 +26,8 @@ function RecruiterSignUp() {
           setRecruiter(response.data);
           nav(`/`);
         } catch(error) {
-          setError(error);
+          let currErr =  'Please enter the required fields in the form!';
+          setError(currErr);
         }
     }
 
@@ -40,7 +41,7 @@ function RecruiterSignUp() {
  
 
  <div className="signup-container">
-    <h1 className="heading-primary">Sign Up as a Recruiter</h1>
+    <h1 className="heading-primary">Sign Up as a Recruiter<span className="span-blue">.</span> </h1>
     {/* <p className="text-mute">Enter your credentials to access your account.</p> */}
 
     <form className="signup-form">
@@ -74,6 +75,7 @@ function RecruiterSignUp() {
         <span className="label">Email</span>
         <span className="input-icon"></span>
       </label>
+      <p className="errorMessage">{error}</p>
       <button className="btn btn-login" onClick={handleSignUpRecruiter}>Sign Up</button>
     </form>
   </div>

@@ -12,35 +12,47 @@ export default function Login() {
   const [user, setUser] = useState(null);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
+  const [errorMessage, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   const [loginAs, setLoginAs] = useState("Student");
   const nav = useNavigate();
 
-  const loginHandler = async(event) => {
+  const loginHandler = async (event) => {
     event.preventDefault();
-    try{
+    try {
       console.log("loginAs", loginAs);
-      if(loginAs === 'Student') {
-        const response =  await axios.post("http://localhost:9000/login", {username, password, loginAs});
+      if (loginAs === "Student") {
+        const response = await axios.post("http://localhost:9000/login", {
+          username,
+          password,
+          loginAs,
+        });
         console.log(response.data);
         setUser(response.data);
         //set to local storage
         AuthService.setCurrUser(response.data);
         dispatch(authActions.login(response.data));
         nav(`/dashboard-student/${response.data._id}`);
-      } else if(loginAs === 'Recruiter') {
-        const response =  await axios.post("http://localhost:9000/login", {username, password, loginAs});
+      } else if (loginAs === "Recruiter") {
+        const response = await axios.post("http://localhost:9000/login", {
+          username,
+          password,
+          loginAs,
+        });
         console.log(response.data);
         setUser(response.data);
         dispatch(authActions.login(response.data));
         nav(`/dashboard-recruiter/${response.data._id}`);
       }
-      
-    } catch(error) {
-      setError(error);
-      console.log(error.message);
-    } 
+    } catch (error) {
+      let currErr =
+        error &&
+        error.response &&
+        error.response.data &&
+        error.response.data.message;
+      setError(currErr);
+      console.log(currErr);
+    }
   };
 
   const handleChange = (event) => {
@@ -54,13 +66,7 @@ export default function Login() {
       {user ? (
         <h1>Welcome {user.userName}</h1>
       ) : (
-        <div>
-          <div className="welcome-container">
-            <h1 className="heading-secondary">
-              Welcome to <span className="lg">HuskyWorks</span>
-            </h1>
-          </div>
-
+        <div className="welcome-container">
           <div className="signup-container">
             <h1 className="heading-primary">
               Log in<span className="span-blue">.</span>
@@ -68,18 +74,6 @@ export default function Login() {
             <p className="text-mute">
               Enter your credentials to access your account.
             </p>
-            {/* <div className="login-wrapper">
-      <a href="#" className="btn btn-google">
-        <img src="https://img.icons8.com/fluency/48/000000/google-logo.png" />
-        Log In with Google
-      </a>
-      <div className="line-breaker">
-        <span className="line"></span>
-        <span>or</span>
-        <span className="line"></span>
-      </div>
-    </div> */}
-
             <form className="signup-form">
               <label className="inp">
                 <select className="input-text" onChange={handleChange}>
@@ -89,6 +83,7 @@ export default function Login() {
                 <span className="label">Login as : </span>
                 <span className="input-icon"></span>
               </label>
+
               <label className="inp">
                 <input
                   type="text"
@@ -113,12 +108,19 @@ export default function Login() {
                   data-password
                 ></span>
               </label>
+              <p className="errorMessage">{errorMessage}</p>
               <button className="btn btn-login" onClick={loginHandler}>
                 Login
               </button>
             </form>
+          </div>
+          <div className="wrapper">
+            <h1 className="heading-secondary">
+              Welcome to <span className="lg">HuskyWorks</span>
+            </h1>{" "}
             <p className="text-mute">
               Not a member?
+              <br></br>
               <a href="/signup-student">Sign up as Student</a> &nbsp;
               <a href="/signup-recruiter">Sign up as Recruiter</a>
             </p>

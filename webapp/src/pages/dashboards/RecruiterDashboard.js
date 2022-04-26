@@ -11,7 +11,7 @@ import EventCard from "../../components/events/EventCard";
 
 
 function RecruiterDashboard() {
-    const recruiter = useSelector(state => state.auth.user);
+    let recruiter = useSelector(state => state.auth.user);
     console.log(recruiter, "recruiter");
     console.log(recruiter.organizationId, "org");
 
@@ -56,7 +56,7 @@ function RecruiterDashboard() {
         console.log(recruiter._id, "recruiter Id");
 
         response.data.map((d)=> console.log(d.recruiterId, "recids"));
-        const eventsPostedByrecruiter= response.data.filter((event) => event.recruiterId === recruiter._id);
+        const eventsPostedByrecruiter = response.data.filter((event) => event.recruiterId === recruiter._id);
         setEventsPosted(eventsPostedByrecruiter);
         console.log(" events posted", eventsPostedByrecruiter);
     }
@@ -93,9 +93,9 @@ function RecruiterDashboard() {
     );
   });
 
-  const eventsPostedByRecruiter = eventsPosted.map((event) => {
-    return <EventCard key={event._id} event={event} />;
-  });
+  // const eventsPostedByRecruiter = eventsPosted.map((event) => {
+  //   return <EventCard key={event._id} event={event} />;
+  // });
   
 
 
@@ -105,13 +105,13 @@ function RecruiterDashboard() {
       <div className="ly-1-3-1-bd-sec-left ">
         <Navbar />
       </div>
-      <div className="ly-1-3-1-bd-sec-right ">
+      <div className="ly-1-3-1-bd-sec-right">
         <div className="ly-1-3-1-bd-sec-right-container">
           <div className="ly-1-3-1-bd-sec-right-main">
             <div className="applications-section-header">
               <p className="heading">My Job Postings</p>
             </div>
-            <div class="h_line"></div>
+            {/* <div class="h_line"></div> */}
             <br></br>
             <div className={classes.jobsContainer}>{jobsPostedCards}</div>
           </div>
@@ -121,7 +121,7 @@ function RecruiterDashboard() {
             <div className="applications-section-header">
               <p className="heading">Organization Postings</p>
             </div>
-            <div class="h_line"></div>
+            {/* <div class="h_line"></div> */}
             <br></br>
             <div className={classes.jobsContainer}>{orgPostingCards}</div>
           </div>
@@ -133,7 +133,7 @@ function RecruiterDashboard() {
             <div className="applications-section-header">
               <p className="heading">My Events</p>
             </div>
-            <div class="h_line"></div>
+            {/* <div class="h_line"></div> */}
             <br></br>
             <div className={classes.jobsContainer}>{orgPostingCards}</div>
           </div>
