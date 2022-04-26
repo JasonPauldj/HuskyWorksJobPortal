@@ -5,7 +5,7 @@ import MainSection from "./components/boilerplate/main_section/MainSection";
 import RightSideBar from "./components/boilerplate/right_side_bar/RightSideBar";
 import Login from "./components/Login/Login";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import StudentProfile from "./pages/profiles/StudentProfile";
+import StudentProfile from "./pages/StudentProfile/StudentProfile";
 import SignUpStudent from "./components/Login/SignUpStudent";
 import RecruiterSignUp from "./components/Login/RecruiterSignUp";
 import RecruiterDashboard from "./pages/dashboards/RecruiterDashboard";
@@ -18,13 +18,32 @@ import EventsPage from "./pages/events/EventsPage";
 import EventDetailsPage from "./pages/events/EventDetailsPage";
 import CreateEventsPage from "./pages/events/CreateEventsPage";
 import CreateOrgPage from "./pages/organisation/CreateOrgPage";
-import NewEducationForm from "./pages/profiles/StudentProfileForms/NewEducationForm";
-import NewProjectForm from "./pages/profiles/StudentProfileForms/NewProjectForm";
-import NewWorkExForm from "./pages/profiles/StudentProfileForms/NewWorkExForm";
+import NewEducationForm from "./pages/StudentProfile/StudentProfileForms/NewEducationForm";
+import NewProjectForm from "./pages/StudentProfile/StudentProfileForms/NewProjectForm";
+import NewWorkExForm from "./pages/StudentProfile/StudentProfileForms/NewWorkExForm";
+import RecruiterProfile from "./pages/RecruiterProfile/RecruiterProfile";
+import AuthService from "./utilities/AuthService";
+import { useDispatch } from "react-redux";
+import { authActions } from "./store/auth_slice";
+import { useState, useEffect } from "react";
 
 function App() {
   const isAuth = useSelector((state) => state.auth.isAuthenticated);
   console.log(isAuth, "isAuth");
+  const dispatch = useDispatch();
+  let user = useSelector((state) => state.auth.user);
+
+  const checkUser = () => {
+    // console.log(AuthService.getCurrUser(), "AuthService.getCurrUser()");
+    if (user.length == 0) {
+      user = AuthService.getCurrUser();
+      dispatch(authActions.login(AuthService.getCurrUser() || {}));
+    }
+  };
+
+  useEffect(() => {
+    checkUser();
+  }, []);
 
   return (
     <div className="prbg">
@@ -79,6 +98,17 @@ function App() {
               element={<NewProjectForm />}
             />
             <Route path="/profiles/:student_id" element={<StudentProfile />} />
+            <Route
+              path="/profiles/:recruiter_id"
+              element={<RecruiterProfile />}
+            />
+
+            <Route
+              path="/profiles/:id"
+              element={
+                user.isStudent ? <StudentProfile /> : <RecruiterProfile />
+              }
+            />
           </Routes>
         </div>
       </Router>

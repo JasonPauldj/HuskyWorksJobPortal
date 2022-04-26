@@ -133,7 +133,6 @@ const NewEducationForm = (props) => {
           value={gpa}
           step={0.01}
           onChange={(e) => setGpa(e.target.value)}
-          value={gpa}
         />
 
         <TextField

@@ -38,7 +38,7 @@ function Navbar() {
           Browse Events
         </a>
 
-        <Link to="/profiles/${user._id}" className="navbar-links-items">
+        <Link to={`/profiles/${user._id}`} className="navbar-links-items">
           My Profile
         </Link>
       </div>
