@@ -21,6 +21,7 @@ import CreateOrgPage from "./pages/organisation/CreateOrgPage";
 import {fetchStudentApplications} from './store/applications_slice';
 import { useEffect } from "react";
 import ApplicationPage from "./pages/applications/ApplicationPage";
+import CreateJobsPage from "./pages/jobs/CreateJobsPage";
 
 
 
@@ -78,11 +79,11 @@ function App() {
             <Route path="/dashboard-student/:id" element={<StudentDashboard />}></Route>
             <Route path="/dashboard-recruiter/:id" element={<RecruiterDashboard />}></Route>
 
-
-
             {/*Application routes*/}
-            <Route path="/student-applications" element={<ApplicationPage />} />      
+            <Route path="/student-applications" element={<ApplicationPage />} />     
 
+            {/* Path for Recruiter Post Job */} 
+            <Route path="/create-job" element={<CreateJobsPage />} />    
           </Routes>
         </div>
       </Router>
