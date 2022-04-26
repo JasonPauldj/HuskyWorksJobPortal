@@ -17,7 +17,7 @@ function ReviewContainer(props) {
   const dispatch = useDispatch();
   const checkUser = () => {
     // console.log(AuthService.getCurrUser(), "AuthService.getCurrUser()");
-    if (user.length == 0) {
+    if (user) {
       user = AuthService.getCurrUser();
       dispatch(authActions.login(AuthService.getCurrUser() || {}));
     }

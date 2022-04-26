@@ -24,14 +24,14 @@ export const createEvent = async (request, response) => {
 
 export const getAllEvents = async (request, response) => {
   try {
-    const event_location = request.query.event_location;
+    const recruiterId = request.query.recruiter_id;
     const event_type = request.query.event_type
       ? request.query.event_type.split(";")
       : undefined;
     const search = request.query.searchText;
     const query = {};
-    if (event_location) {
-      query.event_location = event_location;
+    if (recruiterId) {
+      query.recruiter_id = recruiterId;
     }
     if (event_type) {
       query.event_type = event_type;
@@ -98,7 +98,6 @@ export const remove = async (request, response) => {
   }
 };
 
-
 export const getEventsByStudentId = async (request, response) => {
   try {
     const id = request.params.id; // student_id
@@ -106,24 +105,26 @@ export const getEventsByStudentId = async (request, response) => {
     const eventsAll = await eventsService.getEvents();
     // filter by id
     console.log(eventsAll);
-    const eventsByStudentId = eventsAll.filter((event) => event.student_id === id);
+    const eventsByStudentId = eventsAll.filter(
+      (event) => event.student_id === id
+    );
     const eventIds = eventsByStudentId.map((event) => event._id);
     // call events now
     const promises = eventIds.map((eventId) => {
       return getEventById(eventId);
     });
     console.log(promises, "promises");
-    
-    let events = await Promise.all(promises);
-    setSuccessResponse(events, response); 
-  } catch (error) {
-      error.message = 'Invalid Event ID requested';
-      error.status = 400;
-      setErrorResponse(error, response);
-  }
-}
 
-const getEventById = async(eventId) =>  {
+    let events = await Promise.all(promises);
+    setSuccessResponse(events, response);
+  } catch (error) {
+    error.message = "Invalid Event ID requested";
+    error.status = 400;
+    setErrorResponse(error, response);
+  }
+};
+
+const getEventById = async (eventId) => {
   const event = await eventsService.get(eventId);
   return event;
-}
+};

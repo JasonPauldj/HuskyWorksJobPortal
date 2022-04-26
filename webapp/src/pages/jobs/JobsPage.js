@@ -31,7 +31,7 @@ function JobsPage(props) {
 
   const checkUser = () => {
     // console.log(AuthService.getCurrUser(), "AuthService.getCurrUser()");
-    if (user.length == 0) {
+    if (user) {
       user = AuthService.getCurrUser();
       dispatch(authActions.login(AuthService.getCurrUser() || {}));
     }

@@ -4,7 +4,12 @@ import LeftSideBar from "./components/boilerplate/left_side_bar/LeftSideBar";
 import MainSection from "./components/boilerplate/main_section/MainSection";
 import RightSideBar from "./components/boilerplate/right_side_bar/RightSideBar";
 import Login from "./components/Login/Login";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
 import StudentProfile from "./pages/profiles/StudentProfile";
 import SignUpStudent from "./components/Login/SignUpStudent";
 import RecruiterSignUp from "./components/Login/RecruiterSignUp";
@@ -21,18 +26,35 @@ import CreateOrgPage from "./pages/organisation/CreateOrgPage";
 import { fetchStudentApplications } from "./store/applications_slice";
 import { useEffect } from "react";
 import ApplicationPage from "./pages/applications/ApplicationPage";
+import { fetchStudentRegistrations } from "./store/registrations_slice";
+import { authActions, userSelector } from "./store/auth_slice";
+import AuthService from "./utilities/AuthService";
 
 function App() {
   const isAuth = useSelector((state) => state.auth.isAuthenticated);
   const applications = useSelector((state) => state.applications.applications);
-  console.log(isAuth, "isAuth");
-
+  const registrations = useSelector(
+    (state) => state.registrations.registrations
+  );
   const dispatch = useDispatch();
-
+  console.log(isAuth, "isAuth");
+  let user = useSelector((state) => state.auth.user);
+  // const nav = useNavigate();
+  const checkUser = () => {
+    // console.log(AuthService.getCurrUser(), "AuthService.getCurrUser()");
+    if (!user) {
+      user = AuthService.getCurrUser();
+      dispatch(authActions.login(AuthService.getCurrUser() || {}));
+    }
+  };
+  useEffect(() => {
+    checkUser();
+  }, []);
   //fetching applications from DB for dev purposes.
   //TODO - This shold be called only if logged in as STUDENT. and Id of Student should be passed.
   useEffect(() => {
-    dispatch(fetchStudentApplications("6266dfbe83f165d16ae1ef02"));
+    dispatch(fetchStudentApplications(user._id));
+    dispatch(fetchStudentRegistrations(user._id));
   }, []);
 
   return (

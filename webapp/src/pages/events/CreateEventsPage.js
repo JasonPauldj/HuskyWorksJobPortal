@@ -5,6 +5,9 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Alert,
+  AlertTitle,
+  Snackbar,
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import CardComponent from "../../components/genericComponent/genericCard/CardComponent";
@@ -22,18 +25,29 @@ function CreateEventsPage() {
   const [lat, setLat] = useState(0);
   const [lng, setLng] = useState(0);
   const [seats, setSeats] = useState(0);
-  const [date, setDate] = useState(Date.now());
+  const [date, setDate] = useState("");
   const [type, setType] = useState("WORKSHOP");
-  const [recruiter, setRecruiter] = useState({});
+  // const [recruiter, setRecruiter] = useState({});
+  const [showAlert, setShowAlert] = useState(false);
   const [isStudent, setIsStudent] = useState(true);
+  const [message, setMessage] = useState("");
   let user = useSelector((state) => state.auth.user);
   const nav = useNavigate();
 
   const dispatch = useDispatch();
   const checkUser = () => {
     // console.log(AuthService.getCurrUser(), "AuthService.getCurrUser()");
-    if (user.length == 0) {
+    if (!user) {
       user = AuthService.getCurrUser();
+      if (!user) {
+        nav("/");
+        return;
+      }
+      if (user.isStudent) {
+        handleUnAuthorizedError();
+        nav("/events");
+        return;
+      }
       dispatch(authActions.login(AuthService.getCurrUser() || {}));
     }
   };
@@ -43,23 +57,22 @@ function CreateEventsPage() {
     setIsStudent(user.isStudent);
   }, []);
 
-  useEffect(() => {
-    const fetchRecruiter = async () => {
-      return await axios({
-        method: "GET",
-        url: `http://localhost:9000/recruiters/${user._id}`,
-        headers: {
-          Authorization: `bearer ${user.token}`,
-        },
-      })
-        .then((res) => setRecruiter(res.data))
-        .catch((err) => console.log(err.data));
-    };
+  const handleSuccessMessage = (event) => {
+    // event.preventDefault();
+    setShowAlert(true);
+    setMessage("Event Created Successfully!");
+  };
 
-    fetchRecruiter();
-  }, []);
+  const handleUnAuthorizedError = (event) => {
+    // event.preventDefault();
+    setShowAlert(true);
+    setMessage("You are not authorized!");
+  };
 
-  // console.log("Recruiter: ", recruiter.username);
+  const handleErrorMessage = () => {
+    setShowAlert(true);
+    setMessage("Event cannot be created!");
+  };
 
   const handleEventSubmit = () => {
     const event = {
@@ -73,8 +86,8 @@ function CreateEventsPage() {
       },
       no_of_seats: seats,
       event_date: date,
-      event_organizerId: recruiter.organization_id,
-      recruiter_id: user._id,
+      event_organizerId: user.recruiter.organization_id,
+      recruiter_id: user.recruiter._id,
     };
 
     const addEvent = async (event) => {
@@ -94,9 +107,7 @@ function CreateEventsPage() {
       }).catch((err) => console.log(err.data));
     };
 
-    if (!isStudent) {
-      addEvent(event);
-    }
+    addEvent(event);
     setTitle("");
     setDate("");
     setDesc("");
@@ -104,6 +115,7 @@ function CreateEventsPage() {
     setLng(0);
     setOrgName("");
     setSeats(0);
+    handleSuccessMessage();
     nav("/events/");
   };
 
@@ -189,6 +201,7 @@ function CreateEventsPage() {
         >
           Submit
         </Button>
+        <Snackbar open={showAlert} autoHideDuration={2000} message={message} />
       </div>
     </CardComponent>
   );

@@ -43,7 +43,7 @@ export default function Login() {
         setUser(response.data);
         AuthService.setCurrUser(response.data);
         dispatch(authActions.login(response.data));
-        nav(`/dashboard-recruiter/${response.data._id}`);
+        nav(`/events`);
       }
     } catch (error) {
       setError(error);

@@ -37,13 +37,13 @@ function EventCard(props) {
         props.event.event_date
       ).toLocaleDateString()}`}</div>
       <div className={classes.divider}></div>
-      {!props.isApplied && (
+      {!props.isRegistered && (
         <div className={classes.apply} data-tip="" data-for="cardTooltip">
           <button
             className={classes.btn_apply}
             onClick={handleApplyButtonOnClick}
           >
-            Apply
+            Register
           </button>
           <ReactTooltip id="cardTooltip" type="info">
             <span>Click to register for this event</span>
@@ -51,7 +51,7 @@ function EventCard(props) {
         </div>
       )}
 
-      {props.isApplied && (
+      {props.isRegistered && (
         <p className={classes.apply}>Already Registered To This Event</p>
       )}
     </CardComponent>
