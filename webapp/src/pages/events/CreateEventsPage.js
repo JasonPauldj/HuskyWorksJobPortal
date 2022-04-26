@@ -18,7 +18,24 @@ import { authActions } from "../../store/auth_slice";
 import AuthService from "../../utilities/AuthService";
 import { useNavigate } from "react-router-dom";
 import CloseIcon from '@mui/icons-material/Close';
+import { makeStyles } from "@mui/styles";
 
+const useStyles = makeStyles({
+  root: {
+    marginTop: "1rem",
+    backgroundColor: "#1f3b8f",
+    color: "#ffffff",
+    height: "3rem",
+    lineHeight: 1,
+    "&:hover": {
+      backgroundColor: "transparent",
+      border: "1px solid #1f3b8f",
+      color: "#1f3b8f",
+      height: "3rem",
+      padding: 0,
+    },
+  },
+});
 
 function CreateEventsPage() {
   const [title, setTitle] = useState("");
@@ -35,6 +52,7 @@ function CreateEventsPage() {
   const [message, setMessage] = useState("");
   let user = useSelector((state) => state.auth.user);
   const nav = useNavigate();
+  const sClasses = useStyles();
 
   const dispatch = useDispatch();
   const checkUser = () => {
@@ -206,7 +224,7 @@ function CreateEventsPage() {
           </Select>
         </FormControl>
         <Button
-          className={classes.formBtn}
+          className={sClasses.root}
           margin="dense"
           onClick={handleEventSubmit}
         >

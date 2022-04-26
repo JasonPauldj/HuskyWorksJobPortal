@@ -25,15 +25,14 @@
   font-size: 2rem;
 }
 
-.formBtn,
-.MuiButton-root {
+.formBtn{
   margin: 1rem;
   background-color: $blue-color;
   color: $white-color;
   font-weight: bold;
 }
 
-.MuiButton-root:hover {
+.formBtn:hover {
   border: 1px solid $blue-color;
   color: $blue-color;
   background-color: $white-color;

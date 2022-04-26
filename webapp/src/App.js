@@ -45,6 +45,7 @@ function App() {
     // console.log(AuthService.getCurrUser(), "AuthService.getCurrUser()");
     if (!user) {
       user = AuthService.getCurrUser();
+
       dispatch(authActions.login(AuthService.getCurrUser() || {}));
     }
   };
@@ -61,7 +62,7 @@ function App() {
   return (
     <div className="prbg">
       <Router>
-        <div>
+        <div className="app-state">
           <Routes>
             <Route
               path="/"

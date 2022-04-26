@@ -13,16 +13,33 @@ import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import RegisterModal from "../../components/events/RegisterModal";
 import { postRegistration } from "../../store/registrations_slice";
+import { makeStyles } from "@mui/styles";
 
 const EVENT_TYPE_FILTERS = ["NETWORKING", "CAREER FAIR", "WORKSHOP"];
 let isInitial = true;
 
+const useStyles = makeStyles({
+  root: {
+    backgroundColor: "#1f3b8f",
+    color: "#ffffff",
+    height: "3rem",
+    lineHeight: 1,
+    "&:hover": {
+      backgroundColor: "transparent",
+      border: "1px solid #1f3b8f",
+      color: "#1f3b8f",
+      height: "3rem",
+      padding: 0,
+    },
+  },
+});
 function EventsPage() {
   const [appliedEventTypeFilters, setEventTypeFilters] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [events, setEvents] = useState([]);
   let user = useSelector((state) => state.auth.user);
   const nav = useNavigate();
+  const sClasses = useStyles();
 
   const dispatch = useDispatch();
   const checkUser = () => {
@@ -39,7 +56,7 @@ function EventsPage() {
 
   useEffect(() => {
     checkUser();
-    let element = document.getElementsByClassName(classes.crEvntBtn);
+    let element = document.getElementsByClassName(sClasses.root);
     console.log("Element: ", element);
     if (user.isStudent === false) {
       element[0].style.display = "block";
@@ -230,7 +247,7 @@ function EventsPage() {
                 <div className={classes.btnContainer}>
                   <Button
                     onClick={showCreateEventBtn}
-                    className={classes.crEvntBtn}
+                    className={sClasses.root}
                   >
                     Create Event
                   </Button>

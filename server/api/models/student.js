@@ -22,7 +22,7 @@ const studentSchema = new mongoose.Schema({
     },
     interests : {
         type: String,
-        enum: ["SOFTWARE","HARDWARE", "AEROSPACE", "AUTOMOTIVE", "BIOMEDICAL"]
+        enum: ["Software","Hardware", "Aerospace", "Automotive", "Biomedical"]
     },
     nuid :{
         type : String,

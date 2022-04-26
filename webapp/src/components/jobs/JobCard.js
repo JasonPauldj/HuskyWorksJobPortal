@@ -44,8 +44,9 @@ function JobCard(props) {
           props.job.job_deadline
         ).toLocaleDateString()}`}</div>
         <div className={classes.divider}></div>
+      
        
-          {!props.isApplied &&  <div className={classes.apply} data-tip="" data-for="cardTooltip">
+          {!props.isRecruiter && !props.isApplied &&  <div className={classes.apply} data-tip="" data-for="cardTooltip">
             <button className={classes.btn_apply} onClick={handleApplyButtonOnClick}>Apply</button>
             <ReactTooltip id='cardTooltip' type='info'>
               <span>Click to apply for job</span>
@@ -54,7 +55,7 @@ function JobCard(props) {
           }
 
           {
-            props.isApplied && <p className={classes.apply}>Already Applied To This Job</p>
+            props.isApplied && <p className={classes.apply}>Applied</p>
           }
       </div>
 

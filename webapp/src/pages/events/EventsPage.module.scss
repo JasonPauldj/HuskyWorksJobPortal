@@ -22,9 +22,11 @@
 }
 
 .crEvntBtn {
+  color: $base-color;
   background-color: $blue-color;
   color: $white-color;
   height: 3rem;
+  line-height: 1;
 }
 
 .crEvntBtn:hover {
