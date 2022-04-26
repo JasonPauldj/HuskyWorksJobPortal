@@ -2,9 +2,9 @@ import mongoose from "mongoose";
 
 //Review Schema
 const reviewSchema = new mongoose.Schema({
-  nuid: {
+  name: {
     type: String,
-    required: "NUID is required.",
+    required: "Name is required.",
   },
   organizationId: {
     type: String,

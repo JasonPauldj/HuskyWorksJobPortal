@@ -257,14 +257,12 @@ function EventsPage() {
             </div>
             <div className="ly-1-3-1-bd-sec-right-sidebar">
               {/*HERE IS WHERE YOUR RIGHT CONTENT SHOULD GO*/}
-              <CardComponent className="ht-full-percent wt-80-percent">
-                <FilterSectionComponent
-                  heading={"EVENT TYPE"}
-                  values={EVENT_TYPE_FILTERS}
-                  isChecked={isEventTypeSelected}
-                  handleCheckboxChange={handleEventTypeCheckboxChange}
-                />
-              </CardComponent>
+              <FilterSectionComponent
+                heading={"EVENT TYPE"}
+                values={EVENT_TYPE_FILTERS}
+                isChecked={isEventTypeSelected}
+                handleCheckboxChange={handleEventTypeCheckboxChange}
+              />
             </div>
           </div>
         </div>
