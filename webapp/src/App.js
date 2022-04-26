@@ -10,7 +10,7 @@ import {
   Route,
   useNavigate,
 } from "react-router-dom";
-import StudentProfile from "./pages/profiles/StudentProfile";
+import StudentProfile from "./pages/StudentProfile/StudentProfile";
 import SignUpStudent from "./components/Login/SignUpStudent";
 import RecruiterSignUp from "./components/Login/RecruiterSignUp";
 import RecruiterDashboard from "./pages/dashboards/RecruiterDashboard";
@@ -30,6 +30,14 @@ import CreateJobsPage from "./pages/jobs/CreateJobsPage";
 import { fetchStudentRegistrations } from "./store/registrations_slice";
 import { authActions, userSelector } from "./store/auth_slice";
 import AuthService from "./utilities/AuthService";
+import NewEducationForm from "./pages/StudentProfile/StudentProfileForms/NewEducationForm";
+import NewProjectForm from "./pages/StudentProfile/StudentProfileForms/NewProjectForm";
+import NewWorkExForm from "./pages/StudentProfile/StudentProfileForms/NewWorkExForm";
+import RecruiterProfile from "./pages/RecruiterProfile/RecruiterProfile";
+import AuthService from "./utilities/AuthService";
+import { useDispatch } from "react-redux";
+import { authActions } from "./store/auth_slice";
+import { useState, useEffect } from "react";
 
 function App() {
   const isAuth = useSelector((state) => state.auth.isAuthenticated);
@@ -97,15 +105,50 @@ function App() {
             <Route path="/events" element={<EventsPage />} />
             <Route path="/events/:event_id" element={<EventDetailsPage />} />
             <Route path="/events/create-event" element={<CreateEventsPage />} />
-            <Route path="/signup-recruiter" element={<RecruiterSignUp />}></Route>
-            <Route path="/dashboard-student/:id" element={<StudentDashboard />}></Route>
-            <Route path="/dashboard-recruiter/:id" element={<RecruiterDashboard />}></Route>
+            <Route
+              path="/signup-recruiter"
+              element={<RecruiterSignUp />}
+            ></Route>
+            <Route
+              path="/dashboard-student/:id"
+              element={<StudentDashboard />}
+            ></Route>
+            <Route
+              path="/dashboard-recruiter/:id"
+              element={<RecruiterDashboard />}
+            ></Route>
 
             {/*Application routes*/}
-            <Route path="/student-applications" element={<ApplicationPage />} />     
+            <Route path="/student-applications" element={<ApplicationPage />} />
 
-            {/* Path for Recruiter Post Job */} 
-            <Route path="/jobs/create-job" element={<CreateJobsPage />} />    
+            {/* Path for Recruiter Post Job */}
+            <Route path="/jobs/create-job" element={<CreateJobsPage />} />
+
+            {/* Path for student profile */}
+            <Route
+              path="/profiles/studentEducation/:student_id"
+              element={<NewEducationForm />}
+            />
+            <Route
+              path="/profiles/studentWorkEx/:student_id"
+              element={<NewWorkExForm />}
+            />
+            <Route
+              path="/profiles/studentProject/:student_id"
+              element={<NewProjectForm />}
+            />
+            <Route path="/profiles/:student_id" element={<StudentProfile />} />
+            <Route
+              path="/profiles/:recruiter_id"
+              element={<RecruiterProfile />}
+            />
+
+            <Route
+              path="/profiles/:id"
+              element={
+                user.isStudent ? <StudentProfile /> : <RecruiterProfile />
+              }
+            />
           </Routes>
         </div>
       </Router>

@@ -40,6 +40,10 @@ function Navbar() {
         <a href="/events" className="navbar-links-items">
           Browse Events
         </a>
+
+        <Link to={`/profiles/${user._id}`} className="navbar-links-items">
+          My Profile
+        </Link>
       </div>
       <div className="navbar-profile">
         <div className="navbar-profile-photo" />

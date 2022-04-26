@@ -7,6 +7,9 @@ import OrganizationRouter from "./organizations-router.js";
 import ReviewRouter from "./reviews-router.js";
 import LoginRouter from "./login-router.js";
 import RegistrationRouter from "./registrations-router.js";
+import experienceRouter from "./experiences-router.js";
+import projectRouter from "./projects-router.js";
+import educationRouter from "./educations-router.js";
 
 // Exporting the routes using a default route
 export default (app) => {
@@ -19,4 +22,7 @@ export default (app) => {
   app.use("/", ReviewRouter);
   app.use("/", LoginRouter);
   app.use("/", RegistrationRouter);
+  app.use("/", experienceRouter);
+  app.use("/", projectRouter);
+  app.use("/", educationRouter);
 };
