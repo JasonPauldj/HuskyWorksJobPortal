@@ -27,8 +27,12 @@ function EventsPage() {
   const dispatch = useDispatch();
   const checkUser = () => {
     // console.log(AuthService.getCurrUser(), "AuthService.getCurrUser()");
-    if (user.length == 0) {
+    if (!user) {
       user = AuthService.getCurrUser();
+      if (!user) {
+        nav("/");
+        return;
+      }
       dispatch(authActions.login(AuthService.getCurrUser() || {}));
     }
   };

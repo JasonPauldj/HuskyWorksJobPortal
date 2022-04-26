@@ -5,6 +5,7 @@ import { authActions } from "../../store/auth_slice";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useDispatch, useSelector } from "react-redux";
 import CardComponent from "../genericComponent/genericCard/CardComponent";
+import AuthService from "../../utilities/AuthService";
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -14,37 +15,36 @@ function Navbar() {
   const handleLogOut = () => {
     if (auth) {
       dispatch(authActions.logout());
+      AuthService.removeCurrUser();
       nav("/");
     }
   };
 
   return (
-    <CardComponent className="navbar-container">
-      <div className="navbar">
-        <div>
-          <Link to="/" className="navbar-title">
-            HuskyWorks
-          </Link>
-        </div>
-        <div className="navbar-links">
-          <Link to="/jobs" className="navbar-links-items">
-            Browse Jobs
-          </Link>
-          <a
-            href="/organizations/625ef5818f55e8e632422328"
-            className="navbar-links-items"
-          >
-            Organization
-          </a>
-          <a href="/events" className="navbar-links-items">
-            Browse Events
-          </a>
-        </div>
-        <div className="navbar-profile">
-          <div className="navbar-profile-photo" />
-          <h3> {auth ? user.userName : "Barney Stinson"} </h3>
-          <LogoutIcon onClick={handleLogOut} />
-        </div>
+    <CardComponent className="navbar">
+      <div>
+        <Link to="/" className="navbar-title">
+          HuskyWorks
+        </Link>
+      </div>
+      <div className="navbar-links">
+        <Link to="/jobs" className="navbar-links-items">
+          Browse Jobs
+        </Link>
+        <a
+          href="/organizations/625ef5818f55e8e632422328"
+          className="navbar-links-items"
+        >
+          Organization
+        </a>
+        <a href="/events" className="navbar-links-items">
+          Browse Events
+        </a>
+      </div>
+      <div className="navbar-profile">
+        <div className="navbar-profile-photo" />
+        <h3> {auth ? user.userName : "Barney Stinson"} </h3>
+        <LogoutIcon onClick={handleLogOut} />
       </div>
     </CardComponent>
   );

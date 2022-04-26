@@ -8,7 +8,7 @@ import classes from "./OrgDetailsCard.module.scss";
 function OrgDetailsCard(props) {
   const [orgJobs, setOrgJobs] = useState([]);
   const [orgEvents, setOrgEvents] = useState([]);
-
+  const itemsPerPage = 3;
   console.log(props.organization._id);
 
   useEffect(() => {
@@ -34,6 +34,11 @@ function OrgDetailsCard(props) {
     fetchOrgEvents();
   }, []);
 
+  const indexOfLastItem = 1 * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentJobs = orgJobs.slice(indexOfFirstItem, indexOfLastItem);
+  const currentEvents = orgEvents.slice(indexOfFirstItem, indexOfLastItem);
+
   return (
     <CardComponent className={classes.mainContainer}>
       <div>
@@ -50,23 +55,18 @@ function OrgDetailsCard(props) {
         <p className={classes.orgAboutus}>{props.organization.aboutUs}</p>
         <h3>{props.organization.sponsorship}</h3>
       </div>
-
-      <CardComponent>
-        <div className={classes.moreTitle}>
-          {`More Jobs at ${props.organization.organizationName}`}
-        </div>
-        <div className={classes.jobsContainer}>
-          <JobsSection jobs={orgJobs} />
-        </div>
-      </CardComponent>
-      <CardComponent style={{ margin: "1rem 1rem" }}>
-        <div className={classes.moreTitle}>
-          {`More Events at ${props.organization.organizationName}`}
-        </div>
-        <div className={classes.jobsContainer}>
-          <EventsSection events={orgEvents} />
-        </div>
-      </CardComponent>
+      <div className={classes.moreTitle}>
+        {`More Jobs at ${props.organization.organizationName}`}
+      </div>
+      <div className={classes.jobsContainer}>
+        <JobsSection jobs={currentJobs} />
+      </div>
+      <div className={classes.moreTitle}>
+        {`More Events at ${props.organization.organizationName}`}
+      </div>
+      <div className={classes.jobsContainer}>
+        <EventsSection events={currentEvents} />
+      </div>
     </CardComponent>
   );
 }

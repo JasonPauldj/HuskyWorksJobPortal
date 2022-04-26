@@ -17,7 +17,7 @@ const Modal = (props) => {
         <h2>Register for Event</h2>
       </header>
       <div className={classes.content}>
-        <p>{`Are you sure you want to register for this event ${props.event.event_title} at  ${props.event.organizer_name}?`}</p>
+        <p>{`Are you sure you want to register for this event ${props.event.event_title} at  ${props.event.event_organizer}?`}</p>
       </div>
       <footer className={classes.btn_grp}>
         <button onClick={props.onRegisterReject}>No</button>
