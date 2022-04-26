@@ -13,6 +13,8 @@ function SignUpStudent() {
   const [major, setMajor] = useState("");
   const [email, setEmail] = useState("");
   const [student, setStudent] = useState("");
+  const [interests, setInterest] = useState("Software");
+
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -28,6 +30,7 @@ function SignUpStudent() {
         gpa,
         major,
         email,
+        interests,
       });
       console.log(response.data);
       setStudent(response.data);
@@ -36,6 +39,18 @@ function SignUpStudent() {
       let currErr = "Please enter the required fields in the form!";
       setError(currErr);
     }
+  };
+
+  const availableCategories = [
+    "Software",
+    "Hardware",
+    "Aerospace",
+    "Automotive",
+    "Biomedical",
+  ];
+
+  const handleInterestChange = (event) => {
+    setInterest(event.target.value);
   };
 
   return (
@@ -138,6 +153,19 @@ function SignUpStudent() {
                 onChange={(e) => setEmail(e.target.value)}
               />
               <span className="label">Email</span>
+              <span className="input-icon"></span>
+            </label>
+            <label className="inp">
+            <select
+                className="input-text"
+                onChange={handleInterestChange}
+              >
+                {availableCategories &&
+                  availableCategories.map((category) => (
+                    <option value={category}>{category}</option>
+                  ))}
+              </select>
+              <span className="label">Select Interests : </span>
               <span className="input-icon"></span>
             </label>
             <p className="errorMessage">{error}</p>

@@ -57,16 +57,24 @@ export default function Login() {
 
   const handleChange = (event) => {
     setLoginAs(event.target.value);
-    console.log("inside handle change", event.target.value);
   };
 
   return (
     <div className="container">
       {/* TODO redirect to either dashboard or profile page */}
-      {user ? (
-        <h1>Welcome {user.userName}</h1>
-      ) : (
+      
         <div className="welcome-container">
+        <div className="wrapper">
+            <h1 className="heading-secondary">
+              Welcome to <span className="lg">HuskyWorks</span>
+            </h1>{" "}
+            <p className="text-mute">
+              Not a member?
+              <br></br>
+              <a href="/signup-student">Sign up as Student</a> &nbsp;  &nbsp; 
+              <a href="/signup-recruiter">Sign up as Recruiter</a>
+            </p>
+          </div>
           <div className="signup-container">
             <h1 className="heading-primary">
               Log in<span className="span-blue">.</span>
@@ -78,7 +86,7 @@ export default function Login() {
               <label className="inp">
                 <select className="input-text" onChange={handleChange}>
                   <option value="Student">Student</option>
-                  <option value="Recruiter">recruiter</option>
+                  <option value="Recruiter">Recruiter</option>
                 </select>
                 <span className="label">Login as : </span>
                 <span className="input-icon"></span>
@@ -114,19 +122,8 @@ export default function Login() {
               </button>
             </form>
           </div>
-          <div className="wrapper">
-            <h1 className="heading-secondary">
-              Welcome to <span className="lg">HuskyWorks</span>
-            </h1>{" "}
-            <p className="text-mute">
-              Not a member?
-              <br></br>
-              <a href="/signup-student">Sign up as Student</a> &nbsp;
-              <a href="/signup-recruiter">Sign up as Recruiter</a>
-            </p>
-          </div>
+        
         </div>
-      )}
     </div>
   );
 }
