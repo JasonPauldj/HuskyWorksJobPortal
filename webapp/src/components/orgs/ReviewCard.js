@@ -11,7 +11,7 @@ function ReviewCard(props) {
           />
         </div>
         <div className={classes.profileText}>
-          <div className={classes.profileName}>{props.nuid}</div>
+          <div className={classes.profileName}>{props.name}</div>
           <div className={classes.profileRole}>Senior Game Designer</div>
         </div>
       </div>

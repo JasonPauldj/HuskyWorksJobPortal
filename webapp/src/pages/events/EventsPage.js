@@ -6,6 +6,11 @@ import CardComponent from "../../components/genericComponent/genericCard/CardCom
 import Navbar from "../../components/navbar/Navbar.js";
 import classes from "./EventsPage.module.scss";
 import SearchBar from "../../components/genericComponent/SearchBar";
+import { useDispatch, useSelector } from "react-redux";
+import AuthService from "../../utilities/AuthService.js";
+import { authActions } from "../../store/auth_slice.js";
+import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
 
 const EVENT_TYPE_FILTERS = ["NETWORKING", "CAREER FAIR", "WORKSHOP"];
 let isInitial = true;
@@ -14,12 +19,43 @@ function EventsPage() {
   const [appliedEventTypeFilters, setEventTypeFilters] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [events, setEvents] = useState([]);
+  let user = useSelector((state) => state.auth.user);
+  const nav = useNavigate();
+
+  const dispatch = useDispatch();
+  const checkUser = () => {
+    // console.log(AuthService.getCurrUser(), "AuthService.getCurrUser()");
+    if (user.length == 0) {
+      user = AuthService.getCurrUser();
+      dispatch(authActions.login(AuthService.getCurrUser() || {}));
+    }
+  };
+
+  useEffect(() => {
+    checkUser();
+    let element = document.getElementsByClassName(classes.crEvntBtn);
+    console.log("Element: ", element);
+    if (user.isStudent === false) {
+      element[0].style.display = "block";
+    } else {
+      element[0].style.display = "none";
+    }
+  }, []);
 
   //getting all events when the component is rendered for the first Time
   useEffect(() => {
     if (isInitial) {
       const fetchEvents = async () => {
-        const res = await axios.get("http://localhost:9000/events");
+        const res = await axios({
+          method: "GET",
+          url: "http://localhost:9000/events",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            accept: "*/*",
+            Authorization: `bearer ${user.token}`,
+          },
+        });
         setEvents(res.data);
       };
 
@@ -30,7 +66,16 @@ function EventsPage() {
   }, []);
 
   const fetchEvents = async (url) => {
-    const res = await axios.get(url);
+    const res = await axios({
+      method: "GET",
+      url: url,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        accept: "*/*",
+        Authorization: `bearer ${user.token}`,
+      },
+    });
     setEvents(res.data);
   };
 
@@ -101,6 +146,10 @@ function EventsPage() {
   const handleSearchInputChange = (searchInput) => {
     setSearchText(searchInput);
   };
+
+  const showCreateEventBtn = () => {
+    nav("/events/create-event");
+  };
   return (
     <div className="prbg ht-full-viewport py-1">
       <div className="flex-horizontal">
@@ -112,13 +161,24 @@ function EventsPage() {
           <div className="ly-1-3-1-bd-sec-right-container flex-horizontal">
             <div className="ly-1-3-1-bd-sec-right-main">
               {/*HERE IS WHERE YOUR CENTRAL CONTENT SHOULD GO*/}
-              <div>
-                <SearchBar
-                  id="search-jobs"
-                  placeholder="Search for Job or Organization"
-                  label="Search for Job or Organization"
-                  onSearchInputChange={handleSearchInputChange}
-                />
+              <div className={classes.headContainer}>
+                <div className={classes.searchContainer}>
+                  <SearchBar
+                    id="search-jobs"
+                    placeholder="Search for Job or Organization"
+                    label="Search for Job or Organization"
+                    onSearchInputChange={handleSearchInputChange}
+                    className={classes.searchBar}
+                  />
+                </div>
+                <div className={classes.btnContainer}>
+                  <Button
+                    onClick={showCreateEventBtn}
+                    className={classes.crEvntBtn}
+                  >
+                    Create Event
+                  </Button>
+                </div>
               </div>
               <div className={classes.eventsContainer}>{eventCards}</div>
             </div>

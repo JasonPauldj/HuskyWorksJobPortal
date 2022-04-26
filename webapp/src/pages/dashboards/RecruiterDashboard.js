@@ -8,62 +8,64 @@ import AuthService from "../../utilities/AuthService";
 import { authActions } from "../../store/auth_slice";
 import EventCard from "../../components/events/EventCard";
 
-
-
 function RecruiterDashboard() {
-    const recruiter = useSelector(state => state.auth.user);
-    console.log(recruiter, "recruiter");
-    console.log(recruiter.organizationId, "org");
+  const recruiter = useSelector((state) => state.auth.user);
+  console.log(recruiter, "recruiter");
+  console.log(recruiter.organizationId, "org");
 
-    const [jobs, setJobs] = useState([]);
-    const [jobsPosted, setJobsPosted] = useState([]);
-    const [orgPosting, setOrgPosting] = useState([]);
-    const [eventsPosted, setEventsPosted] = useState({});
-    const dispatch = useDispatch();
+  const [jobs, setJobs] = useState([]);
+  const [jobsPosted, setJobsPosted] = useState([]);
+  const [orgPosting, setOrgPosting] = useState([]);
+  const [eventsPosted, setEventsPosted] = useState({});
+  const dispatch = useDispatch();
 
-    const checkUser = () => {
-      if (recruiter.length == 0) {
-        recruiter = AuthService.getCurrUser();
-        dispatch(authActions.login(AuthService.getCurrUser() || {}));
-      }
+  const checkUser = () => {
+    if (recruiter.length == 0) {
+      recruiter = AuthService.getCurrUser();
+      dispatch(authActions.login(AuthService.getCurrUser() || {}));
+    }
+  };
+
+  useEffect(() => {
+    checkUser();
+  }, []);
+
+  useEffect(() => {
+    const fetchJobsPosted = async () => {
+      const response = await axios.get("http://localhost:9000/jobs");
+      setJobs(response.data);
+      let jobs = response.data;
+      const jobsPostedByrecruiter = response.data.filter(
+        (job) => job.recruiterId === recruiter._id
+      );
+      setJobsPosted(jobsPostedByrecruiter);
+      console.log(" jobs posted", jobsPosted);
+
+      const organizationPosting = jobs.filter(
+        (job) => job.organization_id === recruiter.organizationId
+      );
+      setOrgPosting(organizationPosting);
+      console.log("Org jobs: ", orgPosting);
     };
-  
-    useEffect(() => {
-      checkUser();
-    }, []);
-
-    useEffect(() => {
-          const fetchJobsPosted = async () => {
-              const response = await axios.get('http://localhost:9000/jobs');
-              setJobs(response.data);
-              let jobs = response.data;
-              const jobsPostedByrecruiter= response.data.filter((job) => job.recruiterId === recruiter._id);
-              setJobsPosted(jobsPostedByrecruiter);
-              console.log(" jobs posted", jobsPosted);
-
-              const organizationPosting= jobs.filter((job) => job.organization_id === recruiter.organizationId);
-              setOrgPosting(organizationPosting);
-              console.log("Org jobs: ", orgPosting);
-          }
-          fetchJobsPosted(); 
-  }, [])
+    fetchJobsPosted();
+  }, []);
 
   useEffect(() => {
     const fetchEventsPosted = async () => {
-        const response = await axios.get('http://localhost:9000/events');
-        console.log(response.data, "check events")
-        // setEvents(response.data);
-        console.log(recruiter._id, "recruiter Id");
+      const response = await axios.get("http://localhost:9000/events");
+      console.log(response.data, "check events");
+      // setEvents(response.data);
+      console.log(recruiter._id, "recruiter Id");
 
-        response.data.map((d)=> console.log(d.recruiterId, "recids"));
-        const eventsPostedByrecruiter= response.data.filter((event) => event.recruiterId === recruiter._id);
-        setEventsPosted(eventsPostedByrecruiter);
-        console.log(" events posted", eventsPostedByrecruiter);
-    }
-    fetchEventsPosted(); 
-}, [])
-
-
+      response.data.map((d) => console.log(d.recruiterId, "recids"));
+      const eventsPostedByrecruiter = response.data.filter(
+        (event) => event.recruiterId === recruiter._id
+      );
+      setEventsPosted(eventsPostedByrecruiter);
+      console.log(" events posted", eventsPostedByrecruiter);
+    };
+    fetchEventsPosted();
+  }, []);
 
   const jobsPostedCards = jobsPosted.map((job) => {
     return (
@@ -96,9 +98,6 @@ function RecruiterDashboard() {
   const eventsPostedByRecruiter = eventsPosted.map((event) => {
     return <EventCard key={event._id} event={event} />;
   });
-  
-
-
 
   return (
     <div className="flex-horizontal">
@@ -127,7 +126,6 @@ function RecruiterDashboard() {
           </div>
         </div>
 
-
         <div className="ly-1-3-1-bd-sec-right-container">
           <div className="ly-1-3-1-bd-sec-right-main">
             <div className="applications-section-header">
@@ -138,13 +136,9 @@ function RecruiterDashboard() {
             <div className={classes.jobsContainer}>{orgPostingCards}</div>
           </div>
         </div>
-
-        
-
       </div>
     </div>
   );
 }
-   
-  export default RecruiterDashboard;
-  
+
+export default RecruiterDashboard;
