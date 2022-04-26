@@ -9,8 +9,8 @@ import AuthService from "../../utilities/AuthService";
 
 function Navbar() {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.user);
-  const auth = useSelector((state) => state.auth.isAuthenticated);
+  let user = useSelector((state) => state.auth.user);
+  let auth = useSelector((state) => state.auth.isAuthenticated);
   const nav = useNavigate();
   const handleLogOut = () => {
     if (auth) {
@@ -20,7 +20,22 @@ function Navbar() {
     }
   };
 
-  return (
+  const checkUser = () => {
+    // console.log(AuthService.getCurrUser(), "AuthService.getCurrUser()");
+    if (user) {
+      user = AuthService.getCurrUser();
+      dispatch(authActions.login(AuthService.getCurrUser() || {}));
+    }
+  };
+
+  useEffect(() => {
+    checkUser();
+  }, []);
+
+  //Dashboard, browse jobs, browse events, my applications, profile - student
+  //Dashboard, create jobs, create events, my orgranization, profile -recruiter
+
+  return user.isStudent ? (
     <CardComponent className="navbar">
       <div>
         <Link to="/" className="navbar-title">
@@ -28,20 +43,61 @@ function Navbar() {
         </Link>
       </div>
       <div className="navbar-links">
+        <Link
+          to={`/dashboard-student/${user._id}`}
+          className="navbar-links-items"
+        >
+          Dashboard
+        </Link>
         <Link to="/jobs" className="navbar-links-items">
           Browse Jobs
         </Link>
-        <a
-          href="/organizations/625ef5818f55e8e632422328"
+        <Link to="/events" className="navbar-links-items">
+          Browse Events
+        </Link>
+        <Link to="/student-applications" className="navbar-links-items">
+          My Applications
+        </Link>
+        <Link to={`/studentProfile/${user._id}`} className="navbar-links-items">
+          My Profile
+        </Link>
+      </div>
+      <div className="navbar-profile">
+        <div className="navbar-profile-photo" />
+        <h3> {auth ? user.userName : "Barney Stinson"} </h3>
+        <LogoutIcon onClick={handleLogOut} />
+      </div>
+    </CardComponent>
+  ) : (
+    <CardComponent className="navbar">
+      <div>
+        <Link to="/" className="navbar-title">
+          HuskyWorks
+        </Link>
+      </div>
+      <div className="navbar-links">
+        <Link
+          to={`/dashboard-recruiter/${user._id}`}
           className="navbar-links-items"
         >
-          Organization
-        </a>
-        <a href="/events" className="navbar-links-items">
-          Browse Events
-        </a>
-
-        <Link to={`/profiles/${user._id}`} className="navbar-links-items">
+          Dashboard
+        </Link>
+        <Link to="/jobs/create-job" className="navbar-links-items">
+          Create a job
+        </Link>
+        <Link to="/events/create-event" className="navbar-links-items">
+          Create an event
+        </Link>
+        <Link
+          to={`/organizations/${user.recruiter.organization_id}`}
+          className="navbar-links-items"
+        >
+          My Organization
+        </Link>
+        <Link
+          to={`/recruiterProfile/${user._id}`}
+          className="navbar-links-items"
+        >
           My Profile
         </Link>
       </div>

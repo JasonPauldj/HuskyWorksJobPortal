@@ -10,7 +10,6 @@ import { authActions } from "../../store/auth_slice";
 
 function ReviewContainer(props) {
   const [reviews, setReviews] = useState([]);
-  const [student, setStudent] = useState({});
 
   let user = useSelector((state) => state.auth.user);
 
@@ -36,29 +35,11 @@ function ReviewContainer(props) {
     fetchReviews();
   }, []);
 
-  useEffect(() => {
-    let url = `http://localhost:9000/students/${user._id}`;
-    const fetchStudent = async () => {
-      const response = await axios({
-        method: "GET",
-        url: url,
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          accept: "*/*",
-          Authorization: `bearer ${user.token}`,
-        },
-      });
-      setStudent(response.data);
-    };
-    fetchStudent();
-  }, []);
-
   const [rev, setRev] = useState("");
   const handleReviewSubmit = (event) => {
     event.preventDefault();
     const review = {
-      nuid: student.nuid,
+      name: user.student.firstname,
       organizationId: props.organizationId,
       review: rev,
     };
@@ -86,9 +67,7 @@ function ReviewContainer(props) {
     setRev("");
   };
   const reviewCards = reviews.map((review, index) => {
-    return (
-      <ReviewCard key={index} name={student.username} review={review.review} />
-    );
+    return <ReviewCard key={index} review={review} />;
   });
   return (
     <CardComponent className={classes.reviewContainer}>

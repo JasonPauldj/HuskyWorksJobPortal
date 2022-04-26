@@ -39,7 +39,8 @@ export const getAllEvents = async (request, response) => {
     if (search) {
       query.event_title = { $regex: search, $options: "i" };
     }
-    //when searched by query parameters, returns the events requested
+    //when searched
+    // by query parameters, returns the events requested
     if (query) {
       const events = await eventsService.filter(query);
       setSuccessResponse(events, response);

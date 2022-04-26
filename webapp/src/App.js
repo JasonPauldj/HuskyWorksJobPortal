@@ -24,7 +24,6 @@ import EventDetailsPage from "./pages/events/EventDetailsPage";
 import CreateEventsPage from "./pages/events/CreateEventsPage";
 import CreateOrgPage from "./pages/organisation/CreateOrgPage";
 import { fetchStudentApplications } from "./store/applications_slice";
-import { useEffect } from "react";
 import ApplicationPage from "./pages/applications/ApplicationPage";
 import CreateJobsPage from "./pages/jobs/CreateJobsPage";
 import { fetchStudentRegistrations } from "./store/registrations_slice";
@@ -34,9 +33,6 @@ import NewEducationForm from "./pages/StudentProfile/StudentProfileForms/NewEduc
 import NewProjectForm from "./pages/StudentProfile/StudentProfileForms/NewProjectForm";
 import NewWorkExForm from "./pages/StudentProfile/StudentProfileForms/NewWorkExForm";
 import RecruiterProfile from "./pages/RecruiterProfile/RecruiterProfile";
-import AuthService from "./utilities/AuthService";
-import { useDispatch } from "react-redux";
-import { authActions } from "./store/auth_slice";
 import { useState, useEffect } from "react";
 
 function App() {
@@ -53,10 +49,12 @@ function App() {
     // console.log(AuthService.getCurrUser(), "AuthService.getCurrUser()");
     if (!user) {
       user = AuthService.getCurrUser();
-
+      if (!user) {
+      }
       dispatch(authActions.login(AuthService.getCurrUser() || {}));
     }
   };
+
   useEffect(() => {
     checkUser();
   }, []);
@@ -137,17 +135,13 @@ function App() {
               path="/profiles/studentProject/:student_id"
               element={<NewProjectForm />}
             />
-            <Route path="/profiles/:student_id" element={<StudentProfile />} />
             <Route
-              path="/profiles/:recruiter_id"
-              element={<RecruiterProfile />}
+              path="/studentProfile/:student_id"
+              element={<StudentProfile />}
             />
-
             <Route
-              path="/profiles/:id"
-              element={
-                user.isStudent ? <StudentProfile /> : <RecruiterProfile />
-              }
+              path="/recruiterProfile/:recruiter_id"
+              element={<RecruiterProfile />}
             />
           </Routes>
         </div>

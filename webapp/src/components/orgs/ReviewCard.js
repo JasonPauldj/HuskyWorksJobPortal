@@ -11,12 +11,12 @@ function ReviewCard(props) {
           />
         </div>
         <div className={classes.profileText}>
-          <div className={classes.profileName}>{props.name}</div>
-          <div className={classes.profileRole}>Senior Game Designer</div>
+          <div className={classes.profileName}>{props.review.name}</div>
+          <div className={classes.profileRole}>Student</div>
         </div>
       </div>
       <div className={classes.cardReview}>
-        <p>{props.review}</p>
+        <p>{props.review.review}</p>
       </div>
     </div>
   );
