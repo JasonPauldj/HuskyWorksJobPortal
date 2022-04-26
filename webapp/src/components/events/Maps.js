@@ -11,7 +11,7 @@ class Maps extends Component {
       <Map
         google={this.props.google}
         style={{ width: "60%", height: "40%" }}
-        zoom={15}
+        zoom={10}
         initialCenter={{
           lat: this.props.lat,
           lng: this.props.lng,

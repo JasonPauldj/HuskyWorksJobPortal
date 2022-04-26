@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import ReactTooltip from "react-tooltip";
 import CardComponent from "../genericComponent/genericCard/CardComponent";
 import classes from "./EventCard.module.scss";
 function EventCard(props) {
@@ -9,8 +10,16 @@ function EventCard(props) {
     navigate(`/events/${props.event._id}`);
   };
 
+  const handleApplyButtonOnClick = (event) => {
+    event.stopPropagation();
+    props.handleApplyButtonOnClick(props.event);
+  };
+
   return (
-    <CardComponent className={`wt-30-percent ${classes.eventCard}`} onClick={handleCardOnClick}>
+    <CardComponent
+      className={`wt-30-percent ${classes.eventCard}`}
+      onClick={handleCardOnClick}
+    >
       <div className={classes.orgSection}>
         <img
           className={classes.orgImg}
@@ -28,9 +37,23 @@ function EventCard(props) {
         props.event.event_date
       ).toLocaleDateString()}`}</div>
       <div className={classes.divider}></div>
-      <div className={classes.apply}>
-        <button className={classes.btn_apply}>Apply</button>
-      </div>
+      {!props.isApplied && (
+        <div className={classes.apply} data-tip="" data-for="cardTooltip">
+          <button
+            className={classes.btn_apply}
+            onClick={handleApplyButtonOnClick}
+          >
+            Apply
+          </button>
+          <ReactTooltip id="cardTooltip" type="info">
+            <span>Click to register for this event</span>
+          </ReactTooltip>
+        </div>
+      )}
+
+      {props.isApplied && (
+        <p className={classes.apply}>Already Registered To This Event</p>
+      )}
     </CardComponent>
   );
 }

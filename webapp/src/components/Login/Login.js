@@ -41,6 +41,7 @@ export default function Login() {
         });
         console.log(response.data);
         setUser(response.data);
+        AuthService.setCurrUser(response.data);
         dispatch(authActions.login(response.data));
         nav(`/dashboard-recruiter/${response.data._id}`);
       }
@@ -51,7 +52,7 @@ export default function Login() {
         error.response.data &&
         error.response.data.message;
       setError(currErr);
-      console.log(currErr);
+      console.log(error.message);
     }
   };
 

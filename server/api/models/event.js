@@ -40,7 +40,7 @@ const eventSchema = new mongoose.Schema({
     type: Date,
     required: "Date of the Event is required.",
   },
-  student_id: {
+  recruiter_id: {
     type: String,
     required: "Student Id is required.",
   },

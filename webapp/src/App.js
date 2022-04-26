@@ -18,26 +18,23 @@ import EventsPage from "./pages/events/EventsPage";
 import EventDetailsPage from "./pages/events/EventDetailsPage";
 import CreateEventsPage from "./pages/events/CreateEventsPage";
 import CreateOrgPage from "./pages/organisation/CreateOrgPage";
-import {fetchStudentApplications} from './store/applications_slice';
+import { fetchStudentApplications } from "./store/applications_slice";
 import { useEffect } from "react";
 import ApplicationPage from "./pages/applications/ApplicationPage";
-
-
-
+import CreateJobsPage from "./pages/jobs/CreateJobsPage";
 
 function App() {
   const isAuth = useSelector((state) => state.auth.isAuthenticated);
-  const applications = useSelector((state=>state.applications.applications));
+  const applications = useSelector((state) => state.applications.applications);
   console.log(isAuth, "isAuth");
 
   const dispatch = useDispatch();
 
   //fetching applications from DB for dev purposes.
   //TODO - This shold be called only if logged in as STUDENT. and Id of Student should be passed.
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(fetchStudentApplications("6266dfbe83f165d16ae1ef02"));
-  },[]);
-
+  }, []);
 
   return (
     <div className="prbg">
@@ -68,7 +65,10 @@ function App() {
             {/* Path for Organizations*/}
             <Route path="/organizations" element={<OrgDetailsPage />} />
             <Route path="/organizations/:org_id" element={<OrgDetailsPage />} />
-            <Route path="/organizations/create-org" element={<CreateOrgPage />} />
+            <Route
+              path="/organizations/create-org"
+              element={<CreateOrgPage />}
+            />
 
             {/* Path for Events */}
             <Route path="/events" element={<EventsPage />} />
@@ -78,15 +78,14 @@ function App() {
             <Route path="/dashboard-student/:id" element={<StudentDashboard />}></Route>
             <Route path="/dashboard-recruiter/:id" element={<RecruiterDashboard />}></Route>
 
-
-
             {/*Application routes*/}
-            <Route path="/student-applications" element={<ApplicationPage />} />      
+            <Route path="/student-applications" element={<ApplicationPage />} />     
 
+            {/* Path for Recruiter Post Job */} 
+            <Route path="/jobs/create-job" element={<CreateJobsPage />} />    
           </Routes>
         </div>
       </Router>
-
     </div>
   );
 }

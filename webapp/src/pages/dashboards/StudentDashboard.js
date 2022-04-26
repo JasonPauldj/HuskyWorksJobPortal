@@ -109,7 +109,6 @@ function StudentDashboard() {
     return <EventCard key={event._id} event={event} />;
   });
 
-  console.log(user.student, "gwgdgj")
   const recommendations = allJobs.filter(
     (j) => j.job_category === user.student.interests
   );
