@@ -21,10 +21,18 @@ function Navbar() {
   };
 
   const checkUser = () => {
-    // console.log(AuthService.getCurrUser(), "AuthService.getCurrUser()");
-    if (user) {
+    //if user not in store
+    if (!user) {
       user = AuthService.getCurrUser();
-      dispatch(authActions.login(AuthService.getCurrUser() || {}));
+      
+      //if user not in persistent local store
+      if(!user)
+      {
+        nav('/');
+        return;
+      }
+      //add user to store
+       dispatch(authActions.login(user));
     }
   };
 
@@ -35,7 +43,7 @@ function Navbar() {
   //Dashboard, browse jobs, browse events, my applications, profile - student
   //Dashboard, create jobs, create events, my orgranization, profile -recruiter
 
-  return user.isStudent ? (
+  return (user && user.isStudent) ? (
     <CardComponent className="navbar">
       <div>
         <Link to="/" className="navbar-title">
@@ -68,7 +76,7 @@ function Navbar() {
         <LogoutIcon onClick={handleLogOut} />
       </div>
     </CardComponent>
-  ) : (
+  ) :( (user && user.recruiter) ? (
     <CardComponent className="navbar">
       <div>
         <Link to="/" className="navbar-title">
@@ -107,7 +115,7 @@ function Navbar() {
         <LogoutIcon onClick={handleLogOut} />
       </div>
     </CardComponent>
-  );
+  ): <></>);
 }
 
 export default Navbar;

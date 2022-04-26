@@ -18,6 +18,12 @@ const applicationSchema = new mongoose.Schema({
     type: String,
     required: "Student Id is required.",
   },
+  student_name: {
+    type: String
+  },
+  student_gpa: {
+    type: mongoose.Schema.Types.Decimal128,
+  },
   application_date: {
     type: Date,
     default: Date.now(),

@@ -1,4 +1,6 @@
-const useStyles = makeStyles({
+import {makeStyles} from '@mui/styles';
+
+const useStyles = () =>  { return makeStyles({
     root: {
       backgroundColor: "#1f3b8f",
       color: "#ffffff",
@@ -12,4 +14,6 @@ const useStyles = makeStyles({
         padding: 0,
       },
     },
-  });
+  })};
+
+  export default useStyles;

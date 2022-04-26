@@ -52,7 +52,7 @@ function EventCard(props) {
       )}
 
       {props.isRegistered && (
-        <p className={classes.apply}>Already Registered To This Event</p>
+        <p className={classes.apply}>Registered</p>
       )}
     </CardComponent>
   );

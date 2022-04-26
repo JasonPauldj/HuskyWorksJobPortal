@@ -8,7 +8,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import CardComponent from "../../components/genericComponent/genericCard/CardComponent";
 import classes from "./CreateJobsPage.module.scss";
@@ -16,23 +16,39 @@ import axios from "axios";
 import { JOB_CATEGORIES } from '../../utilities/constants';
 import { JOB_LOCATIONS } from '../../utilities/constants';
 import { JOB_TYPES } from '../../utilities/constants';
+import { useSelector, useDispatch } from "react-redux";
+import { authActions } from "../../store/auth_slice";
 import AuthService from "../../utilities/AuthService";
 
 
 function CreateJobsPage() {
 
-  // let user = useSelector((state) => state.auth.user);
+  let user = useSelector((state) => state.auth.user);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  // const checkUser = () => {
-  //   if (user.length == 0) {
-  //     user = AuthService.getCurrUser();
-  //     dispatch(authActions.login(AuthService.getCurrUser() || {}));
-  //   }
-  // };
 
-  // useEffect(() => {
-  //   checkUser();
-  // }, []);
+  const checkUser = () => {
+    //if user not in store
+    if (!user) {
+      user = AuthService.getCurrUser();
+      
+      //if user not in persistent local store
+      if(!user)
+      {
+        navigate('/');
+        return;
+      }
+      //add user to store
+       dispatch(authActions.login(user));
+    }
+  };
+
+  useEffect(() => {
+    checkUser();
+  }, []);
+
+
 
   //TODO - FETCH RECRUITER FROM STATE
   //TODO - FETCH ORGANIZATION FROM BACKEND BASED ON RECRUITER 
@@ -46,7 +62,6 @@ function CreateJobsPage() {
   const [category, setCategory] = useState("");
   const [salary, setSalary] = useState(0);
 
-  const navigate = useNavigate();
 
   const handleSubmit = () => {
     const job = {

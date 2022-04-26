@@ -238,8 +238,8 @@ function EventsPage() {
                 <div className={classes.searchContainer}>
                   <SearchBar
                     id="search-jobs"
-                    placeholder="Search for Job or Organization"
-                    label="Search for Job or Organization"
+                    placeholder="Search for an Event"
+                    label="Search for an Event"
                     onSearchInputChange={handleSearchInputChange}
                     className={classes.searchBar}
                   />
