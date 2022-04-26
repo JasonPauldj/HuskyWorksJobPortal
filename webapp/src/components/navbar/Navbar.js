@@ -45,28 +45,6 @@ function Navbar() {
           <h3> {auth ? user.userName : "Barney Stinson"} </h3>
           <LogoutIcon onClick={handleLogOut} />
         </div>
-        <div className="navbar-links">
-          <Link to="/jobs" className="navbar-links-items">
-            Browse Jobs
-          </Link>
-          <Link to="/student-applications" className="navbar-links-items">
-            View My Applications
-          </Link>
-          <a
-            href="/organizations/625ef5818f55e8e632422328"
-            className="navbar-links-items"
-          >
-            Organization
-          </a>
-          <a href="/events" className="navbar-links-items">
-            Browse Events
-          </a>
-        </div>
-        <div className="navbar-profile">
-          <div className="navbar-profile-photo" />
-          <h3> {auth ? user.userName : "Barney Stinson"} </h3>
-          <LogoutIcon onClick={handleLogOut} />
-        </div>
       </div>
     </CardComponent>
   );

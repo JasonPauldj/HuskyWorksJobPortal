@@ -32,7 +32,7 @@ export default function Login() {
         //set to local storage
         AuthService.setCurrUser(response.data);
         dispatch(authActions.login(response.data));
-        nav(`/dashboard-student/${response.data._id}`);
+        nav(`/events`);
       } else if (loginAs === "Recruiter") {
         const response = await axios.post("http://localhost:9000/login", {
           username,

@@ -11,6 +11,8 @@ import AuthService from "../../utilities/AuthService.js";
 import { authActions } from "../../store/auth_slice.js";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+import RegisterModal from "../../components/events/RegisterModal";
+import { postRegistration } from "../../store/registrations_slice";
 
 const EVENT_TYPE_FILTERS = ["NETWORKING", "CAREER FAIR", "WORKSHOP"];
 let isInitial = true;
@@ -120,8 +122,31 @@ function EventsPage() {
     fetchEvents(url);
   }, [appliedEventTypeFilters, searchText]);
 
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState();
+
+  const registrations = useSelector(
+    (state) => state.registrations.registrations
+  );
+
+  const handleApplyButtonOnClick = (event) => {
+    setSelectedEvent(event);
+    setIsRegistered(true);
+  };
+
   const eventCards = events.map((event) => {
-    return <EventCard key={event._id} event={event} />;
+    const registrationExist = registrations.filter(
+      (registration) => registration.event_id === event._id
+    );
+
+    return (
+      <EventCard
+        key={event._id}
+        event={event}
+        handleApplyButtonOnClick={handleApplyButtonOnClick}
+        isRegistered={registrationExist.length > 0}
+      />
+    );
   });
 
   const isEventTypeSelected = (eventTypeValue) =>
@@ -150,8 +175,35 @@ function EventsPage() {
   const showCreateEventBtn = () => {
     nav("/events/create-event");
   };
+
+  const onRegisterConfirm = (event) => {
+    //TODO - REMOVE HARDCODED DOCUMENT_ID and STUDENT_ID
+
+    const registration = {
+      event_id: event._id,
+      student_id: user._id,
+    };
+
+    dispatch(postRegistration(registration));
+    setSelectedEvent(null);
+    setIsRegistered(false);
+  };
+
+  const onRegisterReject = () => {
+    setSelectedEvent(null);
+    setIsRegistered(false);
+  };
+
   return (
     <div className="prbg ht-full-viewport py-1">
+      {isRegistered && (
+        <RegisterModal
+          onRegisterConfirm={onRegisterConfirm}
+          onRegisterReject={onRegisterReject}
+          event={selectedEvent}
+        />
+      )}
+
       <div className="flex-horizontal">
         <div className="ly-1-3-1-bd-sec-left">
           {/*HERE IS WHERE YOUR NAVBAR/LEFTSIDEBAR SHOULD GO*/}

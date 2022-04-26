@@ -11,13 +11,11 @@ import AuthService from "../../utilities/AuthService";
 import { JOB_CATEGORIES } from "../../utilities/constants";
 import { JOB_LOCATIONS } from "../../utilities/constants";
 import ApplyModal from "../../components/jobs/ApplyModal";
-import {postApplication} from '../../store/applications_slice';
-
+import { postApplication } from "../../store/applications_slice";
 
 const JOB_TYPE_FILTERS = ["FULL-TIME", "PART-TIME", "INTERNSHIP"];
 const JOB_CATEGORY_FILTERS = [...JOB_CATEGORIES];
 const JOB_LOCATION_FILTERS = [...JOB_LOCATIONS];
-
 
 let isInitial = true;
 
@@ -47,8 +45,7 @@ function JobsPage(props) {
   const [isApply, setIsApply] = useState(false);
   const [selectedJob, setSelectedJob] = useState();
 
-  const applications = useSelector((state=>state.applications.applications));
-
+  const applications = useSelector((state) => state.applications.applications);
 
   //getting all jobs when the component is rendered for the first Time
   useEffect(() => {
@@ -66,7 +63,7 @@ function JobsPage(props) {
 
   /**
    * Function to fetch jobs
-   * @param {string} url 
+   * @param {string} url
    */
   const fetchJobs = async (url) => {
     const response = await axios.get(url);
@@ -104,11 +101,13 @@ function JobsPage(props) {
     if (jobCategoryQueryParam.length > 0) {
       params.push({
         paramName: "job_categories",
-        paramValue: jobCategoryQueryParam.slice(0, jobCategoryQueryParam.length - 1),
+        paramValue: jobCategoryQueryParam.slice(
+          0,
+          jobCategoryQueryParam.length - 1
+        ),
       });
       //url += `?job_types=${jobTypeQueryParam.slice(0, jobTypeQueryParam.length - 1)}`
     }
-
 
     //checking if job location filters are selected
     if (appliedJobLocationFilters.length > 0) {
@@ -119,7 +118,10 @@ function JobsPage(props) {
     if (jobLocationQueryParam.length > 0) {
       params.push({
         paramName: "job_locations",
-        paramValue: jobLocationQueryParam.slice(0, jobLocationQueryParam.length - 1),
+        paramValue: jobLocationQueryParam.slice(
+          0,
+          jobLocationQueryParam.length - 1
+        ),
       });
       //url += `?job_types=${jobTypeQueryParam.slice(0, jobTypeQueryParam.length - 1)}`
     }
@@ -142,16 +144,22 @@ function JobsPage(props) {
     }
 
     fetchJobs(url);
-  }, [appliedJobTypeFilters, appliedJobCategoryFilters , appliedJobLocationFilters,searchText]);
+  }, [
+    appliedJobTypeFilters,
+    appliedJobCategoryFilters,
+    appliedJobLocationFilters,
+    searchText,
+  ]);
 
-  
-  const handleApplyButtonOnClick = (job)=>{
+  const handleApplyButtonOnClick = (job) => {
     setSelectedJob(job);
     setIsApply(true);
-  }
+  };
 
   const jobCards = jobs.map((job) => {
-        const applicationExist = applications.filter((application) =>application.job_id === job._id);
+    const applicationExist = applications.filter(
+      (application) => application.job_id === job._id
+    );
 
     return (
       <JobCard
@@ -169,7 +177,7 @@ function JobsPage(props) {
   const isJobCategorySelected = (jobCategoryValue) =>
     appliedJobCategoryFilters.includes(jobCategoryValue);
 
-    const isJobLocationSelected = (jobLocationValue) =>
+  const isJobLocationSelected = (jobLocationValue) =>
     appliedJobLocationFilters.includes(jobLocationValue);
 
   const handleJobTypeCheckboxChange = (jobTypeValue) => {
@@ -199,7 +207,10 @@ function JobsPage(props) {
     }
     //the filter was not selected, add it to appliedFilters\
     else {
-      updatedJobCategoryFilters = [...appliedJobCategoryFilters, jobCategoryValue];
+      updatedJobCategoryFilters = [
+        ...appliedJobCategoryFilters,
+        jobCategoryValue,
+      ];
     }
     setJobCategoryFilters(updatedJobCategoryFilters);
   };
@@ -215,7 +226,10 @@ function JobsPage(props) {
     }
     //the filter was not selected, add it to appliedFilters\
     else {
-      updatedJobLocationFilters = [...appliedJobLocationFilters, jobLocationValue];
+      updatedJobLocationFilters = [
+        ...appliedJobLocationFilters,
+        jobLocationValue,
+      ];
     }
     setJobLocationFilters(updatedJobLocationFilters);
   };
@@ -224,30 +238,36 @@ function JobsPage(props) {
     setSearchText(searchInput);
   };
 
-  const onApplyConfirm=(job) =>{
+  const onApplyConfirm = (job) => {
     //TODO - REMOVE HARDCODED DOCUMENT_ID and STUDENT_ID
 
-    const application={
+    const application = {
       document_id: "1",
       status: "APPLIED",
       job_id: job._id,
-      student_id: "6266dfbe83f165d16ae1ef02"
+      student_id: "6266dfbe83f165d16ae1ef02",
     };
 
-    dispatch(postApplication(application))
+    dispatch(postApplication(application));
     setSelectedJob(null);
     setIsApply(false);
-  }
+  };
 
-  const onApplyReject=() =>{
+  const onApplyReject = () => {
     setSelectedJob(null);
     setIsApply(false);
-  }
+  };
 
   return (
     <>
       <div className="prbg ht-full-viewport py-1">
-        {isApply && <ApplyModal onApplyConfirm={onApplyConfirm} onApplyReject={onApplyReject} job={selectedJob}/>}
+        {isApply && (
+          <ApplyModal
+            onApplyConfirm={onApplyConfirm}
+            onApplyReject={onApplyReject}
+            job={selectedJob}
+          />
+        )}
         <div className="flex-horizontal">
           <div className="ly-1-3-1-bd-sec-left ">
             <Navbar />
@@ -263,10 +283,12 @@ function JobsPage(props) {
                     onSearchInputChange={handleSearchInputChange}
                   />
                 </div>
-                {jobs.length===0 && <div className={classes.infoMessage}>No Jobs Were Found</div>}
-                {jobs.length> 0 && <div className={classes.jobsContainer}>
-                  {jobCards}
-                  </div>}
+                {jobs.length === 0 && (
+                  <div className={classes.infoMessage}>No Jobs Were Found</div>
+                )}
+                {jobs.length > 0 && (
+                  <div className={classes.jobsContainer}>{jobCards}</div>
+                )}
               </div>
               <div className="ly-1-3-1-bd-sec-right-sidebar">
                 {/* <CardComponent className="ht-full-percent wt-80-percent"></CardComponent> */}
