@@ -6,11 +6,13 @@ export const addEvent = (newEvent) => {
   return event.save();
 };
 
+// Method to get Event
 export const getEvents = () => {
   const events = Event.find({}).exec();
   return events;
 };
 
+// Method to filter Event
 export const filter = (query) => {
   const params = { ...query };
   const events = Event.find(params).exec();

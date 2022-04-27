@@ -4,21 +4,24 @@ import * as ApplicationsController from "./../controllers/applications-controlle
 
 const router = express.Router();
 
+
 router
   .route("/applications") // Entry Route
-  .post(ApplicationsController.createApplication)
+  .post(ApplicationsController.createApplication) // Get Route
   .get(ApplicationsController.getAllApplications); // Post Route
 
 
+//Entry route for applications by id
 router
   .route("/applications/:id") // Entry Route
-  .get(ApplicationsController.getApplication)
-  .put(ApplicationsController.update)
-  .delete(ApplicationsController.remove);
+  .get(ApplicationsController.getApplication) // Get Route
+  .put(ApplicationsController.update) // Put Route
+  .delete(ApplicationsController.remove); // Delete Route
 
+//Entry route for student applications by student id
 router
   .route("/student/applications/:id")
-  .get(ApplicationsController.getApplicationsByStudentId) // Entry Route
+  .get(ApplicationsController.getApplicationsByStudentId) // Get Route
 
 
  

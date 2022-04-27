@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+//Application schema/model
 const applicationSchema = new mongoose.Schema({
   document_id: {
     type: String,

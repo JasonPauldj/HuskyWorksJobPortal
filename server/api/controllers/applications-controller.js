@@ -13,6 +13,7 @@ const setSuccessResponse = (obj, response) => {
   response.json(obj);
 };
 
+// Method to post application using the post method
 export const createApplication = async (request, response) => {
   try {
     const payload = request.body;
@@ -25,7 +26,7 @@ export const createApplication = async (request, response) => {
 };
 
 
-
+// Method to get all applications 
 export const getAllApplications = async (request, response) => {
   try {
     const status = request.query.status;
@@ -116,16 +117,17 @@ export const remove = async (request, response) => {
   }
 }
 
+// Method to get applications by student id
 export const getApplicationsByStudentId = async (request, response) => {
   try {
-    const id = request.params.id; // student_id
-    //getall applications
+    const id = request.params.id; //this is  student_id
+    //get all applications
     const applications = await ApplicationsService.getApplications();
     // filter by id
     console.log(applications);
     const applicationsByStudentId = applications.filter((application) => application.student_id === id);
     const jobIds = applicationsByStudentId.map((application) => application.job_id);
-    // // call jobs now
+    //  calling jobs now
     const promises = jobIds.map((jobId) => {
       return getJobById(jobId);
     });

@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 
+//Created auth-service to verify the JWT access token
 export const verify = async (request, response, next) => {
     const authHeader = request.headers.authorization; 
     if(authHeader) {

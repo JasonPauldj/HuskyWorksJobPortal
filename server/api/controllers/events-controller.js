@@ -12,6 +12,7 @@ const setSuccessResponse = (obj, response) => {
   response.json(obj);
 };
 
+// Method to post event using the post method
 export const createEvent = async (request, response) => {
   try {
     const payload = request.body;
@@ -22,6 +23,7 @@ export const createEvent = async (request, response) => {
   }
 };
 
+// Method to get all events 
 export const getAllEvents = async (request, response) => {
   try {
     const recruiterId = request.query.recruiter_id;
@@ -99,6 +101,7 @@ export const remove = async (request, response) => {
   }
 };
 
+// Method to get applications by student id
 export const getEventsByStudentId = async (request, response) => {
   try {
     const id = request.params.id; // student_id

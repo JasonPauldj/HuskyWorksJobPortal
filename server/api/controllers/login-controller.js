@@ -16,21 +16,22 @@ const setSuccessResponse = (obj, response) => {
 
 let refreshTokens = [];
 
+//Generating Access Token 
 const generateAccessToken = (user) => {
-  return jwt.sign({ id: user.id }, "mySecretKey", { expiresIn: "15m" });
+  return jwt.sign({ id: user.id }, "mySecretKey", { expiresIn: "15m" }); //expiry time is 15 mins
 };
 
+//Generating Refresh Token 
 const generateRefreshToken = (user) => {
   return jwt.sign({ id: user.id }, "myRefreshSecretKey", {
-    expiresIn: "15m",
+    expiresIn: "15m",   //expiry time is 15 mins
   });
 };
 
+//login method to login as student or recruiter. 
 export const login = async (request, response) => {
   try {
     const { username, password, loginAs } = request.body;
-    console.log("Backend", loginAs);
-    //TODO to be changed
     if (loginAs === "Student") {
       const students = await StudentService.getStudents();
       const student = students.find((s) => {
@@ -50,6 +51,7 @@ export const login = async (request, response) => {
   }
 };
 
+//Using JWT to authentcate student
 const loginStudent = async (student, response) => {
   if (student) {
     console.log(student, "found");
@@ -74,6 +76,7 @@ const loginStudent = async (student, response) => {
   }
 };
 
+//Using JWT to authentcate student
 const loginRecruiter = async (recruiter, response) => {
   if (recruiter) {
     console.log(recruiter, " recruiter found");
@@ -99,6 +102,7 @@ const loginRecruiter = async (recruiter, response) => {
   }
 };
 
+//verifying the access token
 export const refresh = async (request, response) => {
   //take the refresh token from user
   const refreshToken = request.body.token;
@@ -124,6 +128,7 @@ export const refresh = async (request, response) => {
   });
 };
 
+//logout handler
 export const logout = async (request, response) => {
   const refreshToken = request.body.token;
   refreshTokens = refreshTokens.filter((token) => token !== refreshToken);

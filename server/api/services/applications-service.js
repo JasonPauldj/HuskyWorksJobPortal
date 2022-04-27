@@ -1,17 +1,20 @@
 import Application from "../models/applications.js";
 
 
-// Method to add Event 
+// Method to add Application 
 export const addApplication = (newApplication) => {
     const application = new Application(newApplication);
     return application.save();
 };
 
+
+// Method to get Application 
 export const getApplications = () => {
     const applications =  Application.find().exec();
     return applications;
 }
 
+// Method to filter Application 
 export const filter = (query) => {
     const params = {...query};
     const applications =  Application.find(params).exec();
