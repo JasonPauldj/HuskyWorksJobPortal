@@ -74,6 +74,9 @@ function CreateJobsPage() {
   const [salary, setSalary] = useState(0);
 
 
+  /**
+   * Function that gets called when the recruiter clicks submit
+   */
   const handleSubmit = () => {
     const job = {
       job_title: title,
@@ -117,21 +120,24 @@ function CreateJobsPage() {
     setDeadlineDate(new Date().toISOString().split('T')[0]);
     setType("");
     setSalary(0);
-    navigate(`/dashboard-recruiter/6266aebe4fc1e005cd7ef8ed`, { replace: true });
+    navigate(`/dashboard-recruiter/${user.recruiter._id}`, { replace: true });
   };
 
+  //displaying the category options for the recruiter
   const menuJobCatItems = JOB_CATEGORIES.map((category) => {
     return (
       <MenuItem key={category} value={category}>{category}</MenuItem>
     )
   })
 
+  //displaying the location options for the recruiter
   const menuJobLocItems = JOB_LOCATIONS.map((location) => {
     return (
       <MenuItem key={location} value={location}>{location}</MenuItem>
     )
   })
 
+  //displaying the job type options for the recruiter
   const menuJobTypeItems = JOB_TYPES.map((type) => {
     return (
       <MenuItem key={type} value={type}>{type}</MenuItem>
@@ -147,8 +153,7 @@ function CreateJobsPage() {
   }
 
   const handleClose = (ev) => {
-    //TODO - REMOVE HARDCODED VALUE
-    navigate(`/dashboard-recruiter/6266aebe4fc1e005cd7ef8ed`, { replace: true });
+    navigate(`/dashboard-recruiter/${user.recruiter._id}`, { replace: true });
   }
 
   return(

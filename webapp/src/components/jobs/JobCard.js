@@ -8,6 +8,11 @@ import AuthService from "../../utilities/AuthService.js";
 import { authActions } from "../../store/auth_slice";
 import React, { useEffect } from "react";
 
+/**
+ * A reusable functional component to render the job card in various other components
+ * @param {object} props 
+ * @returns 
+ */
 function JobCard(props) {
   const navigate = useNavigate();
 

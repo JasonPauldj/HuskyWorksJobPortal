@@ -5,7 +5,11 @@ import CardComponent from "../genericComponent/genericCard/CardComponent";
 const Backdrop = (props) => {
     return <div className={classes.backdrop}  />;
 };
-
+/**
+ * A modal that gets displayed on the screen
+ * @param {object} props 
+ * @returns 
+ */
 const Modal = (props) => {
     
   const handleOnApplyConfirm = ()=>{
@@ -28,7 +32,11 @@ const Modal = (props) => {
     );
 };
 
-
+/**
+ * A functional component to display the confirmation dialog to the student when applying for a job
+ * @param {object} props 
+ * @returns 
+ */
 function ApplyModal(props) {
     return (<>
         {ReactDOM.createPortal(

@@ -10,7 +10,7 @@ import JobsSection from "../../components/jobs/JobsSection";
 import ReviewContainer from "../../components/orgs/ReviewContainer";
 import { authActions } from "../../store/auth_slice";
 import AuthService from "../../utilities/AuthService";
-import {makeStyles} from "@mui/styles";
+import { makeStyles } from "@mui/styles";
 import { Button } from "@mui/material";
 
 // Added style to the view all applications button button
@@ -44,6 +44,7 @@ function JobDetailPage(props) {
   const job_id = params.job_id;
 
   const dispatch = useDispatch();
+
   let user = useSelector((state) => state.auth.user);
   const checkUser = () => {
     //if user not in store
@@ -86,14 +87,25 @@ function JobDetailPage(props) {
     }
   }, [job]);
 
+  /**
+   * Navigating the user to organizaion details page
+   */
   const handleOrgClick = () => {
     nav(`/organizations/${job.organization_id}`);
   };
 
-  const handleViewApplications= () => {
+  /**
+   * Navigating recruiter to all applications page
+   */
+  const handleViewApplications = () => {
     nav(`/applications/${job._id}`);
   }
 
+  /**
+   * Functional component to render the job details
+   * @param {*} props 
+   * @returns 
+   */
   const JobDetailCard = (props) => {
     return (
       <CardComponent className={classes.jobDetailCard}>
@@ -152,9 +164,9 @@ function JobDetailPage(props) {
                   </div>
                 </div>
               </div>
-             {/* displaying review section in student login and view all button in recruiter login */}
+              {/* displaying review section in student login and view all button in recruiter login */}
               <div className="ly-1-3-1-bd-sec-right-sidebar">
-              {!user.isStudent ? <Button className={sClasses.root} onClick={handleViewApplications}>View All Applications</Button> :<ReviewContainer key={org_id} organizationId={org_id} /> } 
+                {!user.isStudent ? <Button className={sClasses.root} onClick={handleViewApplications}>View All Applications</Button> : <ReviewContainer key={org_id} organizationId={org_id} />}
               </div>
             </div>
           </div>

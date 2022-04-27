@@ -144,7 +144,6 @@ function CreateEventsPage() {
   };
 
   const handleClose = (ev) => {
-    //TODO - REMOVE HARDCODED VALUE
     navigate(`/dashboard-recruiter/${user.recruiter._id}`, { replace: true });
   }
 
