@@ -41,13 +41,8 @@ function SignUpStudent() {
     }
   };
 
-  const availableCategories = [
-    "Software",
-    "Hardware",
-    "Aerospace",
-    "Automotive",
-    "Biomedical",
-  ];
+  const availableCategories = ["SOFTWARE","HARDWARE", "AEROSPACE", "AUTOMOTIVE", "BIOMEDICAL"];
+  
 
   const handleInterestChange = (event) => {
     setInterest(event.target.value);

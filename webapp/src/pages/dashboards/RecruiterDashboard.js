@@ -60,7 +60,7 @@ function RecruiterDashboard() {
       console.log(recruiter._id, "recruiter Id");
 
       const eventsPostedByrecruiter = response.data.filter(
-        (event) => event.recruiterId === recruiter._id
+        (event) => event.recruiter_id === recruiter._id
       );
       setEventsPosted(eventsPostedByrecruiter);
       console.log(" events posted", eventsPostedByrecruiter);
@@ -93,12 +93,9 @@ function RecruiterDashboard() {
     return <EventCard key={event._id} event={event} />;
   });
 
-  // const eventsPostedByRecruiter = eventsPosted.map((event) => {
-  //   return <EventCard key={event._id} event={event} />;
-  // });
+  console.log(eventsPostedByRecruiter.length);
 
   return (
-   
       <div className="prbg ht-full-viewport py-1">
       <div className="flex-horizontal">
         <div className="ly-1-4-bd-sec-left">

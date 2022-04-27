@@ -95,7 +95,7 @@ const NewEducationForm = (props) => {
   };
 
   const handleEduDiagClose = () => {
-    nav(`/profiles/${user._id}`);
+    nav(`/StudentProfile/${user._id}`);
   };
 
   return (
