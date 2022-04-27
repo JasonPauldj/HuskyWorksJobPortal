@@ -3,14 +3,31 @@ import { useNavigate } from 'react-router-dom';
 import CardComponent from "../genericComponent/genericCard/CardComponent";
 import classes from './ApplicationCard.module.scss';
 import axios from "axios";
+import {Button} from '@mui/material';
+import {makeStyles} from '@mui/styles';
+//import useStyles from "../../utilities/styles";
 
+const useStyles =  makeStyles({
+    root: {
+      backgroundColor: "#1f3b8f",
+      color: "#ffffff",
+      height: "2rem",
+      lineHeight: 1,
+      "&:hover": {
+        backgroundColor: "transparent",
+        border: "1px solid #1f3b8f",
+        color: "#1f3b8f",
+        padding: 0,
+      },
+    },
+  });
 
 function ApplicationCard(props) {
 
     const [job, setJob] = useState({});
     const [org, setOrg] = useState({});
 
-
+    const sClasses = useStyles();
     //fetch job details for the application
     useEffect(() => {
 
@@ -61,8 +78,8 @@ function ApplicationCard(props) {
                 <div className={job.job_status==='ACTIVE' ? classes.open : classes.closed}>{job.job_status==='ACTIVE' ? "Open" : "Closed"}</div>
             </div>
             <div className={classes.btn_grp}>
-                <button onClick={handleJobDetailsClick}>View Job Details</button>
-                <button onClick={handleOrgDetailsClick}>View Organization Details</button>
+                <Button className={sClasses.root} onClick={handleJobDetailsClick}>View Job Details</Button>
+                <Button className={sClasses.root} onClick={handleOrgDetailsClick}>View Organization Details</Button>
             </div>
         </div>
     </CardComponent>

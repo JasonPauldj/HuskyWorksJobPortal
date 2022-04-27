@@ -10,6 +10,8 @@ import "./StudentDashboard.scss";
 import { authActions } from "../../store/auth_slice";
 import AuthService from "../../utilities/AuthService";
 import { useNavigate } from "react-router-dom";
+import ApplicationStatusChart from "../../pages/dashboards/ApplicationStatusChart";
+
 
 function StudentDashboard() {
   let user = useSelector((state) => state.auth.user);
@@ -143,6 +145,9 @@ function StudentDashboard() {
             <div className="ly-1-4-bd-sec-right-main">
               {/* APPS */}
               <CardComponent className="card-margin">
+                <div className="bar-chart">
+                  <ApplicationStatusChart/>
+                </div>
               <div className="applications-section-header">
                 <p className="heading">My Applications</p>
               </div>

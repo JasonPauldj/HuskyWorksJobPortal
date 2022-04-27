@@ -1,3 +1,4 @@
+import { query } from "express";
 import * as studentService from "./../services/students-service.js";
 
 // Setting Error Response for any errors
@@ -25,12 +26,28 @@ export const postStudent = async (req, res) => {
 
 // Method to get Students using the get service
 export const getAllStudents = async (req, res) => {
+  const student_id=req.query.student_id;
+  const query={};
+
+  if(student_id){
+    query._id=student_id;
+  }
+
+  if (query) {
+    try {
+      const job = await studentService.filter(query);
+      setSuccessResponse(job, res);
+    } catch (err) {
+      setErrorResponse(err, res);
+    }
+  } else{
   try {
-    const students = await studentService.getStudents();
+    const students = await studentService.getStudents(query);
     setSuccessResponse(students, res);
   } catch (err) {
     setErrorResponse(err, res);
   }
+}
 };
 
 // Method to get Student by id using the getById service

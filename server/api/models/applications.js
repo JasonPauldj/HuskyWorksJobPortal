@@ -7,7 +7,7 @@ const applicationSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ["APPLIED", "ACCEPTED", "APPROVED"],
+    enum: ["APPLIED", "INTERVIEWING", "ACCEPTED", "REJECTED"],
     required: "Status is required.",
   },
   job_id: {
@@ -17,6 +17,12 @@ const applicationSchema = new mongoose.Schema({
   student_id: {
     type: String,
     required: "Student Id is required.",
+  },
+  student_name: {
+    type: String
+  },
+  student_gpa: {
+    type: mongoose.Schema.Types.Decimal128,
   },
   application_date: {
     type: Date,
