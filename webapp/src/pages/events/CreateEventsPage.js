@@ -19,6 +19,7 @@ import AuthService from "../../utilities/AuthService";
 import { useNavigate } from "react-router-dom";
 import CloseIcon from '@mui/icons-material/Close';
 import { makeStyles } from "@mui/styles";
+import Navbar from "../../components/navbar/Navbar"
 
 const useStyles = makeStyles({
   root: {
@@ -138,104 +139,119 @@ function CreateEventsPage() {
     setLng(0);
     setOrgName("");
     setSeats(0);
-    navigate(`/dashboard-recruiter/${user.recruiter._id}`, {replace: true});
+    navigate(`/dashboard-recruiter/${user.recruiter._id}`, { replace: true });
 
   };
 
-  const handleClose=(ev)=>{
-      //TODO - REMOVE HARDCODED VALUE
-  navigate(`/dashboard-recruiter/${user.recruiter._id}`, {replace: true});
+  const handleClose = (ev) => {
+    //TODO - REMOVE HARDCODED VALUE
+    navigate(`/dashboard-recruiter/${user.recruiter._id}`, { replace: true });
   }
 
   return (
+    <>
+      {(user && user.recruiter) ?
+        <div className="prbg ht-full-viewport py-1">
+          <div className="flex-horizontal">
+            <div className="ly-1-4-bd-sec-left">
+              <Navbar />
+            </div>
+            <div className="ly-1-4-bd-sec-right">
+              <div className="ly-1-4-bd-sec-right-container flex-horizontal">
+                <div className="ly-1-4-bd-sec-right-main">
+                  <CardComponent className={`ht-full-percent ${classes.createEventCard}`}>
+                    <CloseIcon style={{ position: 'absolute', right: '5px', top: '5px', fontSize: '3rem' }} onClick={handleClose} />
+                    <div className={classes.formContainer}>
+                      <h3>Create an Event</h3>
+                      <TextField
+                        placeholder="Enter Title"
+                        className={classes.formInputs}
+                        label="Title"
+                        margin="dense"
+                        variant="outlined"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                      />
+                      <TextField
+                        placeholder="Enter Organizer Name"
+                        className={classes.formInputs}
+                        variant="outlined"
+                        margin="dense"
+                        value={orgName}
+                        label="Organizer Name"
+                        onChange={(e) => setOrgName(e.target.value)}
+                      />
+                      <TextField
+                        placeholder="Enter Event Description"
+                        className={classes.formInputs}
+                        variant="outlined"
+                        margin="dense"
+                        value={desc}
+                        label="Description"
+                        onChange={(e) => setDesc(e.target.value)}
+                      />
+                      <TextField
+                        placeholder="Enter Event Location"
+                        className={classes.formInputs}
+                        variant="outlined"
+                        margin="dense"
+                        label="Location"
+                        value={`${lat}, ${lng}`}
+                        onChange={(e) => {
+                          const location = e.target.value.split(",");
+                          setLat(location[0]);
+                          setLng(location[1]);
+                        }}
+                      />
+                      <TextField
+                        placeholder="Enter Available Seats"
+                        className={classes.formInputs}
+                        variant="outlined"
+                        margin="dense"
+                        value={seats}
+                        label="Seats"
+                        onChange={(e) => setSeats(e.target.value)}
+                      />
+                      <TextField
+                        type="date"
+                        className={classes.formInputs}
+                        variant="outlined"
+                        value={date}
+                        margin="dense"
+                        onChange={(e) => setDate(e.target.value)}
+                      />
+                      <FormControl className={classes.formInputs}>
+                        <InputLabel id="demo-simple-select-label">Event Type</InputLabel>
+                        <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          label="Event Type"
+                          value={type}
+                          onChange={(e) => setType(e.target.value)}
+                        >
+                          <MenuItem value={"NETWORKING"}>Networking</MenuItem>
+                          <MenuItem value={"WORKSHOP"}>Workshop</MenuItem>
+                          <MenuItem value={"CAREER FAIR"}>Career fair</MenuItem>
+                        </Select>
+                      </FormControl>
+                      <Button
+                        className={sClasses.root}
+                        margin="dense"
+                        onClick={handleEventSubmit}
+                      >
+                        Submit
+                      </Button>
+                      <Snackbar open={showAlert} autoHideDuration={2000} message={message} />
+                    </div>
 
-    <CardComponent className={`ht-full-percent ${classes.createEventCard}`}>
-      <div className={classes.formContainer}>
-        <h3>Create an Event</h3>
-        <TextField
-          placeholder="Enter Title"
-          className={classes.formInputs}
-          label="Title"
-          margin="dense"
-          variant="outlined"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <TextField
-          placeholder="Enter Organizer Name"
-          className={classes.formInputs}
-          variant="outlined"
-          margin="dense"
-          value={orgName}
-          label="Organizer Name"
-          onChange={(e) => setOrgName(e.target.value)}
-        />
-        <TextField
-          placeholder="Enter Event Description"
-          className={classes.formInputs}
-          variant="outlined"
-          margin="dense"
-          value={desc}
-          label="Description"
-          onChange={(e) => setDesc(e.target.value)}
-        />
-        <TextField
-          placeholder="Enter Event Location"
-          className={classes.formInputs}
-          variant="outlined"
-          margin="dense"
-          label="Location"
-          value={`${lat}, ${lng}`}
-          onChange={(e) => {
-            const location = e.target.value.split(",");
-            setLat(location[0]);
-            setLng(location[1]);
-          }}
-        />
-        <TextField
-          placeholder="Enter Available Seats"
-          className={classes.formInputs}
-          variant="outlined"
-          margin="dense"
-          value={seats}
-          label="Seats"
-          onChange={(e) => setSeats(e.target.value)}
-        />
-        <TextField
-          type="date"
-          className={classes.formInputs}
-          variant="outlined"
-          value={date}
-          margin="dense"
-          onChange={(e) => setDate(e.target.value)}
-        />
-        <FormControl className={classes.formInputs}>
-          <InputLabel id="demo-simple-select-label">Event Type</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            label="Event Type"
-            value={type}
-            onChange={(e) => setType(e.target.value)}
-          >
-            <MenuItem value={"NETWORKING"}>Networking</MenuItem>
-            <MenuItem value={"WORKSHOP"}>Workshop</MenuItem>
-            <MenuItem value={"CAREER FAIR"}>Career fair</MenuItem>
-          </Select>
-        </FormControl>
-        <Button
-          className={sClasses.root}
-          margin="dense"
-          onClick={handleEventSubmit}
-        >
-          Submit
-        </Button>
-        <Snackbar open={showAlert} autoHideDuration={2000} message={message} />
-      </div>
-
-    </CardComponent>
-
-  );
+                  </CardComponent>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        : <></>}
+    </>);
 }
 
 export default CreateEventsPage;

@@ -19,11 +19,13 @@ import { JOB_TYPES } from '../../utilities/constants';
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../../store/auth_slice";
 import AuthService from "../../utilities/AuthService";
+import Navbar from "../../components/navbar/Navbar"
 
 
 function CreateJobsPage() {
 
   let user = useSelector((state) => state.auth.user);
+  const [org, setOrg] = useState({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -32,15 +34,14 @@ function CreateJobsPage() {
     //if user not in store
     if (!user) {
       user = AuthService.getCurrUser();
-      
+
       //if user not in persistent local store
-      if(!user)
-      {
+      if (!user) {
         navigate('/');
         return;
       }
       //add user to store
-       dispatch(authActions.login(user));
+      dispatch(authActions.login(user));
     }
   };
 
@@ -48,10 +49,20 @@ function CreateJobsPage() {
     checkUser();
   }, []);
 
+  //fetching the recruiter organization
+  useEffect(() => {
+    if (user && user.recruiter) {
+      const fetchOrg = async () => {
+        const response = await axios.get(`http://localhost:9000/organizations/${user.recruiter.organization_id}`);
+        setOrg(response.data);
+      };
+
+      fetchOrg();
+    }
+
+  }, [user])
 
 
-  //TODO - FETCH RECRUITER FROM STATE
-  //TODO - FETCH ORGANIZATION FROM BACKEND BASED ON RECRUITER 
 
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
@@ -73,9 +84,9 @@ function CreateJobsPage() {
       job_deadline: deadlineDate,
       job_status: "ACTIVE",
       job_salary: salary,
-      recruiterId: "6266aebe4fc1e005cd7ef8ed",
-      organization_id: "62633f632a7fcc1215ddc09e",
-      organizationName: "Philips",
+      recruiterId: user.recruiter._id,
+      organization_id: user.recruiter.organization_id,
+      organizationName: org.organizationName,
       job_post_date: new Date().toISOString().split('T')[0],
       job_category: category
     };
@@ -106,7 +117,7 @@ function CreateJobsPage() {
     setDeadlineDate(new Date().toISOString().split('T')[0]);
     setType("");
     setSalary(0);
-    navigate(`/dashboard-recruiter/6266aebe4fc1e005cd7ef8ed`, {replace: true});
+    navigate(`/dashboard-recruiter/6266aebe4fc1e005cd7ef8ed`, { replace: true });
   };
 
   const menuJobCatItems = JOB_CATEGORIES.map((category) => {
@@ -127,141 +138,143 @@ function CreateJobsPage() {
     )
   })
 
-  const handleDeadlineDateChange= (ev) =>{
+  const handleDeadlineDateChange = (ev) => {
     const duedate = ev.target.value;
     const year = duedate.split('-')[0];
     const month = duedate.split('-')[1];
     const day = duedate.split('-')[2];
     setDeadlineDate(`${year}-${month}-${day}`);
-}
+  }
 
-const handleClose=(ev)=>{
-  //TODO - REMOVE HARDCODED VALUE
-  navigate(`/dashboard-recruiter/6266aebe4fc1e005cd7ef8ed`, {replace: true});
-}
+  const handleClose = (ev) => {
+    //TODO - REMOVE HARDCODED VALUE
+    navigate(`/dashboard-recruiter/6266aebe4fc1e005cd7ef8ed`, { replace: true });
+  }
 
-  return (
-    <div className="prbg ht-full-viewport py-1">
-    <div className="flex-horizontal">
-      <div className="ly-1-4-bd-sec-left">
-        {/*HERE IS WHERE YOUR NAVBAR/LEFTSIDEBAR SHOULD GO*/}
-      </div>
-      <div className="ly-1-4-bd-sec-right">
-        <div className="ly-1-4-bd-sec-right-container flex-horizontal">
-          <div className="ly-1-4-bd-sec-right-main">
-          <CardComponent className={`ht-full-percent ${classes.createJobCard}`}>
-      <CloseIcon  style={{position: 'absolute',right:'5px', top: '5px', fontSize: '3rem'}} onClick={handleClose} />
-      <div className={classes.formContainer}>
-        <h3>Create an Job</h3>
-        <TextField
-          placeholder="Enter Job Title"
-          className={classes.formInputs}
-          label="Title"
-          margin="dense"
-          variant="outlined"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <TextField
-          placeholder="Enter Job Description"
-          className={classes.formInputs}
-          variant="outlined"
-          margin="dense"
-          value={desc}
-          label="Job Description"
-          multiline
-          onChange={(e) => setDesc(e.target.value)}
-        />
-        <TextField
-          placeholder="Enter Job Responsibilities"
-          className={classes.formInputs}
-          multiline
-          variant="outlined"
-          margin="dense"
-          value={responsibilities}
-          label="Job Responsibilities"
-          onChange={(e) => setResponsibilities(e.target.value)}
-        />
-        <TextField
-          placeholder="Enter Job Salary"
-          className={classes.formInputs}
-          variant="outlined"
-          margin="dense"
-          label="Salary"
-          value={salary}
-          inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-          onChange={(e) => setSalary(e.target.value)}
-        />
-        <div className={classes.selectSection}>
-        <FormControl className={classes.selectInput} >
-          <InputLabel id="lbl-job-category">Job Category</InputLabel>
-          <Select
-            labelId="job-category"
-            id="job-category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            label="Job Category"
-          >
-            {menuJobCatItems}
+  return(
+    <>
+    { (user && user.recruiter) ?
+      <div className="prbg ht-full-viewport py-1">
+        <div className="flex-horizontal">
+          <div className="ly-1-4-bd-sec-left">
+            <Navbar />
+          </div>
+          <div className="ly-1-4-bd-sec-right">
+            <div className="ly-1-4-bd-sec-right-container flex-horizontal">
+              <div className="ly-1-4-bd-sec-right-main">
+                <CardComponent className={`ht-full-percent ${classes.createJobCard}`}>
+                  <CloseIcon style={{ position: 'absolute', right: '5px', top: '5px', fontSize: '3rem' }} onClick={handleClose} />
+                  <div className={classes.formContainer}>
+                    <h3>Create an Job</h3>
+                    <TextField
+                      placeholder="Enter Job Title"
+                      className={classes.formInputs}
+                      label="Title"
+                      margin="dense"
+                      variant="outlined"
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
+                    />
+                    <TextField
+                      placeholder="Enter Job Description"
+                      className={classes.formInputs}
+                      variant="outlined"
+                      margin="dense"
+                      value={desc}
+                      label="Job Description"
+                      multiline
+                      onChange={(e) => setDesc(e.target.value)}
+                    />
+                    <TextField
+                      placeholder="Enter Job Responsibilities"
+                      className={classes.formInputs}
+                      multiline
+                      variant="outlined"
+                      margin="dense"
+                      value={responsibilities}
+                      label="Job Responsibilities"
+                      onChange={(e) => setResponsibilities(e.target.value)}
+                    />
+                    <TextField
+                      placeholder="Enter Job Salary"
+                      className={classes.formInputs}
+                      variant="outlined"
+                      margin="dense"
+                      label="Salary"
+                      value={salary}
+                      inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+                      onChange={(e) => setSalary(e.target.value)}
+                    />
+                    <div className={classes.selectSection}>
+                      <FormControl className={classes.selectInput} >
+                        <InputLabel id="lbl-job-category">Job Category</InputLabel>
+                        <Select
+                          labelId="job-category"
+                          id="job-category"
+                          value={category}
+                          onChange={(e) => setCategory(e.target.value)}
+                          label="Job Category"
+                        >
+                          {menuJobCatItems}
 
-          </Select>
-        </FormControl>
-        </div>
-        <div className={classes.selectSection}>
-        <FormControl className={classes.selectInput}>
-          <InputLabel id="lbl-job-location">Job Location</InputLabel>
-          <Select
-            labelId="job-loc"
-            id="job-loc"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            label="Job Location"
-          >
-            {menuJobLocItems}
-          </Select>
-        </FormControl>
-        </div>
-        <div className={classes.selectSection}>
-        <FormControl className={classes.selectInput}>
-          <InputLabel id="lbl-job-type">Job Type</InputLabel>
-          <Select
-            labelId="job-type"
-            id="job-type"
-            value={type}
-            onChange={(e) => setType(e.target.value)}
-            label="Job Type"
-          >
-            {menuJobTypeItems}
-          </Select>
-        </FormControl>
-        </div>
-        <TextField
-          type="date"
-          className={classes.formInputs}
-          variant="outlined"
-          InputLabelProps={{ shrink: true, required: true }}
-          value={deadlineDate}
-          margin="dense"
-          onChange={handleDeadlineDateChange}
-          label="Application Deadline"
+                        </Select>
+                      </FormControl>
+                    </div>
+                    <div className={classes.selectSection}>
+                      <FormControl className={classes.selectInput}>
+                        <InputLabel id="lbl-job-location">Job Location</InputLabel>
+                        <Select
+                          labelId="job-loc"
+                          id="job-loc"
+                          value={location}
+                          onChange={(e) => setLocation(e.target.value)}
+                          label="Job Location"
+                        >
+                          {menuJobLocItems}
+                        </Select>
+                      </FormControl>
+                    </div>
+                    <div className={classes.selectSection}>
+                      <FormControl className={classes.selectInput}>
+                        <InputLabel id="lbl-job-type">Job Type</InputLabel>
+                        <Select
+                          labelId="job-type"
+                          id="job-type"
+                          value={type}
+                          onChange={(e) => setType(e.target.value)}
+                          label="Job Type"
+                        >
+                          {menuJobTypeItems}
+                        </Select>
+                      </FormControl>
+                    </div>
+                    <TextField
+                      type="date"
+                      className={classes.formInputs}
+                      variant="outlined"
+                      InputLabelProps={{ shrink: true, required: true }}
+                      value={deadlineDate}
+                      margin="dense"
+                      onChange={handleDeadlineDateChange}
+                      label="Application Deadline"
 
-        />
-        <Button
-          className={classes.formBtn}
-          margin="dense"
-          onClick={handleSubmit}
-        >
-          Submit
-        </Button>
-      </div>
-    </CardComponent>
+                    />
+                    <Button
+                      className={classes.formBtn}
+                      margin="dense"
+                      onClick={handleSubmit}
+                    >
+                      Submit
+                    </Button>
+                  </div>
+                </CardComponent>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-   
-  );
+       : <></>}
+    </>);
 }
 
 export default CreateJobsPage;
