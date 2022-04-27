@@ -21,8 +21,7 @@ const studentSchema = new mongoose.Schema({
     required: true,
   },
   interests: {
-    type: String,
-    enum: ["Software", "Hardware", "Aerospace", "Automotive", "Biomedical"],
+    type: String
   },
   nuid: {
     type: String,
