@@ -10,10 +10,9 @@ import "./StudentDashboard.scss";
 import { authActions } from "../../store/auth_slice";
 import AuthService from "../../utilities/AuthService";
 import { useNavigate } from "react-router-dom";
+import ApplicationStatusChart from "../../pages/dashboards/ApplicationStatusChart";
 
 function StudentDashboard() {
-  let user = useSelector((state) => state.auth.user);
-
   const [jobs, setJobs] = useState([]);
   const [events, setEvents] = useState([]);
   const [allJobs, setAllJobs] = useState([]);
@@ -22,11 +21,19 @@ function StudentDashboard() {
 
   // const [recommendations, setRecommendations] = useState([]);
   const dispatch = useDispatch();
+  let user = useSelector((state) => state.auth.user);
 
   const checkUser = () => {
-    if (user.length == 0) {
+    //if user not in store
+    if (!user) {
       user = AuthService.getCurrUser();
-      dispatch(authActions.login(AuthService.getCurrUser() || {}));
+
+      //if user not in persistent local store
+      if (!user) {
+        return;
+      }
+      //add user to store
+      dispatch(authActions.login(user));
     }
   };
 
@@ -49,7 +56,7 @@ function StudentDashboard() {
   useEffect(() => {
     const fetchRegisteredEvents = async () => {
       await axios
-        .get(`http://localhost:9000/student/events/${user._id}`)
+        .get(`http://localhost:9000/student/registrations/${user._id}`)
         .then(async (res) => {
           setEvents(res.data);
           console.log("fetch events", res.data);
@@ -85,7 +92,6 @@ function StudentDashboard() {
     }
   };
 
-
   const viewMoreEvents = async (e) => {
     e.preventDefault();
     try {
@@ -95,6 +101,8 @@ function StudentDashboard() {
     }
   };
 
+  console.log("All Jobs", allJobs);
+
   //TO DO SHUFFLE
   const currjobs = jobs.length > 3 ? jobs.slice(0, 3) : jobs;
 
@@ -102,20 +110,22 @@ function StudentDashboard() {
     return <JobCard key={job._id} job={job} isApplied={true} />;
   });
 
-  //TO DO SHUFFLE
   const currEvents = events.length > 3 ? events.slice(0, 3) : events;
 
   const eventCards = currEvents.map((event) => {
-    return <EventCard key={event._id} event={event} />;
+    if (event) {
+      return <EventCard key={event._id} event={event} />;
+    }
   });
 
+  console.log("Interest: ", user.student.interest);
   const recommendations = allJobs.filter(
     (j) => j.job_category === user.student.interests
   );
 
   const shuffledArray = recommendations.sort((a, b) => 0.5 - Math.random());
   const currRecos =
-  shuffledArray.length > 3 ? shuffledArray.slice(0, 3) : shuffledArray;
+    shuffledArray.length > 3 ? shuffledArray.slice(0, 3) : shuffledArray;
 
   const recommendationCards = currRecos.map((job) => {
     return (
@@ -131,6 +141,8 @@ function StudentDashboard() {
     );
   });
 
+  console.log(recommendations, "Current Recommendation");
+
   return (
     <div className="prbg ht-full-viewport py-1">
       <div className="flex-horizontal">
@@ -141,40 +153,53 @@ function StudentDashboard() {
           <div className="ly-1-4-bd-sec-right-container flex-horizontal">
             <div className="ly-1-4-bd-sec-right-main">
               {/* APPS */}
-              <div className="applications-section-header">
-                <p className="heading">My Applications</p>
-              </div>
-              {/* <div class="h_line"></div> */}
+              <CardComponent className="card-margin">
+                <p className="heading">Application Chart</p>
 
-              <div className={classes.jobsContainer}>{jobCards}</div>
-              <div className="view-more">
-                <button onClick={viewMoreApplications}>View More</button>
-              </div>
-              {/* <div className={classes.jobsContainer}>{jobCards}</div> */}
-
-              {/* EVENTS */}
-              <div className="applications-section-header">
-                <p className="heading">My Events</p>
-              </div>
-              {/* <div class="h_line"></div> */}
-
-              <div className={classes.jobsContainer}>{eventCards}</div>
-              <div className="view-more">
-                <button onClick={viewMoreEvents}>View More</button>
-              </div>
-              {/* RECOS */}
-
-              <div className="applications-section-header">
-                <p className="heading">My Recommendations</p>
-              </div>
-              {/* <div class="h_line"></div> */}
-
-              <div>
-              <div className={classes.jobsContainer}>{recommendationCards}</div>
-                <div className="view-more">
-                  <button onClick={viewMoreJobs}>View More</button>
+                <div className="bar-chart">
+                  <ApplicationStatusChart />
                 </div>
-              </div>
+                <div className="applications-section-header">
+                  <p className="heading">My Applications</p>
+                  <div className="view-more">
+                    <button onClick={viewMoreApplications}>View More</button>
+                  </div>
+                </div>
+                {/* <div class="h_line"></div> */}
+
+                <div className={classes.jobsContainer}>{jobCards}</div>
+
+                {/* <div className={classes.jobsContainer}>{jobCards}</div> */}
+
+                {/* EVENTS */}
+                <div className="applications-section-header">
+                  <p className="heading">My Events</p>
+                  <div className="view-more">
+                    <button onClick={viewMoreEvents}>View More</button>
+                  </div>
+                </div>
+                {/* <div class="h_line"></div> */}
+
+                <div className={classes.jobsContainer}>{eventCards}</div>
+
+                {/* RECOS */}
+
+                <div className="applications-section-header">
+                  <div className="heading">
+                    <p className="heading">My Recommendations</p>
+                  </div>
+                  <div className="view-more">
+                    <button onClick={viewMoreJobs}>View More</button>
+                  </div>
+                </div>
+                {/* <div class="h_line"></div> */}
+
+                <div>
+                  <div className={classes.jobsContainer}>
+                    {recommendationCards}
+                  </div>
+                </div>
+              </CardComponent>
             </div>
           </div>
         </div>

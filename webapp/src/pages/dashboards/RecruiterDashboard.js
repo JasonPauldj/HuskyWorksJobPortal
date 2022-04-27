@@ -8,6 +8,7 @@ import AuthService from "../../utilities/AuthService";
 import { authActions } from "../../store/auth_slice";
 import EventCard from "../../components/events/EventCard";
 import "./StudentDashboard.scss";
+import CardComponent from "../../components/genericComponent/genericCard/CardComponent";
 
 function RecruiterDashboard() {
   let recruiter = useSelector((state) => state.auth.user);
@@ -17,7 +18,7 @@ function RecruiterDashboard() {
   const [jobs, setJobs] = useState([]);
   const [jobsPosted, setJobsPosted] = useState([]);
   const [orgPosting, setOrgPosting] = useState([]);
-  const [eventsPosted, setEventsPosted] = useState({});
+  const [eventsPosted, setEventsPosted] = useState([]);
   const dispatch = useDispatch();
 
   const checkUser = () => {
@@ -58,7 +59,6 @@ function RecruiterDashboard() {
       // setEvents(response.data);
       console.log(recruiter._id, "recruiter Id");
 
-      response.data.map((d) => console.log(d.recruiterId, "recids"));
       const eventsPostedByrecruiter = response.data.filter(
         (event) => event.recruiterId === recruiter._id
       );
@@ -89,16 +89,17 @@ function RecruiterDashboard() {
     );
   });
 
-  // const eventsPostedByRecruiter = eventsPosted.map((event) => {
-  //   return <EventCard key={event._id} event={event} />;
-  // });
+  const eventsPostedByRecruiter = eventsPosted.map((event) => {
+    return <EventCard key={event._id} event={event} />;
+  });
 
   // const eventsPostedByRecruiter = eventsPosted.map((event) => {
   //   return <EventCard key={event._id} event={event} />;
   // });
 
   return (
-    <div className="prbg ht-full-viewport py-1">
+   
+      <div className="prbg ht-full-viewport py-1">
       <div className="flex-horizontal">
         <div className="ly-1-4-bd-sec-left">
           <Navbar />
@@ -107,8 +108,9 @@ function RecruiterDashboard() {
           <div className="ly-1-4-bd-sec-right-container flex-horizontal">
             <div className="ly-1-4-bd-sec-right-main">
               {/* APPS */}
+              <CardComponent className="card-margin">
               <div className="applications-section-header">
-                <p className="heading">Jobs </p>
+                <p className="heading">Jobs Posted</p>
               </div>
               {/* <div class="h_line"></div> */}
 
@@ -120,7 +122,7 @@ function RecruiterDashboard() {
 
               {/* EVENTS */}
               <div className="applications-section-header">
-                <p className="heading">Organization Jobs</p>
+                <p className="heading">Organiztion Jobs</p>
               </div>
               {/* <div class="h_line"></div> */}
 
@@ -131,21 +133,24 @@ function RecruiterDashboard() {
               {/* RECOS */}
 
               <div className="applications-section-header">
-                <p className="heading">Events</p>
+                <p className="heading">Events Posted</p>
               </div>
               {/* <div class="h_line"></div> */}
 
               <div>
-                <div className={classes.jobsContainer}>{orgPostingCards}</div>
+              <div className={classes.jobsContainer}>{eventsPostedByRecruiter}</div>
                 <div className="view-more">
                   {/* <button onClick={viewMoreJobs}>View More</button> */}
                 </div>
               </div>
+              </CardComponent>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    
   );
 }
 
