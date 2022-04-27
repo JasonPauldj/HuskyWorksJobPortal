@@ -11,8 +11,7 @@ import dateFormat from "dateformat";
 import AuthService from "../../utilities/AuthService";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../store/auth_slice";
-import { TextareaAutosize, TextField } from "@mui/material";
-import { uploadFile } from "react-s3";
+
 // import { uploadFile as awsUploadFile}  from "../../utilities/awsS3";
 
 function StudentProfile(props) {
@@ -120,8 +119,7 @@ function StudentProfile(props) {
   };
 
   const handleEduEdit = (edu) => {
-    console.log("Edu Edit Triggered!");
-    // console.log(eduBool);
+    // console.log("Edu Edit Triggered!");
     nav(`/profiles/studentEducation/${user._id}`, {
       state: { education: edu },
     });
@@ -132,8 +130,7 @@ function StudentProfile(props) {
   };
 
   const handleProjectEdit = (proj) => {
-    console.log("Project Edit Btn Pressed!");
-    // console.log(eduBool);
+    //console.log("Project Edit Btn Pressed!");
     nav(`/profiles/studentProject/${user._id}`, { state: { project: proj } });
   };
 
@@ -142,13 +139,12 @@ function StudentProfile(props) {
   };
 
   const handleWorkExEdit = (work) => {
-    console.log("WorkEx Edit Btn Pressed!");
-    // console.log(eduBool);
+    // console.log("WorkEx Edit Btn Pressed!");
     nav(`/profiles/studentWorkEx/${user._id}`, { state: { workEx: work } });
   };
 
   const handleDivClick = (idx) => {
-    console.log("Expanded", idx);
+    // console.log("Expanded", idx);
     let element = document.getElementsByClassName(classes.divClick);
     console.log("Element", element[idx]);
     element[idx].classList.toggle(classes.divClickExpanded);
@@ -157,102 +153,111 @@ function StudentProfile(props) {
   //Cards with existing education details
   const eduCards = education.map((edu, idx) => {
     return (
-      <CardComponent
-        key={edu._id}
-        className={classes.divClick}
-        onClick={() => handleDivClick(idx)}
-      >
-        <div className="eduDetails">
-          <div className={classes.divTitle}>
-            <div className={classes.divTitleText}>
-              <h3>{edu.university}</h3>
+      <div>
+        <CardComponent
+          key={edu._id}
+          className={classes.divClick}
+          onClick={() => handleDivClick(idx)}
+        >
+          <div className="eduDetails">
+            <div className={classes.divTitle}>
+              <div className={classes.divTitleText}>
+                <h3>{edu.university}</h3>
+              </div>
+              <div className={classes.divTitleBtn}>
+                <EditIcon
+                  onClick={() => handleEduEdit(edu)}
+                  style={{ fontSize: "2rem" }}
+                />
+              </div>
             </div>
-            <div className={classes.divTitleBtn}>
-              <EditIcon
-                onClick={() => handleEduEdit(edu)}
-                style={{ fontSize: "2rem" }}
-              />
+            <div className={classes.divTextDetails}>
+              <h3>{edu.major}</h3>
+              <div className="eduDates">
+                <p>
+                  {dateFormat(edu.start_date, "yyyy/mm")} -{" "}
+                  {dateFormat(edu.end_date, "yyyy/mm")}
+                </p>
+              </div>
             </div>
           </div>
-          <div className={classes.divTextDetails}>
-            <h3>{edu.major}</h3>
-            <div className="eduDates">
-              <p>
-                {dateFormat(edu.start_date, "yyyy-mm-dd")} -{" "}
-                {dateFormat(edu.end_date, "yyyy-mm-dd")}
-              </p>
-            </div>
-          </div>
-        </div>
-      </CardComponent>
+        </CardComponent>
+        <br />
+      </div>
     );
   });
 
   //Cards with existing project details
   const projectCards = project.map((project, idx) => {
     return (
-      <CardComponent
-        key={project._id}
-        className={classes.divClick}
-        onClick={() => handleDivClick(idx)}
-      >
-        <div className="projectDetails">
-          <div className={classes.divTitle}>
-            <div className={classes.divTitleText}>
-              <h3>{project.project_title}</h3>
+      <div>
+        <CardComponent
+          key={project._id}
+          className={classes.divClick}
+          onClick={() => handleDivClick(idx)}
+        >
+          <div className="projectDetails">
+            <div className={classes.divTitle}>
+              <div className={classes.divTitleText}>
+                <h3>{project.project_title}</h3>
+              </div>
+              <div className={classes.divTitleBtn}>
+                <EditIcon
+                  onClick={() => handleProjectEdit(project)}
+                  style={{ fontSize: "2rem" }}
+                />
+              </div>
             </div>
-            <div className={classes.divTitleBtn}>
-              <EditIcon
-                onClick={() => handleProjectEdit(project)}
-                style={{ fontSize: "2rem" }}
-              />
+            <div className={classes.divTextDetails}>
+              <div className="projectDates">
+                <p>
+                  {dateFormat(project.start_date, "yyyy/mm")} -{" "}
+                  {dateFormat(project.end_date, "yyyy/mm")}
+                </p>
+              </div>
             </div>
           </div>
-          <div className={classes.divTextDetails}>
-            <div className="projectDates">
-              <p>
-                {dateFormat(project.start_date, "yyyy-mm-dd")} -{" "}
-                {dateFormat(project.end_date, "yyyy-mm-dd")}
-              </p>
-            </div>
-          </div>
-        </div>
-      </CardComponent>
+        </CardComponent>
+        <br />
+      </div>
     );
   });
 
   //Cards with existing work-ex details
   const workExCards = workEx.map((workEx, idx) => {
     return (
-      <CardComponent
-        key={workEx._id}
-        className={classes.divClick}
-        onClick={() => handleDivClick(idx)}
-      >
-        <div className="workExDetails">
-          <div className={classes.divTitle}>
-            <div className={classes.divTitleText}>
-              <h3>{workEx.title}</h3>
+      <div>
+        <CardComponent
+          key={workEx._id}
+          className={classes.divClick}
+          onClick={() => handleDivClick(idx)}
+        >
+          <div className="workExDetails">
+            <div className={classes.divTitle}>
+              <div className={classes.divTitleText}>
+                <h3>{workEx.title}</h3>
+              </div>
+              <div className={classes.divTitleBtn}>
+                <EditIcon
+                  onClick={() => handleWorkExEdit(workEx)}
+                  style={{ fontSize: "2rem" }}
+                />
+              </div>
             </div>
-            <div className={classes.divTitleBtn}>
-              <EditIcon
-                onClick={() => handleWorkExEdit(workEx)}
-                style={{ fontSize: "2rem" }}
-              />
+            <div className={classes.divTextDetails}>
+              <h3>{workEx.employer_name}</h3>
+              <div className="projectDates">
+                {/* trim dates to just show month n year */}
+                <p>
+                  {dateFormat(workEx.start_date, "yyyy/mm")} -{" "}
+                  {dateFormat(workEx.end_date, "yyyy/mm")}
+                </p>
+              </div>
             </div>
           </div>
-          <div className={classes.divTextDetails}>
-            <h3>{workEx.employer_name}</h3>
-            <div className="projectDates">
-              {/* trim dates to just show month n year */}
-              <p>
-                {dateFormat(workEx.start_date, "yyyy-mm-dd")} -{" "}
-                {dateFormat(workEx.end_date, "yyyy-mm-dd")}
-              </p>
-            </div>
-          </div>
-        </div>
-      </CardComponent>
+        </CardComponent>
+        <br />
+      </div>
     );
   });
 
@@ -263,29 +268,27 @@ function StudentProfile(props) {
     console.log("Input file handle");
   };
 
-
   const handleFileSubmit = (event) => {
     event.preventDefault();
     const data = new FormData();
     data.append("myfile", selectedFile);
-    data.append("studentId",user.student._id)
+    data.append("studentId", user.student._id);
 
     const pushResume = async () => {
       const response = await axios({
         method: "POST",
         url: "http://localhost:9000/students/resume",
         data: data,
-        headers:{
-          "Access-Control-Allow-Origin": "*"
+        headers: {
+          "Access-Control-Allow-Origin": "*",
         },
         validateStatus: (status) => {
           return true;
         },
-      })
-    }
-      pushResume();
-    ;
-  }
+      });
+    };
+    pushResume();
+  };
 
   const StudentProfileCard = (props) => {
     return (
@@ -293,10 +296,12 @@ function StudentProfile(props) {
         <div className={classes.studentHeader}>
           <div className={classes.studentProfileImg} />
           <div className={classes.studentDetails}>
-            <h3>{student.username}</h3>
+            <h3>
+              {student.firstname} {student.lastname}
+            </h3>
             <h5>{student.major}</h5>
-            <h5>{student.email}</h5>
-            <h5>{student.nuid}</h5>
+            <h5>Email: {student.email}</h5>
+            <h5>NUID: {student.nuid}</h5>
           </div>
         </div>
         <br /> <hr />
@@ -305,7 +310,11 @@ function StudentProfile(props) {
           <CardComponent>
             <div className={classes.fileUpload}>
               <p>Files Supported: PDF, TEXT, DOC , DOCX</p>
-              <form onSubmit={handleFileSubmit} method="POST" enctype="multipart/form-data">
+              <form
+                onSubmit={handleFileSubmit}
+                method="POST"
+                enctype="multipart/form-data"
+              >
                 <label for="myfile">Select a file:</label>
                 <br />
                 <input
@@ -316,9 +325,7 @@ function StudentProfile(props) {
                   title=" "
                   onChange={handleFileInput}
                 />
-                <button type="submit">
-                  Upload File
-                </button>
+                <button type="submit">Upload File</button>
               </form>
             </div>
           </CardComponent>
@@ -335,7 +342,7 @@ function StudentProfile(props) {
         </div>
         <div>
           <div className={classes.divTitle}>
-            <div className={classes.divTitleText}>Add Experience</div>
+            <div className={classes.divTitleText}> Work Experience</div>
             <div className={classes.divTitleBtn}>
               <button onClick={handleAddWorkEx}> + Add </button>
             </div>
@@ -344,7 +351,7 @@ function StudentProfile(props) {
         </div>
         <div>
           <div className={classes.divTitle}>
-            <div className={classes.divTitleText}>Add Project</div>
+            <div className={classes.divTitleText}> Academic Projects</div>
             <div className={classes.divTitleBtn}>
               <button onClick={handleAddProject}> + Add </button>
             </div>

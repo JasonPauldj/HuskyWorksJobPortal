@@ -3,8 +3,16 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import dateFormat from "dateformat";
 import { useSelector } from "react-redux";
-import { Button, TextField } from "@mui/material";
+import {
+  Button,
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
 import classes from "./StudentProfileForm.module.scss";
+import { PROGRAMS } from "../../../utilities/constants";
 
 // Add css file here
 
@@ -29,6 +37,14 @@ const NewEducationForm = (props) => {
   );
   let user = useSelector((state) => state.auth.user);
   const nav = useNavigate();
+
+  const menuMajors = PROGRAMS.map((programs) => {
+    return (
+      <MenuItem key={programs} value={programs}>
+        {programs}
+      </MenuItem>
+    );
+  });
 
   const handleFormSubmit = async () => {
     let education = {
@@ -113,15 +129,23 @@ const NewEducationForm = (props) => {
           onChange={(e) => setUni(e.target.value)}
         />
 
-        <TextField
-          placeholder="Enter Major"
-          className={classes.formInputs}
-          label="Major"
-          margin="dense"
-          variant="outlined"
-          value={major}
-          onChange={(e) => setMajor(e.target.value)}
-        />
+        <div className={classes.selectSection}>
+          <FormControl className={classes.selectInput}>
+            <InputLabel id="lbl-major">Major</InputLabel>
+            <Select
+              labelId="major"
+              id="major"
+              value={major}
+              onChange={(e) => setMajor(e.target.value)}
+              label="Major"
+              margin="dense"
+              variant="outlined"
+              placeholder="Enter major"
+            >
+              {menuMajors}
+            </Select>
+          </FormControl>
+        </div>
 
         <TextField
           placeholder="Enter GPA"

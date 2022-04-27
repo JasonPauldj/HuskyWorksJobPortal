@@ -13,6 +13,7 @@ import {
   AccordionDetails,
   AccordionSummary,
   Button,
+  requirePropFactory,
   TextField,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
@@ -148,7 +149,7 @@ function RecruiterProfile(props) {
             margin="dense"
             variant="outlined"
             // disableAutoFocus="true"
-            autoFocus="true"
+            autoFocus="autofocus"
             value={firstname}
             onChange={(e) => setFirstName(e.target.value)}
           />
@@ -206,22 +207,22 @@ function RecruiterProfile(props) {
     return (
       <CardComponent className={classes.divCardsContainer}>
         <div className={classes.recruiterHeader}>
+          {/* <div className={classes.recruiterProfileImg} /> */}
+          <img
+            src={require("../../assets/ProfileAvatar.png")}
+            width="50px"
+            height={"50px"}
+          />
           <div className={classes.recruiterDetails}>
-            <h3>{user.recruiter.username}</h3>
-            <h4>{recruiterOrg.organizationName}</h4>
+            <h3>
+              {user.recruiter.firstname}&ensp;
+              {user.recruiter.lastname}
+            </h3>
+            <h4>Recruiting for {recruiterOrg.organizationName}</h4>
           </div>
         </div>
         <br /> <hr />
         <div>
-          {/* <div className={classes.divTitle}>
-            <div className={classes.divTitleText}>My Profile Details</div>
-            <div className={classes.divTitleBtn}>
-              <EditIcon
-                onClick={() => handleRecruiterEdit()}
-                style={{ fontSize: "2rem" }}
-              />
-            </div>
-          </div> */}
           <Accordion expanded={expand}>
             <AccordionSummary
               expandIcon={<EditIcon style={{ fontSize: "large" }} />}
