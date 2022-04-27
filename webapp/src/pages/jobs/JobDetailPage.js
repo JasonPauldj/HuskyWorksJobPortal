@@ -1,21 +1,63 @@
+import React, { useState, useEffect } from "react";
 import Navbar from "../../components/navbar/Navbar";
 import { useNavigate, useNavigationType, useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { useState, useEffect } from "react";
 import CardComponent from "../../components/genericComponent/genericCard/CardComponent";
 import classes from "./JobDetailPage.module.scss";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import JobsSection from "../../components/jobs/JobsSection";
 import ReviewContainer from "../../components/orgs/ReviewContainer";
+import { authActions } from "../../store/auth_slice";
+import AuthService from "../../utilities/AuthService";
+import {makeStyles} from "@mui/styles";
+import { Button } from "@mui/material";
+
+const useStyles = makeStyles({
+  root: {
+    backgroundColor: "#1f3b8f",
+    color: "#ffffff",
+    height: "3rem",
+    lineHeight: 1,
+    "&:hover": {
+      backgroundColor: "transparent",
+      border: "1px solid #1f3b8f",
+      color: "#1f3b8f",
+      height: "3rem",
+      padding: 0,
+    },
+  },
+});
 
 function JobDetailPage(props) {
   const [job, setJob] = useState(null);
   const [orgJobs, setOrgJobs] = useState([]);
   const [org_id, setOrgId] = useState(0);
   const nav = useNavigate();
+  const sClasses = useStyles();
 
   const params = useParams();
   const job_id = params.job_id;
+
+  const dispatch = useDispatch();
+  let user = useSelector((state) => state.auth.user);
+  const checkUser = () => {
+    //if user not in store
+    if (!user) {
+      user = AuthService.getCurrUser();
+      //if user not in persistent local store
+      if (!user) {
+        return;
+      }
+      //add user to store
+      dispatch(authActions.login(user));
+    }
+  };
+
+  useEffect(() => {
+    checkUser();
+  }, []);
+  console.log(user, "user");
 
   useEffect(() => {
     const fetchJob = async () => {
@@ -43,6 +85,10 @@ function JobDetailPage(props) {
   const handleOrgClick = () => {
     nav(`/organizations/${job.organization_id}`);
   };
+
+  const handleViewApplications= () => {
+    nav(`/applications/${job._id}`);
+  }
 
   const JobDetailCard = (props) => {
     return (
@@ -102,8 +148,9 @@ function JobDetailPage(props) {
                   </div>
                 </div>
               </div>
+             
               <div className="ly-1-3-1-bd-sec-right-sidebar">
-                <ReviewContainer key={org_id} organizationId={org_id} />
+              {!user.isStudent ? <Button className={sClasses.root} onClick={handleViewApplications}>View All Applications</Button> :<ReviewContainer key={org_id} organizationId={org_id} /> } 
               </div>
             </div>
           </div>
@@ -112,5 +159,6 @@ function JobDetailPage(props) {
     </>
   );
 }
+///applications/:job_id
 
 export default JobDetailPage;
