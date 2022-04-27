@@ -13,6 +13,7 @@ import {
   AccordionDetails,
   AccordionSummary,
   Button,
+  requirePropFactory,
   TextField,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
@@ -206,7 +207,12 @@ function RecruiterProfile(props) {
     return (
       <CardComponent className={classes.divCardsContainer}>
         <div className={classes.recruiterHeader}>
-          <div className={classes.recruiterProfileImg} />
+          {/* <div className={classes.recruiterProfileImg} /> */}
+          <img
+            src={require("../../assets/ProfileAvatar.png")}
+            width="50px"
+            height={"50px"}
+          />
           <div className={classes.recruiterDetails}>
             <h3>
               {user.recruiter.firstname}&ensp;
