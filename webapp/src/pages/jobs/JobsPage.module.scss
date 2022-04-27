@@ -2,10 +2,26 @@
     display:flex;
     flex-direction:row;
     flex-wrap: wrap;
+    overflow-y:scroll;
+    height:95%;
 }
 
 .filterWrapper{
     margin-bottom: 15px;
+}
+
+.filterTypeWrapper{
+    height: 115px;
+}
+
+.filterCategoryWrapper{
+    height:330px;
+    overflow-y:scroll;
+}
+
+.filterLocationWrapper{
+    height:330px;
+    overflow-y:scroll;
 }
 
 .infoMessage{

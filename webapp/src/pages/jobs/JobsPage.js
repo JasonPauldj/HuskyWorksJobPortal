@@ -20,6 +20,11 @@ const JOB_LOCATION_FILTERS = [...JOB_LOCATIONS];
 
 let isInitial = true;
 
+/**
+ * This is a functional component that renders the Jobs Page for a student
+ * @param {object} props 
+ * @returns 
+ */
 function JobsPage(props) {
   const [appliedJobTypeFilters, setJobTypeFilters] = useState([]);
   const [appliedJobCategoryFilters, setJobCategoryFilters] = useState([]);
@@ -35,15 +40,14 @@ function JobsPage(props) {
     //if user not in store
     if (!user) {
       user = AuthService.getCurrUser();
-      
+
       //if user not in persistent local store
-      if(!user)
-      {
+      if (!user) {
         navigate('/');
         return;
       }
       //add user to store
-       dispatch(authActions.login(user));
+      dispatch(authActions.login(user));
     }
   };
 
@@ -79,7 +83,7 @@ function JobsPage(props) {
     setJobs(response.data);
   };
 
-  //filtering jobs when the filters are changed
+  //filtering jobs when the filters are changed or search text is entered
   useEffect(() => {
     let url = "http://localhost:9000/jobs";
     let params = [];
@@ -98,7 +102,6 @@ function JobsPage(props) {
         paramName: "job_types",
         paramValue: jobTypeQueryParam.slice(0, jobTypeQueryParam.length - 1),
       });
-      //url += `?job_types=${jobTypeQueryParam.slice(0, jobTypeQueryParam.length - 1)}`
     }
 
     //checking if job category filters are selected
@@ -115,7 +118,6 @@ function JobsPage(props) {
           jobCategoryQueryParam.length - 1
         ),
       });
-      //url += `?job_types=${jobTypeQueryParam.slice(0, jobTypeQueryParam.length - 1)}`
     }
 
     //checking if job location filters are selected
@@ -132,7 +134,6 @@ function JobsPage(props) {
           jobLocationQueryParam.length - 1
         ),
       });
-      //url += `?job_types=${jobTypeQueryParam.slice(0, jobTypeQueryParam.length - 1)}`
     }
 
     //checking if anything is entered in searchbar
@@ -160,11 +161,18 @@ function JobsPage(props) {
     searchText,
   ]);
 
+  /**
+   * This function is used to open the confirmation dialog box
+   * @param {object} job 
+   */
   const handleApplyButtonOnClick = (job) => {
     setSelectedJob(job);
     setIsApply(true);
   };
 
+  /**
+   * Renders the job cards
+   */
   const jobCards = jobs.map((job) => {
     const applicationExist = applications.filter(
       (application) => application.job_id === job._id
@@ -189,6 +197,10 @@ function JobsPage(props) {
   const isJobLocationSelected = (jobLocationValue) =>
     appliedJobLocationFilters.includes(jobLocationValue);
 
+  /**
+   * Handles the change in selection the job type filter
+   * @param {string} jobTypeValue 
+   */
   const handleJobTypeCheckboxChange = (jobTypeValue) => {
     let updatedJobTypeFilters;
 
@@ -204,7 +216,10 @@ function JobsPage(props) {
     }
     setJobTypeFilters(updatedJobTypeFilters);
   };
-
+  /**
+   * Handles the change in selection the category filter
+   * @param {string} jobCategoryValue 
+   */
   const handleJobCategoryCheckboxChange = (jobCategoryValue) => {
     let updatedJobCategoryFilters;
 
@@ -224,6 +239,10 @@ function JobsPage(props) {
     setJobCategoryFilters(updatedJobCategoryFilters);
   };
 
+  /**
+ * Handles the change in selection the location filter
+ * @param {string} jobLocationValue 
+ */
   const handleJobLocationCheckboxChange = (jobLocationValue) => {
     let updatedJobLocationFilters;
 
@@ -243,10 +262,18 @@ function JobsPage(props) {
     setJobLocationFilters(updatedJobLocationFilters);
   };
 
+  /**
+   *  handles change in the search bar
+   * @param {string} searchInput 
+   */
   const handleSearchInputChange = (searchInput) => {
     setSearchText(searchInput);
   };
 
+  /**
+   * Function to create an application and post it to the backend
+   * @param {object} job 
+   */
   const onApplyConfirm = (job) => {
 
     const application = {
@@ -263,7 +290,9 @@ function JobsPage(props) {
     setSelectedJob(null);
     setIsApply(false);
   };
-
+  /**
+   * Function to close the dialog box
+   */
   const onApplyReject = () => {
     setSelectedJob(null);
     setIsApply(false);
@@ -302,8 +331,7 @@ function JobsPage(props) {
                 )}
               </div>
               <div className="ly-1-3-1-bd-sec-right-sidebar">
-                {/* <CardComponent className="ht-full-percent wt-80-percent"></CardComponent> */}
-                <div className={classes.filterWrapper}>
+                <div className={`${classes.filterWrapper} ${classes.filterTypeWrapper}`}>
                   <FilterSectionComponent
                     heading={"JOB TYPE"}
                     values={JOB_TYPE_FILTERS}
@@ -311,14 +339,14 @@ function JobsPage(props) {
                     handleCheckboxChange={handleJobTypeCheckboxChange}
                   />
                 </div>
-                <div className={classes.filterWrapper}>
+                <div className={`${classes.filterWrapper} ${classes.filterCategoryWrapper}`}>
                   <FilterSectionComponent
                     heading={"JOB CATEGORY"}
                     values={JOB_CATEGORY_FILTERS}
                     handleCheckboxChange={handleJobCategoryCheckboxChange}
                   />
                 </div>
-                <div className={classes.filterWrapper}>
+                <div className={`${classes.filterWrapper} ${classes.filterCategoryWrapper}`}>
                   <FilterSectionComponent
                     heading={"JOB LOCATION"}
                     values={JOB_LOCATION_FILTERS}
