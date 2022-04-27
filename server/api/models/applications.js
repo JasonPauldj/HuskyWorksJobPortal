@@ -22,6 +22,9 @@ const applicationSchema = new mongoose.Schema({
   student_name: {
     type: String
   },
+  student_major: {
+    type: String
+  },
   student_gpa: {
     type: mongoose.Schema.Types.Decimal128,
   },

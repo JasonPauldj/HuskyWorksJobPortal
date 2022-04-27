@@ -255,7 +255,8 @@ function JobsPage(props) {
       job_id: job._id,
       student_id: user.student._id,
       student_gpa: user.student.gpa.$numberDecimal,
-      student_name: `${user.student.firstname} ${user.student.lastname}`
+      student_name: `${user.student.firstname} ${user.student.lastname}`,
+      student_major: user.student.major
     };
 
     dispatch(postApplication(application));
