@@ -12,6 +12,7 @@ import AuthService from "../../utilities/AuthService";
 import { useNavigate } from "react-router-dom";
 import ApplicationStatusChart from "../../pages/dashboards/ApplicationStatusChart";
 
+//Component student dashboard displays student specifc information such as applied jobs, registered events and job recommendations
 function StudentDashboard() {
   const [jobs, setJobs] = useState([]);
   const [events, setEvents] = useState([]);
@@ -23,6 +24,7 @@ function StudentDashboard() {
   const dispatch = useDispatch();
   let user = useSelector((state) => state.auth.user);
 
+  //check if student is logged in
   const checkUser = () => {
     //if user not in store
     if (!user) {
@@ -42,6 +44,7 @@ function StudentDashboard() {
   }, []);
   console.log(user, "user");
 
+  //fetch all applications of the student
   useEffect(() => {
     const fetchAppliedJobs = async () => {
       await axios
@@ -52,6 +55,8 @@ function StudentDashboard() {
     };
     fetchAppliedJobs();
   }, []);
+
+  //fetch all registered events of the student
 
   useEffect(() => {
     const fetchRegisteredEvents = async () => {
@@ -65,6 +70,7 @@ function StudentDashboard() {
     fetchRegisteredEvents();
   }, []);
 
+  //fetch job recommendations based on the student's interests
   useEffect(() => {
     const fetchJobRecommendations = async () => {
       await axios.get(`http://localhost:9000/jobs/`).then(async (res) => {
@@ -74,6 +80,7 @@ function StudentDashboard() {
     fetchJobRecommendations();
   }, []);
 
+  //On clicking the view more button, it navigates to the student-applications page
   const viewMoreApplications = async (e) => {
     e.preventDefault();
     try {
@@ -83,6 +90,7 @@ function StudentDashboard() {
     }
   };
 
+ //On clicking the view more button, it navigates to the jobs page
   const viewMoreJobs = async (e) => {
     e.preventDefault();
     try {
@@ -92,6 +100,7 @@ function StudentDashboard() {
     }
   };
 
+  //On clicking the view more button, it navigates to the events page
   const viewMoreEvents = async (e) => {
     e.preventDefault();
     try {
@@ -103,13 +112,14 @@ function StudentDashboard() {
 
   console.log("All Jobs", allJobs);
 
-  //TO DO SHUFFLE
+  //slicing the list to show only 3 job cards
   const currjobs = jobs.length > 3 ? jobs.slice(0, 3) : jobs;
 
   const jobCards = currjobs.map((job) => {
     return <JobCard key={job._id} job={job} isApplied={true} />;
   });
 
+  //slicing the list to show only 3 job cards
   const currEvents = events.length > 3 ? events.slice(0, 3) : events;
 
   const eventCards = currEvents.map((event) => {
@@ -118,11 +128,13 @@ function StudentDashboard() {
     }
   });
 
+  //filtering on the basis of student's interests
   console.log("Interest: ", user.student.interest);
   const recommendations = allJobs.filter(
     (j) => j.job_category === user.student.interests
   );
 
+  //shuffling the list to display differnt cards on each refresh
   const shuffledArray = recommendations.sort((a, b) => 0.5 - Math.random());
   const currRecos =
     shuffledArray.length > 3 ? shuffledArray.slice(0, 3) : shuffledArray;

@@ -10,6 +10,7 @@ import EventCard from "../../components/events/EventCard";
 import "./StudentDashboard.scss";
 import CardComponent from "../../components/genericComponent/genericCard/CardComponent";
 
+//Coomponent Recruiter dashboard to display recruiter specific information such as jobs and events posted by the recruiter.
 function RecruiterDashboard() {
   let recruiter = useSelector((state) => state.auth.user);
   console.log(recruiter, "recruiter");
@@ -21,6 +22,7 @@ function RecruiterDashboard() {
   const [eventsPosted, setEventsPosted] = useState([]);
   const dispatch = useDispatch();
 
+  //checking if recruiter is logged in 
   const checkUser = () => {
     if (recruiter.length == 0) {
       recruiter = AuthService.getCurrUser();
@@ -32,6 +34,7 @@ function RecruiterDashboard() {
     checkUser();
   }, []);
 
+  //fetching jobs posted by the recruiter
   useEffect(() => {
     const fetchJobsPosted = async () => {
       const response = await axios.get("http://localhost:9000/jobs");
@@ -43,6 +46,7 @@ function RecruiterDashboard() {
       setJobsPosted(jobsPostedByrecruiter);
       console.log(" jobs posted", jobsPosted);
 
+      //fetching jobs posted by the recruiter including all jobs posted of that organization
       const organizationPosting = jobs.filter(
         (job) => job.organization_id === recruiter.organizationId
       );
@@ -52,6 +56,7 @@ function RecruiterDashboard() {
     fetchJobsPosted();
   }, []);
 
+  //fetching events posted by the recruiter
   useEffect(() => {
     const fetchEventsPosted = async () => {
       const response = await axios.get("http://localhost:9000/events");
@@ -68,12 +73,14 @@ function RecruiterDashboard() {
     fetchEventsPosted();
   }, []);
 
+  //displaying job cards
   const jobsPostedCards = jobsPosted.map((job) => {
     return (
       <JobCard key={job._id} job={job} job_id={job._id} isRecruiter={true} />
     );
   });
 
+  //displaying job cards 
   const orgPostingCards = orgPosting.map((job) => {
     return (
       <JobCard
@@ -89,6 +96,7 @@ function RecruiterDashboard() {
     );
   });
 
+  //displaying event cards 
   const eventsPostedByRecruiter = eventsPosted.map((event) => {
     return <EventCard key={event._id} event={event} />;
   });

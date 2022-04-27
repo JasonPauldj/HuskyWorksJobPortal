@@ -1,3 +1,4 @@
+//Created AuthService to get and retrieve user from the local storage
 class AuthService {
   setCurrUser = (data) => {
     localStorage.setItem("user", JSON.stringify(data));

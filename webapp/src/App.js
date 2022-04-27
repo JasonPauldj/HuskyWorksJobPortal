@@ -77,6 +77,7 @@ function App() {
     <div className="prbg">
       <Router>
         <div className="app-state">
+           {/* routes for login */}
           <Routes>
             <Route
               path="/"
@@ -99,14 +100,17 @@ function App() {
             <Route path="/events" element={<EventsPage />} />
             <Route path="/events/:event_id" element={<EventDetailsPage />} />
             <Route path="/events/create-event" element={<CreateEventsPage />} />
+            {/* route for recruiter sign up page */}
             <Route
               path="/signup-recruiter"
               element={<RecruiterSignUp />}
             ></Route>
+            {/* route for studentdashboard */}
             <Route
               path="/dashboard-student/:id"
               element={<StudentDashboard />}
             ></Route>
+            {/* route for recruiter dashboard */}
             <Route
               path="/dashboard-recruiter/:id"
               element={<RecruiterDashboard />}

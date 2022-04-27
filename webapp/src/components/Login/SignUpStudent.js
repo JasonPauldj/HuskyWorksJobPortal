@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.scss";
 
+//Student sign up form. Gets called when signing up as a student
 function SignUpStudent() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -18,6 +19,7 @@ function SignUpStudent() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  //post method get called when registering as a student
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
@@ -41,9 +43,10 @@ function SignUpStudent() {
     }
   };
 
+  //Available categories to select from as interests
   const availableCategories = ["SOFTWARE","HARDWARE", "AEROSPACE", "AUTOMOTIVE", "BIOMEDICAL"];
   
-
+  //method gets called when student selects the interests from the drop down
   const handleInterestChange = (event) => {
     setInterest(event.target.value);
   };

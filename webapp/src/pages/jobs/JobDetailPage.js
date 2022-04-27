@@ -13,17 +13,21 @@ import AuthService from "../../utilities/AuthService";
 import {makeStyles} from "@mui/styles";
 import { Button } from "@mui/material";
 
+// Added style to the view all applications button button
 const useStyles = makeStyles({
   root: {
     backgroundColor: "#1f3b8f",
     color: "#ffffff",
-    height: "3rem",
+    width: "20rem",
+    height: "5rem",
     lineHeight: 1,
+    fontSize: "12px",
     "&:hover": {
       backgroundColor: "transparent",
       border: "1px solid #1f3b8f",
       color: "#1f3b8f",
-      height: "3rem",
+      width: "20rem",
+      height: "5rem",
       padding: 0,
     },
   },
@@ -148,7 +152,7 @@ function JobDetailPage(props) {
                   </div>
                 </div>
               </div>
-             
+             {/* displaying review section in student login and view all button in recruiter login */}
               <div className="ly-1-3-1-bd-sec-right-sidebar">
               {!user.isStudent ? <Button className={sClasses.root} onClick={handleViewApplications}>View All Applications</Button> :<ReviewContainer key={org_id} organizationId={org_id} /> } 
               </div>

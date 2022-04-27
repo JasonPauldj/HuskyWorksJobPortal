@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import AuthService from "../../utilities/AuthService";
 // import classes from  "./Login.module.scss";
 
+//Created Login Function to handle login of recruiter and student
 export default function Login() {
   const dispatch = useDispatch();
   const [user, setUser] = useState(null);
@@ -17,6 +18,7 @@ export default function Login() {
   const [loginAs, setLoginAs] = useState("Student");
   const nav = useNavigate();
 
+  //Login Handler gets called on click of login button
   const loginHandler = async (event) => {
     event.preventDefault();
     try {
@@ -29,23 +31,24 @@ export default function Login() {
         });
         console.log(response.data);
         setUser(response.data);
-        //set to local storage
+        //setting user to local storage
         AuthService.setCurrUser(response.data);
         dispatch(authActions.login(response.data));
-        nav(`/dashboard-student/${response.data._id}`);
+        nav(`/dashboard-student/${response.data._id}`); //redirecting to student dashboard on successful login
       } else if (loginAs === "Recruiter") {
         const response = await axios.post("http://localhost:9000/login", {
           username,
           password,
           loginAs,
         });
+        //setting user to local storage
         console.log(response.data);
         setUser(response.data);
         AuthService.setCurrUser(response.data);
         dispatch(authActions.login(response.data));
-        nav(`/dashboard-recruiter/${response.data._id}`);
+        nav(`/dashboard-recruiter/${response.data._id}`); // redirecting to recruiter dashboard on successful login
       }
-    } catch (error) {
+    } catch (error) { //error handler
       let currErr =
         error &&
         error.response &&
@@ -56,6 +59,7 @@ export default function Login() {
     }
   };
 
+  //method called on changing the drop down to login as student or recruiter
   const handleChange = (event) => {
     setLoginAs(event.target.value);
   };

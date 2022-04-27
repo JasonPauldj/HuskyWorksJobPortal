@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.scss";
 
+//Recruiter sign up form. Gets called when signing up as a recruiter
 function RecruiterSignUp() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -16,6 +17,7 @@ function RecruiterSignUp() {
   const [error, setError] = useState("");
   const nav = useNavigate();
 
+ //fetching organziations from DB to allow the recruiter to associate with an organization while signup 
   useEffect(() => {
     const fetchOrganizations = async () => {
       await axios
@@ -36,6 +38,7 @@ function RecruiterSignUp() {
     fetchOrganizations();
   }, []);
 
+  //post method get called when registering as a recruiter
   const handleSignUpRecruiter = async (e) => {
     e.preventDefault();
     try {
@@ -57,11 +60,11 @@ function RecruiterSignUp() {
     }
   };
 
+  //method gets called when recruiter selects the value from the drop down
   const handleOrganizationChange = (e) => {
     setSelectedOrg(e.target.value);
   };
 
-  console.log("ujds", orgs);
 
   return (
     <div className="container">

@@ -4,16 +4,15 @@ import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, registerables } from "chart.js";
 ChartJS.register(...registerables);
 
+//Component to display chart  graph in the student dashboard. Used chart.js
 export default function ApplicationStatusChart() {
   const [application, setApplications] = useState([]);
-  // Map.prototype.getOrElse = function(key, value) {
-  //     return this.has(key) ? this.get(key) : value
-  // }
   let applied = [];
   let accepted = [];
   let interviewing = [];
   let rejected = [];
 
+  //fetching all applications and maintaining count of all application statuses to display in the chart
   useEffect(() => {
     const fetchData = async () => {
       await axios

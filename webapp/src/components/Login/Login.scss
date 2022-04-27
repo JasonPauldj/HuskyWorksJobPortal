@@ -1,3 +1,4 @@
+//styles for the sign up and login  pages
 * {
     margin: 0;
     padding: 0;
@@ -216,6 +217,7 @@
     color: #1565c0;
   }
 
+  //Handling responsiveness 
   @media only screen and (max-width: 700px) {
     html {
       font-size: 54.5%;
