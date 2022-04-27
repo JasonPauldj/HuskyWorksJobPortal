@@ -2,6 +2,9 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.scss";
+import {JOB_CATEGORIES} from '../../utilities/constants';
+import {PROGRAMS} from '../../utilities/constants';
+
 
 //Student sign up form. Gets called when signing up as a student
 function SignUpStudent() {
@@ -44,12 +47,22 @@ function SignUpStudent() {
   };
 
   //Available categories to select from as interests
-  const availableCategories = ["SOFTWARE","HARDWARE", "AEROSPACE", "AUTOMOTIVE", "BIOMEDICAL"];
+  //const availableCategories = ["SOFTWARE","HARDWARE", "AEROSPACE", "AUTOMOTIVE", "BIOMEDICAL"];
+  const availableCategories = [...JOB_CATEGORIES];
+
+  //Available majors to select from as major
+  const availableMajors = [...PROGRAMS];
+
   
   //method gets called when student selects the interests from the drop down
   const handleInterestChange = (event) => {
     setInterest(event.target.value);
   };
+
+    //method gets called when student selects the program from the drop down
+    const handleMajorChange = (event) => {
+      setMajor(event.target.value);
+    };
 
   return (
     <div className="container">
@@ -131,7 +144,7 @@ function SignUpStudent() {
               <span className="label">GPA</span>
               <span className="input-icon"></span>
             </label>
-            <label className="inp">
+            {/* <label className="inp">
               <input
                 type="text"
                 className="input-text"
@@ -140,6 +153,19 @@ function SignUpStudent() {
                 onChange={(e) => setMajor(e.target.value)}
               />
               <span className="label">Major</span>
+              <span className="input-icon"></span>
+            </label> */}
+            <label className="inp">
+            <select
+                className="input-text"
+                onChange={handleMajorChange}
+              >
+                {availableMajors &&
+                  availableMajors.map((major) => (
+                    <option value={major}>{major}</option>
+                  ))}
+              </select>
+              <span className="label"> Major </span>
               <span className="input-icon"></span>
             </label>
             <label className="inp">
