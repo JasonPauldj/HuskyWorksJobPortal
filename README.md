@@ -34,7 +34,7 @@ Career Fairs, Networking and Speaker events are posted on the portal and availab
 ## Future Scope 
 * As an admin, I want to create events, so that students using the job portal should be able to network and collaborate.
 * As an admin, I want to update student profiles, so that students who are graduated are given alumni status
-* As an admin, I want to remove recruiters if needed.i
+* As an admin, I want to remove recruiters if needed.
 * As an admin, I want to remove organizations, so that organizations that have been blacklisted are not visible
 * As an admin, I want to remove job postings, so that students have updated job information.
 

@@ -6,6 +6,7 @@ import classes from "./EventCard.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import AuthService from "../../utilities/AuthService.js";
 import { authActions } from "../../store/auth_slice";
+import CorporateFareIcon from '@mui/icons-material/CorporateFare';
 
 function EventCard(props) {
   const navigate = useNavigate();
@@ -47,10 +48,11 @@ function EventCard(props) {
       onClick={handleCardOnClick}
     >
       <div className={classes.orgSection}>
-        <img
+        {/* <img
           className={classes.orgImg}
           src={require("../../assets/Barney.jpeg")}
-        />
+        /> */}
+        <CorporateFareIcon style={{fontSize: "50px"}}/>
         <span className={classes.orgName}>{props.event.event_organizer}</span>
       </div>
       <div
