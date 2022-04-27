@@ -1,12 +1,12 @@
 @import "../../scss/SassVariables.scss";
 
-.studentHeader {
+.recruiterHeader {
   display: flex;
   justify-content: space-around;
   margin-bottom: 2rem;
 }
 
-.studentProfileImg {
+.recruiterProfileImg {
   flex: 1;
   margin: 0rem 1rem;
   height: 18rem;
@@ -16,15 +16,15 @@
   border-radius: 10px;
 }
 
-.studentDetails {
+.recruiterDetails {
   flex: 4;
 }
 
-.studentDetails > h3 {
+.recruiterDetails > h3 {
   font-size: 2.3rem;
 }
 
-.studentDetails > h5 {
+.recruiterDetails > h5 {
   font-size: 1.5rem;
 }
 .divTitle {
@@ -60,4 +60,10 @@
 
 .fileUpload input {
   padding: 20px;
+}
+
+.formInputs {
+  margin-top: 1rem;
+  width: 60%;
+  font-size: 2rem;
 }

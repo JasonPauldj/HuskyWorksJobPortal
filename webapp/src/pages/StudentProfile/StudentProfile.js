@@ -42,10 +42,16 @@ function StudentProfile(props) {
   };
 
   const checkUser = () => {
-    // console.log(AuthService.getCurrUser(), "AuthService.getCurrUser()");
-    if (user.length == 0) {
+    //if user not in store
+    if (!user) {
       user = AuthService.getCurrUser();
-      dispatch(authActions.login(AuthService.getCurrUser() || {}));
+
+      //if user not in persistent local store
+      if (!user) {
+        return;
+      }
+      //add user to store
+      dispatch(authActions.login(user));
     }
   };
 
@@ -287,7 +293,7 @@ function StudentProfile(props) {
         <div className={classes.studentHeader}>
           <div className={classes.studentProfileImg} />
           <div className={classes.studentDetails}>
-            <h3>{user.userName}</h3>
+            <h3>{student.username}</h3>
             <h5>{student.major}</h5>
             <h5>{student.email}</h5>
             <h5>{student.nuid}</h5>
