@@ -20,13 +20,13 @@ function EventDetailsCard(props) {
       {loading === false ? (
         <div>
           <h2>{event.event_title}</h2>
-          <h5>Organized by: {event.event_organizer}</h5>
+          <p>Organized by: {event.event_organizer}</p>
           <p>
             <strong>Description:</strong> <br />
             {event.event_description}
           </p>
-          <p>{event.no_of_seats}</p>
-          <p>{dateFormat(event.event_date, "yyyy-mm-dd")}</p>
+          <p>Available Seats: {event.no_of_seats}</p>
+          <p>Event Date: {dateFormat(event.event_date, "yyyy-mm-dd")}</p>
           <Maps
             lat={props.event.event_location.latitude}
             lng={props.event.event_location.longitude}

@@ -124,7 +124,7 @@ function StudentDashboard() {
 
   const eventCards = currEvents.map((event) => {
     if (event) {
-      return <EventCard key={event._id} event={event} />;
+      return <EventCard key={event._id} event={event} isRegistered={true} />;
     }
   });
 
