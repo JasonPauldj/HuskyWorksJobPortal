@@ -19,17 +19,18 @@ const s3 = new S3Client({
     })
 });
 
-const fs = require('fs');
+// const fs = require('fs');
+//import fs from "fs";
 
  
 const bucketName = process.env.S3_BUCKETNAME;
 
 // uploads a file to s3
 export function uploadFile(file,key) {
-    const fileStream = fs.createReadStream(file.path)
+ //   const fileStream = fs.createReadStream(file.path)
     const uploadParams = {
         Bucket: bucketName,
-        Body: fileStream,
+        Body: file,
         Key: key
     }
     return s3.send(new PutObjectCommand(uploadParams))

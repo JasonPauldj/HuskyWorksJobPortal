@@ -43,6 +43,9 @@ const studentSchema = new mongoose.Schema({
     match:
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
   },
+  resumeKey: {
+    type: String,
+  },
 });
 
 //Student Model

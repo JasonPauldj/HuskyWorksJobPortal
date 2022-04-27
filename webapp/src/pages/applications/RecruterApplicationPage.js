@@ -11,6 +11,7 @@ import FilterSectionComponent from "../../components/genericComponent/FIlterSect
 import { PROGRAMS } from '../../utilities/constants';
 import Slider from '@mui/material/Slider';
 import CardComponent from '../../components/genericComponent/genericCard/CardComponent';
+import Navbar from '../../components/navbar/Navbar';
 
 
 
@@ -164,7 +165,7 @@ function RecruiterApplicationPage(props) {
         <div className="prbg ht-full-viewport py-1">
             <div className="flex-horizontal">
                 <div className="ly-1-3-1-bd-sec-left">
-                    {/*HERE IS WHERE YOUR NAVBAR/LEFTSIDEBAR SHOULD GO*/}
+                    <Navbar />
                 </div>
                 <div className="ly-1-3-1-bd-sec-right">
                     <div className="ly-1-3-1-bd-sec-right-container flex-horizontal">

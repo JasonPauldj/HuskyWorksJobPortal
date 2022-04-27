@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import { authActions } from "../../store/auth_slice";
 import { TextareaAutosize, TextField } from "@mui/material";
 import { uploadFile } from "react-s3";
+// import { uploadFile as awsUploadFile}  from "../../utilities/awsS3";
 
 function StudentProfile(props) {
   let user = useSelector((state) => state.auth.user);
@@ -28,10 +29,10 @@ function StudentProfile(props) {
   const nav = useNavigate();
   const dispatch = useDispatch();
 
-  const S3_BUCKET = "YOUR_BUCKET_NAME";
-  const REGION = "YOUR_REGION_NAME";
-  const ACCESS_KEY = "YOUR_ACCESS_KEY";
-  const SECRET_ACCESS_KEY = "YOUR_SECRET_ACCESS_KEY";
+  const S3_BUCKET = "huskyworks-info6150";
+  const REGION = "us-east-1";
+  const ACCESS_KEY = "AKIARMAXFNN2OBCYX5OM";
+  const SECRET_ACCESS_KEY = "0arFYnJ4ApwaaIdI8S1CELglkrysTeeoLYBd618/";
 
   const config = {
     bucketName: S3_BUCKET,
@@ -256,13 +257,29 @@ function StudentProfile(props) {
     console.log("Input file handle");
   };
 
-  console.log("file", selectedFile);
-  const handleUpload = async (file) => {
-    console.log("upload file handle");
-    uploadFile(file, config)
-      .then((data) => console.log(data))
-      .catch((err) => console.error(err));
-  };
+
+  const handleFileSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData();
+    data.append("myfile", selectedFile);
+    data.append("studentId",user.student._id)
+
+    const pushResume = async () => {
+      const response = await axios({
+        method: "POST",
+        url: "http://localhost:9000/students/resume",
+        data: data,
+        headers:{
+          "Access-Control-Allow-Origin": "*"
+        },
+        validateStatus: (status) => {
+          return true;
+        },
+      })
+    }
+      pushResume();
+    ;
+  }
 
   const StudentProfileCard = (props) => {
     return (
@@ -282,19 +299,21 @@ function StudentProfile(props) {
           <CardComponent>
             <div className={classes.fileUpload}>
               <p>Files Supported: PDF, TEXT, DOC , DOCX</p>
-              <label for="myfile">Select a file:</label>
-              <br />
-              <input
-                type="file"
-                id="myfile"
-                name="myfile"
-                accept=".doc,.docx,.pdf"
-                title=" "
-                onChange={handleFileInput}
-              />
-              <button onClick={() => handleUpload(selectedFile)}>
-                Upload File
-              </button>
+              <form onSubmit={handleFileSubmit} method="POST" enctype="multipart/form-data">
+                <label for="myfile">Select a file:</label>
+                <br />
+                <input
+                  type="file"
+                  id="myfile"
+                  name="myfile"
+                  accept=".doc,.docx,.pdf"
+                  title=" "
+                  onChange={handleFileInput}
+                />
+                <button type="submit">
+                  Upload File
+                </button>
+              </form>
             </div>
           </CardComponent>
         </div>
