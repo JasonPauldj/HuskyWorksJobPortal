@@ -327,7 +327,11 @@ function JobsPage(props) {
                   <div className={classes.infoMessage}>No Jobs Were Found</div>
                 )}
                 {jobs.length > 0 && (
+                  <>
+                  <div className={classes.jobContainerWrapper}>
                   <div className={classes.jobsContainer}>{jobCards}</div>
+                  </div>
+                  </>
                 )}
               </div>
               <div className="ly-1-3-1-bd-sec-right-sidebar">

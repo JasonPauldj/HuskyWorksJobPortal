@@ -1,9 +1,11 @@
+.jobContainerWrapper{
+    height: 95%;
+    overflow-y: scroll;
+}
 .jobsContainer{
     display:flex;
     flex-direction:row;
     flex-wrap: wrap;
-    overflow-y:scroll;
-    height:95%;
 }
 
 .filterWrapper{

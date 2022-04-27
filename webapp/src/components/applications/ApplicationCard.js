@@ -21,7 +21,11 @@ const useStyles =  makeStyles({
       },
     },
   });
-
+/**
+ * A functional component to render the application card
+ * @param {object} props 
+ * @returns 
+ */
 function ApplicationCard(props) {
 
     const [job, setJob] = useState({});
@@ -52,10 +56,12 @@ function ApplicationCard(props) {
 
     const navigate = useNavigate();
 
+    //navigate user to job details page
     const handleJobDetailsClick=(event)=>{
         navigate(`/jobs/${job._id}`);
     }
 
+    //navigate user to org details page
     const handleOrgDetailsClick=(event)=>{
         navigate(`/organizations/${org._id}`);
     }

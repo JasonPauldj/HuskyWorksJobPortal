@@ -14,7 +14,11 @@ import CardComponent from '../../components/genericComponent/genericCard/CardCom
 import Navbar from '../../components/navbar/Navbar';
 
 
-
+/**
+ * A functional component to render the applications page for the recruiter
+ * @param {object} props 
+ * @returns 
+ */
 function RecruiterApplicationPage(props) {
 
     let user = useSelector((state) => state.auth.user);
@@ -84,6 +88,7 @@ function RecruiterApplicationPage(props) {
         }
     }, [user]);
 
+    //to filter the applications based on filter selection and search input
     useEffect(() => {
         let url = `http://localhost:9000/applications?job_id=${job_id}`;
         let params = [];
@@ -126,6 +131,7 @@ function RecruiterApplicationPage(props) {
     const isProgramSelected = (programValue) =>
         appliedProgramFilters.includes(programValue);
 
+     //renders the application cards   
     const applicationCards = applications.map((application) => {
         return (
             <RecruiterApplicationCard key={application._id} application={application} />

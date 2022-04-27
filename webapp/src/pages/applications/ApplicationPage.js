@@ -3,11 +3,15 @@ import { useSelector } from "react-redux";
 import ApplicationCard from '../../components/applications/ApplicationCard';
 import classes from './ApplicationPage.module.scss';
 
-
+/**
+ * A functional component to view your applications
+ * @param {object} props 
+ * @returns 
+ */
 function ApplicationPage(props){
    
     const applications = useSelector((state=>state.applications.applications));
-
+    //renders the application cards
     const applicationCards = applications.map((application)=>  <ApplicationCard key={application._id} application={application}/>)
 
 
@@ -20,7 +24,6 @@ function ApplicationPage(props){
             <div className="ly-1-4-bd-sec-right">
               <div className="ly-1-4-bd-sec-right-container flex-horizontal">
                 <div className="ly-1-4-bd-sec-right-main">
-                    {/*add css to this div*/}
                     <div className={classes.applicationCardsWrapper}>
                         {applicationCards}
                     </div>

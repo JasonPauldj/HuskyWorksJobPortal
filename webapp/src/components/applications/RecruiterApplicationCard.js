@@ -3,6 +3,12 @@ import axios from "axios";
 import CardComponent from "../genericComponent/genericCard/CardComponent";
 import classes from './RecruiterApplicationCard.module.scss';
 
+/**
+ * A functional component to display the application to the recruiter.
+ * The open resume button is only visible if a resume exists
+ * @param {object} props 
+ * @returns 
+ */
 function RecruiterApplicationCard(props) {
 
     const [student, setStudent] = useState({});
@@ -16,6 +22,7 @@ function RecruiterApplicationCard(props) {
         fetchStudent();
     }, []);
 
+    //to download the resume from S3 bucket
     const handleOpenClick = (event)=>{
        event.stopPropagation();
         window.open(`https://huskyworks-info6150.s3.amazonaws.com/${student.resumeKey}`, "_blank");
