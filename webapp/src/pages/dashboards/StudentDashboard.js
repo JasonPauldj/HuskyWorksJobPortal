@@ -49,7 +49,7 @@ function StudentDashboard() {
   useEffect(() => {
     const fetchRegisteredEvents = async () => {
       await axios
-        .get(`http://localhost:9000/student/events/${user._id}`)
+        .get(`http://localhost:9000/student/registrations/${user._id}`)
         .then(async (res) => {
           setEvents(res.data);
           console.log("fetch events", res.data);
@@ -102,7 +102,6 @@ function StudentDashboard() {
     return <JobCard key={job._id} job={job} isApplied={true} />;
   });
 
-  //TO DO SHUFFLE
   const currEvents = events.length > 3 ? events.slice(0, 3) : events;
 
   const eventCards = currEvents.map((event) => {
@@ -132,6 +131,7 @@ function StudentDashboard() {
   });
 
   return (
+  
     <div className="prbg ht-full-viewport py-1">
       <div className="flex-horizontal">
         <div className="ly-1-4-bd-sec-left">
@@ -139,8 +139,10 @@ function StudentDashboard() {
         </div>
         <div className="ly-1-4-bd-sec-right">
           <div className="ly-1-4-bd-sec-right-container flex-horizontal">
+            
             <div className="ly-1-4-bd-sec-right-main">
               {/* APPS */}
+              <CardComponent className="card-margin">
               <div className="applications-section-header">
                 <p className="heading">My Applications</p>
               </div>
@@ -175,6 +177,7 @@ function StudentDashboard() {
                   <button onClick={viewMoreJobs}>View More</button>
                 </div>
               </div>
+              </CardComponent>
             </div>
           </div>
         </div>

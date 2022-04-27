@@ -111,10 +111,10 @@ function App() {
               path="/dashboard-student/:id"
               element={<StudentDashboard />}
             ></Route>
-            <Route
+            {/* <Route
               path="/dashboard-recruiter/:id"
               element={<RecruiterDashboard />}
-            ></Route>
+            ></Route> */}
 
             {/*Application routes*/}
             <Route path="/student-applications" element={<ApplicationPage />} />
