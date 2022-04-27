@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import AuthService from "../../utilities/AuthService.js";
 import { authActions } from "../../store/auth_slice";
 import React, { useEffect } from "react";
+import CorporateFareIcon from '@mui/icons-material/CorporateFare';
 
 /**
  * A reusable functional component to render the job card in various other components
@@ -55,10 +56,11 @@ function JobCard(props) {
     >
       <div>
         <div className={classes.orgSection}>
-          <img
+          {/* <img
             className={classes.orgImg}
             src={require("../../assets/Barney.jpeg")}
-          />
+          /> */}
+          <CorporateFareIcon style={{fontSize: "50px"}}/>
           <span>{props.job.organizationName}</span>
         </div>
         <div

@@ -40,4 +40,4 @@ package-lock.json
 #vscode
 .vscode/
 
-.resumes/
+resumes/

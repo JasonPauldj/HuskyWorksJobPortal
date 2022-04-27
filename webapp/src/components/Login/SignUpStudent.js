@@ -17,7 +17,7 @@ function SignUpStudent() {
   const [major, setMajor] = useState("");
   const [email, setEmail] = useState("");
   const [student, setStudent] = useState("");
-  const [interests, setInterest] = useState("Software");
+  const [interests, setInterest] = useState("SOFTWARE");
 
   const [error, setError] = useState("");
   const navigate = useNavigate();

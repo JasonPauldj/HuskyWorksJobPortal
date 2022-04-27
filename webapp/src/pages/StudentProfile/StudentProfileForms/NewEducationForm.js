@@ -165,6 +165,7 @@ const NewEducationForm = (props) => {
           type="date"
           margin="dense"
           variant="outlined"
+          InputLabelProps={{ shrink: true, required: true }}
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
         />
@@ -176,6 +177,7 @@ const NewEducationForm = (props) => {
           margin="dense"
           variant="outlined"
           value={endDate}
+          InputLabelProps={{ shrink: true, required: true }}
           onChange={(e) => setEndDate(e.target.value)}
         />
 

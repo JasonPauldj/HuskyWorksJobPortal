@@ -70,7 +70,7 @@ function App() {
     dispatch(fetchStudentApplications(user.student._id));
     dispatch(fetchStudentRegistrations(user.student._id));
     }
-  }, []);
+  }, [user]);
 
 
   return (

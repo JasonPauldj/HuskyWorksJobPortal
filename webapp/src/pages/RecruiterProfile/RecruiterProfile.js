@@ -18,6 +18,10 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import { makeStyles } from "@mui/styles";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
+
+
 const useStyles = makeStyles({
   root: {
     backgroundColor: "#1f3b8f",
@@ -33,6 +37,8 @@ const useStyles = makeStyles({
     },
   },
 });
+
+
 
 function RecruiterProfile(props) {
   let user = useSelector((state) => state.auth.user);
@@ -208,11 +214,12 @@ function RecruiterProfile(props) {
       <CardComponent className={classes.divCardsContainer}>
         <div className={classes.recruiterHeader}>
           {/* <div className={classes.recruiterProfileImg} /> */}
-          <img
+          {/* <img
             src={require("../../assets/ProfileAvatar.png")}
             width="50px"
             height={"50px"}
-          />
+          /> */}
+           <AccountCircleIcon  style={{fontSize: "120px"}}/>
           <div className={classes.recruiterDetails}>
             <h3>
               {user.recruiter.firstname}&ensp;

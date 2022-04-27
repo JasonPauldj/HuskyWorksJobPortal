@@ -11,6 +11,7 @@ import dateFormat from "dateformat";
 import AuthService from "../../utilities/AuthService";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../store/auth_slice";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 // import { uploadFile as awsUploadFile}  from "../../utilities/awsS3";
 
@@ -28,17 +29,17 @@ function StudentProfile(props) {
   const nav = useNavigate();
   const dispatch = useDispatch();
 
-  const S3_BUCKET = "huskyworks-info6150";
-  const REGION = "us-east-1";
-  const ACCESS_KEY = "AKIARMAXFNN2OBCYX5OM";
-  const SECRET_ACCESS_KEY = "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";
+  // const S3_BUCKET = "huskyworks-info6150";
+  // const REGION = "us-east-1";
+  // const ACCESS_KEY = "AKIARMAXFNN2OBCYX5OM";
+  // const SECRET_ACCESS_KEY = "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";
 
-  const config = {
-    bucketName: S3_BUCKET,
-    region: REGION,
-    accessKeyId: ACCESS_KEY,
-    secretAccessKey: SECRET_ACCESS_KEY,
-  };
+  // const config = {
+  //   bucketName: S3_BUCKET,
+  //   region: REGION,
+  //   accessKeyId: ACCESS_KEY,
+  //   secretAccessKey: SECRET_ACCESS_KEY,
+  // };
 
   const checkUser = () => {
     //if user not in store
@@ -294,7 +295,8 @@ function StudentProfile(props) {
     return (
       <CardComponent className={classes.divCardsContainer}>
         <div className={classes.studentHeader}>
-          <div className={classes.studentProfileImg} />
+          {/* <div className={classes.studentProfileImg} /> */}
+           <AccountCircleIcon  style={{fontSize: "120px"}}/>
           <div className={classes.studentDetails}>
             <h3>
               {student.firstname} {student.lastname}

@@ -4,6 +4,8 @@ import EventsSection from "../events/EventsSection";
 import CardComponent from "../genericComponent/genericCard/CardComponent";
 import JobsSection from "../jobs/JobsSection";
 import classes from "./OrgDetailsCard.module.scss";
+import CorporateFareIcon from '@mui/icons-material/CorporateFare';
+
 
 function OrgDetailsCard(props) {
   const [orgJobs, setOrgJobs] = useState([]);
@@ -43,10 +45,11 @@ function OrgDetailsCard(props) {
     <CardComponent className={classes.mainContainer}>
       <div>
         <div className={classes.orgHeader}>
-          <img
+          {/* <img
             src={props.organization.organizationLogo}
             className={classes.orgLogo}
-          />
+          /> */}
+          <CorporateFareIcon style={{fontSize: "80px", marginRight: "1rem"}} />
           <h3 className={classes.orgName}>
             {props.organization.organizationName}
           </h3>

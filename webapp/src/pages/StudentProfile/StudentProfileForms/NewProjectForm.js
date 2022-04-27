@@ -113,6 +113,7 @@ const NewProjectForm = (props) => {
             className={classes.formInputs}
             label="Start Date"
             type="date"
+            InputLabelProps={{ shrink: true, required: true }}
             margin="dense"
             variant="outlined"
             value={startDate}
@@ -123,6 +124,7 @@ const NewProjectForm = (props) => {
             className={classes.formInputs}
             label="End Date"
             type="date"
+            InputLabelProps={{ shrink: true, required: true }}
             margin="dense"
             variant="outlined"
             value={endDate}
