@@ -94,7 +94,7 @@ const NewWorkExForm = () => {
   };
 
   return (
-    <div>
+    <div className={classes.formContainer}>
       <form>
         <h3>Add Experience Here</h3>
 
@@ -157,7 +157,7 @@ const NewWorkExForm = () => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-
+        <br />
         <Button onClick={state.workEx ? handleFormUpdate : handleFormSubmit}>
           {state.workEx ? "Update" : "Submit"}
         </Button>
