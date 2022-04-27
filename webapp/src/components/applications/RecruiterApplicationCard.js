@@ -14,25 +14,36 @@ function RecruiterApplicationCard(props) {
             setStudent(response.data[0]);
         };
         fetchStudent();
-    }, [])
+    }, []);
+
+    const handleOpenClick = (event)=>{
+       event.stopPropagation();
+        window.open(`https://huskyworks-info6150.s3.amazonaws.com/${student.resumeKey}`, "_blank");
+    }
 
     return (
         <>
             {student &&
                 <CardComponent className={`${classes.applicationCard}`}>
-                    <div className={classes.labels}>
-                        <div>{`Name :`}</div>
-                        <div>{`Major :`}</div>
-                        <div>{`GPA :`}</div>
-                        <div>{`Email : `}</div>
-                        <div>{`Applied On : `}</div>
+                    <div className={classes.cardContent}>
+                        <div className={classes.labels}>
+                            <div>{`Name :`}</div>
+                            <div>{`Major :`}</div>
+                            <div>{`GPA :`}</div>
+                            <div>{`Email : `}</div>
+                            <div>{`Applied On : `}</div>
+                        </div>
+                        <div>
+                            <div>{`${student.firstname} ${student.lastname}`}</div>
+                            <div>{student.major}</div>
+                            <div>{student.gpa ? student.gpa.$numberDecimal : ''}</div>
+                            <div>{student.email}</div>
+                            <div>{props.application.application_date.split("T")[0]}</div>
+                        </div>
                     </div>
+                    <div className={classes.divider}> </div>
                     <div>
-                        <div>{`${student.firstname} ${student.lastname}`}</div>
-                        <div>{student.major}</div>
-                        <div>{student.gpa ? student.gpa.$numberDecimal : ''}</div>
-                        <div>{student.email}</div>
-                        <div>{props.application.application_date.split("T")[0]}</div>
+                       {student.resumeKey ? <button className={classes.btn_resume} onClick={handleOpenClick}>Open Resume</button> : <div>No resume exists</div>}
                     </div>
                 </CardComponent>
             }

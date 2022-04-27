@@ -18,4 +18,7 @@ router
   .put(StudentsController.updateStudent) // Update by id Route
   .delete(StudentsController.removeStudent); // Delete by id Route
 
+ //new endpoint for posting resume 
+router.route("/students/resume").post(StudentsController.postResume);
+
 export default router;

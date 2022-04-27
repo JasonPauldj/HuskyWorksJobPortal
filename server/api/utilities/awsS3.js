@@ -1,16 +1,16 @@
 import 'dotenv/config';
 
-const {
+import {
     S3Client,
     PutObjectCommand,
     GetObjectCommand,
     DeleteObjectCommand
-} = require("@aws-sdk/client-s3");
+}  from '@aws-sdk/client-s3';
 
 //required for local machine
-const {
+import {
     fromIni
-} = require("@aws-sdk/credential-provider-ini");
+}  from "@aws-sdk/credential-provider-ini";
 const region = 'us-east-1';
 const s3 = new S3Client({
     region,
@@ -19,7 +19,8 @@ const s3 = new S3Client({
     })
 });
 
-const fs = require('fs');
+// const fs = require('fs');
+import fs from 'fs';
 
  
 const bucketName = process.env.S3_BUCKETNAME;

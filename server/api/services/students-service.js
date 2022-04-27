@@ -1,5 +1,6 @@
 import Student from "../models/student.js";
 
+
 // Method to add Student to db
 export const addStudent = (newStudent) => {
     const student = new Student(newStudent);
