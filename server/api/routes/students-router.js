@@ -1,6 +1,9 @@
 import express from "express";
 // Imported controller methods to route urls to methods
 import * as StudentsController from "../controllers/students-controller.js";
+import * as LoginController from "../controllers/Login-controller.js";
+import { verify } from "../services/auth-service.js";
+
 
 const router = express.Router();
 
@@ -11,8 +14,11 @@ router
 
 router
   .route("/students/:id") // Entry Route
-  .get(StudentsController.getStudentById) // Get by id Route
+  .get(verify, StudentsController.getStudentById) // Get by id Route
   .put(StudentsController.updateStudent) // Update by id Route
   .delete(StudentsController.removeStudent); // Delete by id Route
+
+ //new endpoint for posting resume 
+router.route("/students/resume").post(StudentsController.postResume);
 
 export default router;

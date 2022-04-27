@@ -25,11 +25,44 @@ export const postJob = async (req, res) => {
 
 // Method to get jobs using the get service
 export const getAllJobs = async (req, res) => {
-  try {
-    const job = await jobsService.getJobs();
-    setSuccessResponse(job, res);
-  } catch (err) {
-    setErrorResponse(err, res);
+  const job_location = req.query.job_locations ? req.query.job_locations.split(';') : undefined;
+  const job_type =req.query.job_types ? req.query.job_types.split(';') : undefined;
+  const job_category = req.query.job_categories ? req.query.job_categories.split(';') : undefined;
+  const search = req.query.searchText;
+  const org_id=req.query.org_id;
+  
+  const query={};
+
+  if (job_location) {
+    query.job_location = job_location;
+  }
+  if (job_type) {
+    query.job_type = job_type;
+  }
+  if (job_category) {
+    query.job_category = job_category;
+  }
+  if (search) {
+    query.job_title = { "$regex": search, "$options": "i" };
+  }
+  if (org_id) {
+    query.organization_id = org_id;
+  }
+
+  if (query) {
+    try {
+      const job = await jobsService.filter(query);
+      setSuccessResponse(job, res);
+    } catch (err) {
+      setErrorResponse(err, res);
+    }
+  } else {
+    try {
+      const job = await jobsService.getJobs();
+      setSuccessResponse(job, res);
+    } catch (err) {
+      setErrorResponse(err, res);
+    }
   }
 };
 
@@ -72,3 +105,6 @@ export const removeJob = async (req, res) => {
     setErrorResponse(err, res);
   }
 };
+
+
+

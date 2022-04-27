@@ -1,0 +1,12 @@
+@import  '../../scss/SassVariables.scss';
+
+.searchBar{
+    border-radius: 0.5rem;
+    width:97%;
+    border: none;
+    background-color: #FFFFFF;
+    padding:0.8rem;
+    margin: 0px 0px 10px 15px;
+    height: 2.5rem;
+    box-shadow: 5px 5px 5px $grey;
+}

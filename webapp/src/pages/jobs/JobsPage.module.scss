@@ -1,0 +1,33 @@
+.jobContainerWrapper{
+    height: 95%;
+    overflow-y: scroll;
+}
+.jobsContainer{
+    display:flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+}
+
+.filterWrapper{
+    margin-bottom: 15px;
+}
+
+.filterTypeWrapper{
+    height: 115px;
+}
+
+.filterCategoryWrapper{
+    height:330px;
+    overflow-y:scroll;
+}
+
+.filterLocationWrapper{
+    height:330px;
+    overflow-y:scroll;
+}
+
+.infoMessage{
+    font-weight: bold;
+    font-size: 2rem;
+    text-align: center;
+}

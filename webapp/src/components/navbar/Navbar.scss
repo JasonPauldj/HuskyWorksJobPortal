@@ -1,0 +1,54 @@
+@import "../../scss/SassVariables.scss";
+
+.navbar {
+  background-color: $white-color;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-shadow: 5px 5px 5px $space-grey-color;
+  border-radius: 0.5rem;
+  padding: 1rem 1rem 0rem 1rem;
+  margin-left: 1rem;
+}
+
+.navbar-title {
+  margin: 5px;
+  font-weight: bold;
+  font-size: 3rem;
+  color: $blue-color;
+}
+
+.navbar-links {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.navbar-links-items {
+  margin-top: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+a {
+  text-decoration: none;
+  color: $space-grey-color;
+  font-weight: bold;
+}
+
+.navbar-profile {
+  display: flex;
+  height: 4rem;
+  justify-content: space-around;
+  border: 1px solid $blue-color;
+  border-radius: 10px;
+  font-size: 1.4rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.navbar-profile-photo {
+  width: 2.5rem;
+  height: 2.5rem;
+  background: url("../../assets/Barney.jpeg");
+  border-radius: 0.8rem;
+}

@@ -4,12 +4,17 @@
 HuskyWorks is a job search and career management portal for university students. 
 
 ## Features
-* Students can design their profile and add documents such as resume, transcripts.
-* Recruiters of companies post job openings that students can view and apply for
+* Recruiters and Student can login using their valid credentials. Credentials are validated using JWT authentication.
+* Students can create their profile and add documents such as resume, transcripts.
+* All documents are uploaded and maintained on Amazon S3
+* Recruiters of companies post job openings that students can view and apply for.
 Career Fairs, Networking and Speaker events are posted on the portal and available for student booking
+* Used Google maps to display location of the event
 * Students can filter on available jobs and events to find ones that interest them.
+* Students can search for a job 
 * Students can post reviews about organizations for other students to peruse 
-* Application admins have an interface to manage the system
+* Students can access their dashboards to view their applications, registered events and job recommendations based on their interests.
+* Used Charts.js to display the status of the applications on the student dashboard.
 
 ## User Stories
 * As a Student, I want to sign up and create my profile, so that my information can be shared with recruiters.

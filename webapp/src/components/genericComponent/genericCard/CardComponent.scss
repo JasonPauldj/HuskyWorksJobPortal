@@ -1,0 +1,8 @@
+@import "../../../scss/SassVariables.scss";
+
+.card {
+  border-radius: 0.5rem;
+  background-color: $white-color;
+  box-shadow: 5px 5px 10px $space-grey-color;
+  padding: 1rem 1rem 1rem 1rem;
+}

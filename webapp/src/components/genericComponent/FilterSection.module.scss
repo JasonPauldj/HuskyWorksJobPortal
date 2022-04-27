@@ -1,0 +1,35 @@
+@import "../../scss/SassVariables.scss";
+
+.filterName {
+  text-align: center;
+  width: 50%;
+  margin: 5px auto;
+  font-weight: bold;
+}
+
+.checkboxSection {
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  width: 50%;
+}
+
+.checkboxSection input {
+  width: auto;
+  margin: 0px 5px 5px 18px;
+}
+
+.checkboxContainer {
+  width: 100%;
+  margin: auto;
+}
+
+.filterContainer {
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  box-shadow: 5px 5px 10px $space-grey-color;
+  width: 80%;
+  background-color: $white-color;
+  border-radius: 0.5rem;
+}

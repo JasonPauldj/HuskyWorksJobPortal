@@ -1,9 +1,17 @@
 import Student from "../models/student.js";
 
+
 // Method to add Student to db
 export const addStudent = (newStudent) => {
     const student = new Student(newStudent);
     return student.save();
+  };
+
+  //Method to filter students
+  export const filter = (query) => {
+    const params = { ...query };
+    const students = Student.find(params).exec();
+    return students;
   };
   
   // Method to get all Students at once from db
