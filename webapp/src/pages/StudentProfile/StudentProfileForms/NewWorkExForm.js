@@ -59,7 +59,7 @@ const NewWorkExForm = () => {
   };
 
   const handleWorkExDiagClose = () => {
-    nav(`/profiles/${user._id}`);
+    nav(`/StudentProfile/${user._id}`);
   };
 
   const handleFormUpdate = async () => {
@@ -150,7 +150,7 @@ const NewWorkExForm = () => {
 
         <TextField
           placeholder="Enter Description"
-          //className={classes.formInputs}
+          className={classes.formInputs}
           label="Description"
           margin="dense"
           variant="outlined"

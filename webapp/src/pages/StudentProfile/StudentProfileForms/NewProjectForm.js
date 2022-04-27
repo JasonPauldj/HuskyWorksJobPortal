@@ -60,7 +60,7 @@ const NewProjectForm = (props) => {
   };
 
   const handleProjDiagClose = () => {
-    nav(`/profiles/${user._id}`);
+    nav(`/StudentProfile/${user._id}`);
   };
 
   const handleFormUpdate = async () => {

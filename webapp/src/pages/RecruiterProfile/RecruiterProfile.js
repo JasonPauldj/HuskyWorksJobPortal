@@ -8,8 +8,30 @@ import { authActions } from "../../store/auth_slice";
 import Navbar from "../../components/navbar/Navbar";
 import CardComponent from "../../components/genericComponent/genericCard/CardComponent";
 import classes from "./RecruiterProfile.module.scss";
-import { Button, TextField } from "@mui/material";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Button,
+  TextField,
+} from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
+import { makeStyles } from "@mui/styles";
+const useStyles = makeStyles({
+  root: {
+    backgroundColor: "#1f3b8f",
+    color: "#ffffff",
+    height: "3rem",
+    lineHeight: 1,
+    "&:hover": {
+      backgroundColor: "transparent",
+      border: "1px solid #1f3b8f",
+      color: "#1f3b8f",
+      height: "3rem",
+      padding: 0,
+    },
+  },
+});
 
 function RecruiterProfile(props) {
   let user = useSelector((state) => state.auth.user);
@@ -18,6 +40,15 @@ function RecruiterProfile(props) {
   //const [recruiter, setRecruiterProfile] = useState({});
   const [recruiterOrg, setOrganization] = useState({});
   const dispatch = useDispatch();
+  const [firstname, setFirstName] = useState(`${user.recruiter.firstname}`);
+  const [lastname, setLastname] = useState(`${user.recruiter.lastname}`);
+  const [email, setEmail] = useState(`${user.recruiter.email}`);
+  const [expand, setExpand] = useState(false);
+  const sClasses = useStyles();
+  const toggleAccordion = () => {
+    console.log("Accordian");
+    setExpand(!expand);
+  };
 
   const checkUser = () => {
     // console.log(AuthService.getCurrUser(), "AuthService.getCurrUser()");
@@ -48,19 +79,36 @@ function RecruiterProfile(props) {
     fetchOrganizations();
   }, []);
 
-  const handleRecruiterEdit = () => {
-    console.log("Recruiter Edit Triggered!");
-    <EditRecruiterDetails />;
+  const handleFormSubmit = async () => {
+    let recruiter = {
+      firstname: firstname,
+      lastname: lastname,
+      recruiterOrg: recruiterOrg,
+      email: email,
+    };
+
+    const updateRecruiter = async (recruiter) => {
+      return await axios({
+        method: "PUT",
+        url: `http://localhost:9000/recruiters/${user._id}`,
+        data: recruiter,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          authorization: `bearer ${user.token}`,
+          accept: "*/*",
+        },
+        validateStatus: (status) => {
+          return true;
+        },
+      }).catch((err) => console.log(err.response.data));
+    };
+
+    updateRecruiter(recruiter);
   };
 
-  const EditRecruiterDetails = () => {
-    const [firstname, setFirstName] = useState(`${user.recruiter.firstname}`);
-    const [lastname, setLastname] = useState(`${user.recruiter.lastname}`);
-    // const [organization, setOrganization] = useState(
-    //   `${recruiterOrg.organizationName}`
-    // );
-    const [email, setEmail] = useState(`${user.recruiter.email}`);
-
+  const handleRecruiterEdit = () => {
+    console.log("Edit recruiter details");
     const handleFormSubmit = async () => {
       let recruiter = {
         firstname: firstname,
@@ -87,61 +135,69 @@ function RecruiterProfile(props) {
       };
 
       updateRecruiter(recruiter);
-      handleRecDiagClose();
-    };
-
-    const handleRecDiagClose = () => {
-      //hide form
     };
 
     return (
       <div className={classes.formContainer}>
         <form>
-          <h3>Add Experience Here</h3>
-
           <TextField
+            key={10}
             placeholder="Enter Firstname"
             className={classes.formInputs}
             label="Firstname"
             margin="dense"
             variant="outlined"
+            // disableAutoFocus="true"
+            autoFocus="true"
             value={firstname}
             onChange={(e) => setFirstName(e.target.value)}
           />
 
           <TextField
+            key={11}
             placeholder="Enter Lastname"
             className={classes.formInputs}
-            label="Major"
+            label="Last Name"
             margin="dense"
+            // disableAutoFocus="true"
+            autoFocus="autofocus"
             variant="outlined"
             value={lastname}
             onChange={(e) => setLastname(e.target.value)}
           />
 
           <TextField
+            key={12}
             className={classes.formInputs}
             margin="dense"
+            autoFocus="autofocus"
+            // disableAutoFocus="true"
             variant="outlined"
-            // defaultValue={organization}
+            label="Organization"
+            defaultValue={recruiterOrg.organizationName}
             inputProps={{ readOnly: true }}
           />
 
           <TextField
+            key={13}
             placeholder="Enter Email"
             className={classes.formInputs}
             label="Email Id"
             margin="dense"
+            // disableAutoFocus="true"
+            autoFocus="autofocus"
             variant="outlined"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <br />
-          <Button onClick={handleFormSubmit}>{"Update"}</Button>
+          <Button className={sClasses.root} onClick={handleFormSubmit}>
+            {"Update"}
+          </Button>
         </form>
-        <div>
+        {/* <div>
           <Button onClick={handleRecDiagClose}>Close</Button>
-        </div>
+        </div> */}
       </div>
     );
   };
@@ -149,16 +205,15 @@ function RecruiterProfile(props) {
   const RecruiterProfileCard = () => {
     return (
       <CardComponent className={classes.divCardsContainer}>
-        <div className={classes.studentHeader}>
-          <div className={classes.studentProfileImg} />
-          <div className={classes.studentDetails}>
+        <div className={classes.recruiterHeader}>
+          <div className={classes.recruiterDetails}>
             <h3>{user.recruiter.username}</h3>
-            <h5>{user.recruiter.organization_id}</h5>
+            <h4>{recruiterOrg.organizationName}</h4>
           </div>
         </div>
         <br /> <hr />
         <div>
-          <div className={classes.divTitle}>
+          {/* <div className={classes.divTitle}>
             <div className={classes.divTitleText}>My Profile Details</div>
             <div className={classes.divTitleBtn}>
               <EditIcon
@@ -166,7 +221,20 @@ function RecruiterProfile(props) {
                 style={{ fontSize: "2rem" }}
               />
             </div>
-          </div>
+          </div> */}
+          <Accordion expanded={expand}>
+            <AccordionSummary
+              expandIcon={<EditIcon style={{ fontSize: "large" }} />}
+              // aria-controls="panel1a-content"
+              onClick={() => {
+                setExpand(!expand);
+              }}
+            >
+              <h3>My Profile Details</h3>
+            </AccordionSummary>
+
+            <AccordionDetails>{handleRecruiterEdit()}</AccordionDetails>
+          </Accordion>
         </div>
       </CardComponent>
     );
