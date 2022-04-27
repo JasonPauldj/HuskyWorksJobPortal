@@ -3,6 +3,7 @@
 .applications-section-header {
   color: #545457;
   margin: 10px;
+  display: flex;
 }
 
 .heading {
@@ -45,7 +46,7 @@
 }
 
 .card-margin {
-  margin-left: 1rem;
-  margin-top: 1rem;
+  margin: 1rem 1rem;
+  height: calc(100% + 4.5rem);
   overflow-y: scroll;
 }
