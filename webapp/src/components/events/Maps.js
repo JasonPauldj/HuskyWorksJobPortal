@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
+import classes from "./Map.module.scss";
 
 class Maps extends Component {
   constructor(props) {
@@ -9,9 +10,10 @@ class Maps extends Component {
   render() {
     return (
       <Map
+        className={classes.map}
         google={this.props.google}
-        style={{ width: "60%", height: "40%" }}
-        zoom={10}
+        style={{ width: "80%", height: "70%" }}
+        zoom={5}
         initialCenter={{
           lat: this.props.lat,
           lng: this.props.lng,

@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ReactTooltip from "react-tooltip";
 import CardComponent from "../genericComponent/genericCard/CardComponent";
 import classes from "./EventCard.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import AuthService from "../../utilities/AuthService.js";
+import { authActions } from "../../store/auth_slice";
+
 function EventCard(props) {
   const navigate = useNavigate();
 
@@ -14,6 +18,28 @@ function EventCard(props) {
     event.stopPropagation();
     props.handleApplyButtonOnClick(props.event);
   };
+
+  let user = useSelector((state) => state.auth.user);
+
+  const dispatch = useDispatch();
+
+  const checkUser = () => {
+    //if user not in store
+    if (!user) {
+      user = AuthService.getCurrUser();
+
+      //if user not in persistent local store
+      if (!user) {
+        return;
+      }
+      //add user to store
+      dispatch(authActions.login(user));
+    }
+  };
+
+  useEffect(() => {
+    checkUser();
+  }, []);
 
   return (
     <CardComponent
@@ -36,8 +62,10 @@ function EventCard(props) {
       <div className={classes.eventDate}>{`Apply By: ${new Date(
         props.event.event_date
       ).toLocaleDateString()}`}</div>
-      <div className={classes.divider}></div>
-      {!props.isRegistered && (
+
+      {user.isStudent && <div className={classes.divider}></div>}
+
+      {!props.isRegistered && user.isStudent && (
         <div className={classes.apply} data-tip="" data-for="cardTooltip">
           <button
             className={classes.btn_apply}
@@ -51,9 +79,7 @@ function EventCard(props) {
         </div>
       )}
 
-      {props.isRegistered && (
-        <p className={classes.apply}>Registered</p>
-      )}
+      {props.isRegistered && <p className={classes.apply}>Registered</p>}
     </CardComponent>
   );
 }
