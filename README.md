@@ -45,6 +45,24 @@ Please refer the following link to view our website designs on Figma: https://ww
 ## Domain Model
 ![Domain Model](/assets/images/Web-Project-Domain_model.jpeg)
 
+## Images of the Application
+- Login Page
+![Login Page](/assets/images/LoginPage.png)
+- Student Home Page
+![Home Page](/assets/images/HomePage.png)
+- Student Job Page
+![Job Page](/assets/images/JobPage.png)
+- Student Profile Page
+![Profile Page](/assets/images/ProfilePage.png)
+- Recruiter Home Page
+![Home Page](/assets/images/RecruiterPage.png)
+- Recruiter Profile Page
+![Profile Page](/assets/images/RecruiterProfile.png)
+- Recruiter Organization Page
+![Organization Page](/assets/images/OrganizationPage.png)
+- Post Job
+![Post Page](/assets/images/PostJob.png)
+
 ## Group Members :
 * Erarica Mehra -- 002113683
 * Jason Paul -- 002198774
